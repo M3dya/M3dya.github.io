@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finch 3D — Turning an Unusable First Step into a Guided Flow</title>
+<style>
+  :root{
+    --ink:#1a1a1a; --muted:#6b6b6b; --line:#e6e6e6;
+    --bg:#ffffff; --panel:#1a1a1a; --pill:#4a4a4a;
+    --accent:#1a1a1a; --soft:#f6f6f4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:Georgia,'Times New Roman',serif;
+    color:var(--ink); background:var(--bg);
+    line-height:1.7; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:0 24px;}
+
+  /* Header / nav */
+  header.site{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  header.site .bar{display:flex;align-items:center;justify-content:space-between;
+    height:64px;max-width:880px;margin:0 auto;padding:0 24px;}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:bold;letter-spacing:.04em;}
+  .brand .mark{width:34px;height:34px;border-radius:8px;background:var(--panel);
+    color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;}
+  nav.site a{color:var(--ink);text-decoration:none;margin-left:22px;font-size:15px;
+    font-family:Arial,Helvetica,sans-serif;}
+  nav.site a:hover{text-decoration:underline;}
+
+  /* Hero cover */
+  .cover{background:var(--panel);color:#fff;border-radius:0;}
+  .cover .inner{max-width:880px;margin:0 auto;padding:64px 24px;}
+  .eyebrow{font-family:Arial,Helvetica,sans-serif;font-size:13px;letter-spacing:.14em;
+    text-transform:uppercase;color:#bdbdbd;margin-bottom:18px;}
+  .cover h1{font-size:40px;line-height:1.18;font-weight:normal;letter-spacing:-.01em;}
+  .meta{margin-top:18px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#cfcfcf;}
+  .tags{margin-top:22px;display:flex;flex-wrap:wrap;gap:8px;}
+  .tag{font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:.08em;
+    text-transform:uppercase;background:#2b2b2b;color:#e8e8e8;border:1px solid #3a3a3a;
+    padding:6px 12px;border-radius:6px;}
+
+  /* image placeholder */
+  .imgph{background:var(--soft);border:1px dashed #cfcdc4;border-radius:10px;
+    aspect-ratio:16/8;display:flex;align-items:center;justify-content:center;
+    color:#a7a59a;font-family:Arial,Helvetica,sans-serif;font-size:13px;
+    letter-spacing:.04em;text-align:center;padding:16px;margin:14px 0;}
+
+  section{padding:46px 0;border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  h2{font-size:26px;font-weight:normal;margin-bottom:8px;letter-spacing:-.01em;}
+  h3{font-size:18px;font-weight:bold;margin:22px 0 6px;
+     font-family:Arial,Helvetica,sans-serif;}
+  p{margin:12px 0;font-size:18px;color:#2a2a2a;}
+  .lead{font-size:20px;color:#1a1a1a;}
+  .kicker{font-family:Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+
+  .problem-quote{background:var(--soft);border-left:3px solid var(--ink);
+    padding:22px 26px;border-radius:0 8px 8px 0;font-size:20px;line-height:1.6;margin:8px 0;}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px;}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px;}
+  .card{border:1px solid var(--line);border-radius:12px;padding:20px 22px;background:#fff;}
+  .card .ic{font-size:22px;}
+  .card h4{font-family:Arial,Helvetica,sans-serif;font-size:16px;margin:8px 0 6px;}
+  .card p{font-size:15px;color:#454545;margin:0;}
+
+  .steps{counter-reset:s;margin-top:18px;}
+  .step{display:flex;gap:18px;padding:18px 0;border-top:1px solid var(--line);}
+  .step:first-child{border-top:none;}
+  .step .n{counter-increment:s;font-family:Arial,Helvetica,sans-serif;font-weight:bold;
+    font-size:14px;min-width:34px;height:34px;border-radius:50%;background:var(--panel);
+    color:#fff;display:flex;align-items:center;justify-content:center;}
+  .step .n::before{content:counter(s,decimal-leading-zero);}
+  .step h4{font-family:Arial,Helvetica,sans-serif;font-size:17px;margin-bottom:4px;}
+  .step p{margin:0;font-size:16px;color:#3a3a3a;}
+
+  .principles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px;}
+  .principle{background:var(--soft);border-radius:12px;padding:22px;}
+  .principle .num{font-family:Arial,Helvetica,sans-serif;font-size:30px;color:#c9c7bd;font-weight:bold;}
+  .principle p{font-size:15px;margin-top:8px;color:#333;}
+
+  .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:18px;}
+  .stat{border:1px solid var(--line);border-radius:12px;padding:22px;}
+  .stat .big{font-family:Arial,Helvetica,sans-serif;font-size:30px;font-weight:bold;}
+  .stat .lbl{font-family:Arial,Helvetica,sans-serif;font-size:14px;color:var(--muted);margin-top:4px;}
+
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px;}
+  .gph{background:var(--soft);border:1px dashed #cfcdc4;border-radius:10px;aspect-ratio:4/3;
+    display:flex;align-items:center;justify-content:center;text-align:center;padding:10px;
+    color:#9a988e;font-family:Arial,Helvetica,sans-serif;font-size:12px;}
+
+  .coverimg{margin:18px 0;border-radius:12px;overflow:hidden;border:1px solid var(--line);
+    background:var(--soft);}
+  .coverimg img{display:block;width:100%;height:auto;}
+
+  .shot{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--soft);}
+  .shot img{display:block;width:100%;height:auto;}
+
+  .ba{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px;}
+  .ba-col{display:flex;flex-direction:column;}
+  .ba-label{font-family:Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:.1em;
+    text-transform:uppercase;font-weight:bold;padding:6px 12px;border-radius:6px;
+    align-self:flex-start;margin-bottom:10px;}
+  .ba-before{background:#fbeaea;color:#a32d2d;}
+  .ba-after{background:#e7f3ea;color:#1f6b3a;}
+  .cap{font-size:15px;color:#555;margin-top:10px;}
+
+  figure.g{margin:0;}
+  figure.g figcaption{font-family:Arial,Helvetica,sans-serif;font-size:13px;color:var(--muted);
+    margin-top:8px;text-align:center;}
+
+  .video{position:relative;width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;
+    margin-top:18px;background:#000;}
+  .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
+  .pull{font-style:italic;font-size:22px;line-height:1.5;color:#1a1a1a;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:28px 0;margin:30px 0;}
+
+  footer.site{background:var(--panel);color:#cfcfcf;padding:40px 0;
+    font-family:Arial,Helvetica,sans-serif;font-size:14px;}
+  footer.site a{color:#fff;text-decoration:none;margin-right:18px;}
+  .backhome{font-family:Arial,Helvetica,sans-serif;font-size:15px;}
+
+  @media(max-width:680px){
+    .cover h1{font-size:30px;}
+    .grid2,.grid3,.principles,.stats,.gallery{grid-template-columns:1fr;}
+    p,.lead{font-size:17px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="bar">
+    <div class="brand"><span class="mark">MA</span><span>Medya Asgharian</span></div>
+    <nav class="site">
+      <a href="index.html">Home</a>
+      <a href="index.html#work">Work</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="cover">
+  <div class="inner">
+    <div class="eyebrow">Case Study · AEC Software</div>
+    <h1>Finch 3D — turning an unusable first step into a guided flow</h1>
+    <div class="meta">UX Researcher · July 2025</div>
+    <div class="tags">
+      <span class="tag">UX Research</span>
+      <span class="tag">Competitive Analysis</span>
+      <span class="tag">Onboarding Design</span>
+      <span class="tag">AEC Software</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="coverimg"><img src="images/finch/After__Cover.png" alt="Finch 3D redesigned centerline guidance panel"></div>
+
+  <section>
+    <div class="kicker">The Problem — told as it was experienced</div>
+    <div class="problem-quote">
+      A user opens Finch 3D for the first time. The tool asks them to provide a
+      “center line.” They have no idea what a centerline is. They cannot continue —
+      the tool is unusable.
+    </div>
+    <p>This wasn’t a bug. It wasn’t a missing feature. It was an onboarding failure —
+      a domain-specific term presented to general users with no explanation, no
+      guidance, and no way forward.</p>
+  </section>
+
+  <section>
+    <div class="kicker">Context &amp; Stakes</div>
+    <h2>An AI tool that stopped users at the door</h2>
+    <p>Finch 3D is an AI-powered architectural optimization platform. Architects input
+      a building layout and the tool generates optimized structural variations —
+      accelerating a process that previously required manual iteration over days or weeks.</p>
+    <p>But without a center line, the tool cannot function at all. Every user who
+      couldn’t define one hit a complete wall — not friction, not confusion, but a hard
+      stop. The onboarding failure <em>was</em> the product failure.</p>
+    <h3>My Role</h3>
+    <p>UX Researcher. I identified the onboarding failure through secondary research and
+      competitive analysis, then designed the guided solution — showing users exactly how
+      to select and connect points to define a center line.</p>
+  </section>
+
+  <section>
+    <div class="kicker">Customer Behavioural Challenges</div>
+    <h2>Why users got stuck</h2>
+    <div class="grid2">
+      <div class="card">
+        <div class="ic">🚧</div>
+        <h4>Domain jargon as a blocker</h4>
+        <p>“Center line” is an architectural term with a specific technical meaning. For
+          non-specialists — or architects new to computational tools — it was meaningless,
+          and the tool gave no definition.</p>
+      </div>
+      <div class="card">
+        <div class="ic">🗺️</div>
+        <h4>No progressive guidance</h4>
+        <p>The tool presented a blank canvas and a requirement. No step-by-step onboarding,
+          no example, no visual cue showing what “selecting and connecting points” looked like.</p>
+      </div>
+      <div class="card">
+        <div class="ic">🔍</div>
+        <h4>No direct user research available</h4>
+        <p>No user interviews were possible. The challenge required reading the problem from
+          the tool itself, competitor analysis, and architectural domain knowledge.</p>
+      </div>
+      <div class="card">
+        <div class="ic">🧩</div>
+        <h4>Translating 3D thinking into a flat UI</h4>
+        <p>Helping users grasp spatial, structural concepts through a flat interface meant
+          turning 3D architectural thinking into clear, sequential steps anyone could follow.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker">Research Process → Solution Design</div>
+    <h2>From discovery to solution</h2>
+    <div class="steps">
+      <div class="step"><div class="n"></div><div>
+        <h4>Diagnose the tool</h4>
+        <p>Opened and used Finch 3D as a first-time user, documenting every moment of
+          confusion. The undocumented centerline requirement emerged immediately as the
+          critical failure point.</p></div></div>
+      <div class="step"><div class="n"></div><div>
+        <h4>Secondary research</h4>
+        <p>With no interviews available, studied architectural software documentation,
+          forum discussions, and reviews to reconstruct the typical user’s mental model when
+          encountering “centerline.”</p></div></div>
+      <div class="step"><div class="n"></div><div>
+        <h4>Competitive analysis</h4>
+        <p>Analysed 5+ competing tools (Rhino, SketchUp, Revit) for how they handle
+          domain-specific onboarding. The best tools showed examples <em>before</em> asking
+          for input.</p></div></div>
+      <div class="step"><div class="n"></div><div>
+        <h4>Wireframing the solution</h4>
+        <p>Designed a step-by-step guided flow: define what a centerline is, show a visual
+          example, prompt the user to click the first point, then connect points — with live
+          validation at each step.</p></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker">The Solution</div>
+    <h2>The guided flow I designed</h2>
+    <p>Finch 3D provided no onboarding for the centerline requirement — the blank error
+      state was all users saw. The redesign explains the term, shows the destination, and
+      validates each step in real time.</p>
+
+    <div class="ba">
+      <div class="ba-col">
+        <div class="ba-label ba-before">Before</div>
+        <div class="shot"><img src="images/finch/Before.png" alt="Original Finch 3D error — a bare toast message with no guidance"></div>
+        <p class="cap">A single dismissive toast: “Couldn’t find centerlines… Ensure that
+          centerlines are set correctly.” No explanation, no example, no way forward.</p>
+      </div>
+      <div class="ba-col">
+        <div class="ba-label ba-after">After</div>
+        <div class="shot"><img src="images/finch/After__Cover.png" alt="Redesigned panel showing incorrect vs correct centerlines with guided actions"></div>
+        <p class="cap">A guided panel that defines the term, contrasts incorrect vs correct,
+          and offers a clear next action — “Fix it for me” or “Show guide.”</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:34px;">Inside the guided experience</h3>
+    <div class="gallery">
+      <figure class="g">
+        <div class="shot"><img src="images/finch/Guidance_panel.png" alt="Centerline Guide modal explaining what centerlines are"></div>
+        <figcaption>Guidance panel — what is a centerline</figcaption>
+      </figure>
+      <figure class="g">
+        <div class="shot"><img src="images/finch/How_to_create_one.png" alt="How to create a centerline modal with touch points"></div>
+        <figcaption>How to create one — step by step</figcaption>
+      </figure>
+      <figure class="g">
+        <div class="shot"><img src="images/finch/_In-context_guidance.png" alt="In-canvas guidance contrasting incorrect and correct centerlines"></div>
+        <figcaption>In-context guidance — incorrect vs correct</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker">CX Strategy</div>
+    <h2>Three principles that guided every decision</h2>
+    <div class="principles">
+      <div class="principle"><div class="num">01</div>
+        <p><strong>Explain domain terms before demanding them.</strong> Define
+          domain-specific language the moment it’s first encountered — in context, before the
+          user needs to act on it.</p></div>
+      <div class="principle"><div class="num">02</div>
+        <p><strong>Show the destination before asking for the journey.</strong> Users can’t
+          give meaningful input until they see what the output looks like. Showing a completed
+          center line first removed the biggest blocker.</p></div>
+      <div class="principle"><div class="num">03</div>
+        <p><strong>Validate in real time, not at submission.</strong> Each step gave immediate
+          visual feedback — the centerline appeared as points connected. Errors were visible
+          and correctable without losing progress.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker">Impact</div>
+    <h2>Outcome</h2>
+    <div class="stats">
+      <div class="stat"><div class="big">~20%</div>
+        <div class="lbl">Projected reduction in onboarding time</div></div>
+      <div class="stat"><div class="big">Zero</div>
+        <div class="lbl">Ambiguity in the first step — the biggest drop-off point eliminated</div></div>
+      <div class="stat"><div class="big">4 steps</div>
+        <div class="lbl">Guided onboarding flow: explain → show → place → connect</div></div>
+      <div class="stat"><div class="big">Reusable</div>
+        <div class="lbl">Figma design-system components with variants, built for scalability</div></div>
+    </div>
+    <div class="pull">“The centerline problem was never a technical problem — it was a
+      communication problem. Once I named it as that, the solution was obvious.”</div>
+  </section>
+
+  <section>
+    <div class="kicker">Design System</div>
+    <h2>Built to scale, not just to ship</h2>
+    <p>The guided flow was built on a reusable foundation — defined typography, a neutral
+      colour system with accessibility validation, and component variants in Figma — so the
+      solution could extend consistently across the product.</p>
+    <div class="shot"><img src="images/finch/_Design_System.png" alt="Finch 3D design system — typography scale, neutral colour palette, and button components"></div>
+  </section>
+
+  <section>
+    <div class="kicker">Prototype</div>
+    <h2>See the prototype in action</h2>
+    <div class="video">
+      <iframe src="https://www.youtube.com/embed/nKyYUDkzfvU"
+        title="Finch 3D guided onboarding prototype"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
+    <p class="backhome" style="margin-top:28px;"><a href="index.html">← Back to all work</a></p>
+  </section>
+
+</div>
+
+<footer class="site">
+  <div class="wrap">
+    <div style="margin-bottom:10px;">© 2026 Medya Asgharian</div>
+    <a href="mailto:asgharyan.medya@gmail.com">Email</a>
+    <a href="https://www.linkedin.com/in/asgharyan-medya/">LinkedIn</a>
+    <a href="https://github.com/M3dya">GitHub</a>
+  </div>
+</footer>
+
+</body>
+</html>
