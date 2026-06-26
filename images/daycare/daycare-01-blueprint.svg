@@ -1,0 +1,79 @@
+<svg width="100%" viewBox="0 0 680 520" role="img" xmlns="http://www.w3.org/2000/svg" font-family="'Karla', system-ui, sans-serif">
+<title>Service blueprint of the Ontario daycare enrollment journey</title>
+<desc>Five stages from discovery to enrollment. The waitlist stage is the critical failure point, where parent stress peaks and there is no proactive communication from providers.</desc>
+<style>
+  .th { font-weight:600; fill:#1f1f1f; font-size:14px; }
+  .t  { font-weight:500; fill:#1f1f1f; font-size:14px; }
+  .ts { fill:#7a766e; font-size:12px; }
+  .box { fill:#f4f3f0; stroke:#c9c5bc; }
+  .fail { fill:#f7ece9; stroke:#c0635a; }
+  .hair { stroke:#e0ddd5; }
+</style>
+<text class="th" x="30" y="30">Parent journey: find, apply, enroll</text>
+<text class="ts" x="30" y="48">Five stages from first search to a confirmed daycare spot</text>
+<line class="hair" x1="30" y1="66" x2="650" y2="66" stroke-width="1"/>
+
+<rect class="box" x="30" y="82" width="112" height="60" rx="8" stroke-width="1"/>
+<text class="t" x="86" y="106" text-anchor="middle">1. Discovery</text>
+<text class="ts" x="86" y="124" text-anchor="middle">1–2 weeks</text>
+
+<rect class="box" x="152" y="82" width="112" height="60" rx="8" stroke-width="1"/>
+<text class="t" x="208" y="106" text-anchor="middle">2. Application</text>
+<text class="ts" x="208" y="124" text-anchor="middle">3–6 weeks</text>
+
+<rect class="fail" x="274" y="82" width="112" height="60" rx="8" stroke-width="1.5"/>
+<text class="th" x="330" y="103" text-anchor="middle" fill="#993c1d">3. Waitlist</text>
+<text class="ts" x="330" y="120" text-anchor="middle" fill="#993c1d">3–15 months</text>
+<text class="ts" x="330" y="134" text-anchor="middle" fill="#993c1d">failure point</text>
+
+<rect class="box" x="396" y="82" width="112" height="60" rx="8" stroke-width="1"/>
+<text class="t" x="452" y="106" text-anchor="middle">4. Spot offer</text>
+<text class="ts" x="452" y="124" text-anchor="middle">1–2 days</text>
+
+<rect class="box" x="518" y="82" width="112" height="60" rx="8" stroke-width="1"/>
+<text class="t" x="574" y="106" text-anchor="middle">5. Enrollment</text>
+<text class="ts" x="574" y="124" text-anchor="middle">1–2 weeks</text>
+
+<text class="ts" x="30" y="182">Parent does</text>
+<line class="hair" x1="30" y1="192" x2="650" y2="192" stroke-width="1"/>
+<text class="ts" x="86"  y="212" text-anchor="middle">Google,</text>
+<text class="ts" x="86"  y="226" text-anchor="middle">ask groups</text>
+<text class="ts" x="208" y="212" text-anchor="middle">Call 10–20</text>
+<text class="ts" x="208" y="226" text-anchor="middle">centers</text>
+<text class="ts" x="330" y="212" text-anchor="middle">Wait, chase,</text>
+<text class="ts" x="330" y="226" text-anchor="middle">track in Excel</text>
+<text class="ts" x="452" y="212" text-anchor="middle">Decide in</text>
+<text class="ts" x="452" y="226" text-anchor="middle">24–48h</text>
+<text class="ts" x="574" y="212" text-anchor="middle">Forms,</text>
+<text class="ts" x="574" y="226" text-anchor="middle">deposit</text>
+
+<text class="ts" x="30" y="264">Provider does</text>
+<line class="hair" x1="30" y1="274" x2="650" y2="274" stroke-width="1"/>
+<text class="ts" x="86"  y="294" text-anchor="middle">Answer</text>
+<text class="ts" x="86"  y="308" text-anchor="middle">calls, tours</text>
+<text class="ts" x="208" y="294" text-anchor="middle">Add to</text>
+<text class="ts" x="208" y="308" text-anchor="middle">spreadsheet</text>
+<text class="ts" x="330" y="294" text-anchor="middle" fill="#993c1d">No proactive</text>
+<text class="ts" x="330" y="308" text-anchor="middle" fill="#993c1d">contact</text>
+<text class="ts" x="452" y="294" text-anchor="middle">Call, set</text>
+<text class="ts" x="452" y="308" text-anchor="middle">deadline</text>
+<text class="ts" x="574" y="294" text-anchor="middle">Enroll,</text>
+<text class="ts" x="574" y="308" text-anchor="middle">set up file</text>
+
+<text class="ts" x="30" y="346">Parent stress</text>
+<line class="hair" x1="30" y1="356" x2="650" y2="356" stroke-width="1"/>
+<rect class="box"  x="46"  y="390" width="80" height="20" rx="4" stroke-width="1"/>
+<text class="ts" x="86"  y="404" text-anchor="middle">2 / 5</text>
+<rect class="box"  x="168" y="382" width="80" height="28" rx="4" stroke-width="1"/>
+<text class="ts" x="208" y="400" text-anchor="middle">4 / 5</text>
+<rect class="fail" x="290" y="372" width="80" height="38" rx="4" stroke-width="1.5"/>
+<text class="th" x="330" y="395" text-anchor="middle" fill="#993c1d">5 / 5</text>
+<rect class="box"  x="412" y="382" width="80" height="28" rx="4" stroke-width="1"/>
+<text class="ts" x="452" y="400" text-anchor="middle">4 / 5</text>
+<rect class="box"  x="534" y="390" width="80" height="20" rx="4" stroke-width="1"/>
+<text class="ts" x="574" y="404" text-anchor="middle">2 / 5</text>
+
+<line class="hair" x1="30" y1="436" x2="650" y2="436" stroke-width="1"/>
+<text class="ts" x="30" y="460" fill="#993c1d">Critical failure point: zero waitlist transparency — no position, no timeline, no proactive contact.</text>
+<text class="ts" x="30" y="478">Parents wait months to over a year in a black box, managing everything by hand.</text>
+</svg>

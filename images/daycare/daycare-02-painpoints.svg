@@ -1,0 +1,37 @@
+<svg width="100%" viewBox="0 0 680 300" role="img" xmlns="http://www.w3.org/2000/svg" font-family="'Karla', system-ui, sans-serif">
+<title>Pain point frequency from the daycare parent survey</title>
+<desc>Bar chart of how often each pain point appeared across 8 survey respondents. Waitlist transparency was mentioned by all 8, time and stress by 7, application complexity by 6, communication gaps by 6, and cost concerns by 4.</desc>
+<style>
+  .th { font-weight:600; fill:#1f1f1f; font-size:14px; }
+  .t  { fill:#1f1f1f; font-size:14px; }
+  .ts { fill:#7a766e; font-size:12px; }
+  .bar { fill:#d3d1c7; }
+  .barlead { fill:#1f1f1f; }
+  .val { font-weight:600; fill:#1f1f1f; font-size:13px; }
+</style>
+<text class="th" x="30" y="30">What hurt most — pain points by frequency</text>
+<text class="ts" x="30" y="48">Share of 8 survey respondents who raised each issue</text>
+
+<text class="t"  x="30" y="86">Waitlist transparency</text>
+<rect class="barlead" x="220" y="74" width="390" height="16" rx="2"/>
+<text class="val" x="620" y="86">8/8</text>
+
+<text class="t"  x="30" y="124">Time &amp; stress</text>
+<rect class="bar" x="220" y="112" width="341" height="16" rx="2"/>
+<text class="val" x="571" y="124">7/8</text>
+
+<text class="t"  x="30" y="162">Application complexity</text>
+<rect class="bar" x="220" y="150" width="293" height="16" rx="2"/>
+<text class="val" x="523" y="162">6/8</text>
+
+<text class="t"  x="30" y="200">Communication gaps</text>
+<rect class="bar" x="220" y="188" width="293" height="16" rx="2"/>
+<text class="val" x="523" y="200">6/8</text>
+
+<text class="t"  x="30" y="238">Cost concerns</text>
+<rect class="bar" x="220" y="226" width="195" height="16" rx="2"/>
+<text class="val" x="425" y="238">4/8</text>
+
+<line x1="220" y1="262" x2="610" y2="262" stroke="#e0ddd5" stroke-width="1"/>
+<text class="ts" x="30" y="284">Waitlist transparency was the only pain point every single parent raised.</text>
+</svg>

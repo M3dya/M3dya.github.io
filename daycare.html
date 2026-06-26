@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ontario Daycare Access — Medya Asgharyan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Karla:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#fff; --ink:#1f1f1f; --body:#5a5a5a; --line:#e8e8e8;
+    --pill-border:#d8d8d8; --btn:#5c5c5c; --footer:#1c1c1c; --fail:#993c1d; --failbg:#f7ece9;
+    --maxw:1180px; --readw:760px; --pad:clamp(1.25rem,5vw,4rem);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--body);font-family:'Karla',system-ui,sans-serif;line-height:1.7}
+  a{color:inherit}
+  h1,h2,h3,.logo,.eyebrow,.crumb,.metric .num,.tag{font-family:'Poppins',system-ui,sans-serif}
+  .skip{position:absolute;left:-999px;top:0;background:var(--ink);color:#fff;padding:.6rem 1rem;z-index:30;text-decoration:none;border-radius:4px}
+  .skip:focus{left:1rem;top:1rem}
+  .container{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
+  .reader{max-width:var(--readw);margin:0 auto}
+  .wide{max-width:980px;margin:0 auto}
+
+  header.site{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);z-index:20}
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:1.1rem;position:relative}
+  .brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:var(--ink)}
+  .brand .mark{width:38px;height:38px;background:var(--ink);color:#fff;border-radius:7px;display:grid;place-items:center;font-family:'Poppins';font-weight:600;font-size:.95rem}
+  .brand .logo{font-weight:600;font-size:1.15rem;color:var(--ink)}
+  .menu{list-style:none;display:flex;align-items:center;gap:clamp(1.1rem,2.6vw,2.2rem);font-size:.98rem}
+  .menu a{text-decoration:none;font-family:'Poppins';color:#4a4a4a;padding-bottom:3px;border-bottom:2px solid transparent;transition:.25s}
+  .menu a:hover,.menu a:focus-visible,.menu a[aria-current]{color:var(--ink);border-color:var(--ink)}
+  .menu .icon{display:grid;place-items:center;width:22px;height:22px;border-bottom:none}
+  .menu .icon svg{width:20px;height:20px}
+  .nav-toggle{display:none;background:none;border:0;cursor:pointer;padding:.4rem}
+  .nav-toggle svg{width:26px;height:26px}
+
+  .case-hero{padding-block:clamp(2.5rem,7vw,4.5rem) clamp(1.5rem,4vw,2.5rem)}
+  .crumb{font-size:.85rem;color:#9a9a9a;text-decoration:none;display:inline-flex;gap:.4rem;margin-bottom:1.5rem}
+  .crumb:hover{color:var(--ink)}
+  .case-hero h1{font-weight:700;color:var(--ink);font-size:clamp(2.4rem,6vw,4rem);line-height:1.05;letter-spacing:-.02em}
+  .case-hero .tagline{font-size:clamp(1.1rem,2.6vw,1.45rem);color:var(--body);margin-top:1rem;max-width:60ch;font-style:italic}
+  .pills{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.5rem}
+  .pill{font-family:'Poppins';font-weight:500;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;background:#fff;color:var(--ink);border:1px solid var(--pill-border);border-radius:6px;padding:.4rem .65rem}
+  .meta-row{display:flex;flex-wrap:wrap;gap:2rem 3rem;padding-block:clamp(1.5rem,4vw,2rem);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:clamp(2rem,5vw,3rem)}
+  .meta-item .label{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:#9a9a9a;margin-bottom:.35rem}
+  .meta-item .val{color:var(--ink);font-weight:500}
+
+  section.block{padding-block:clamp(2.2rem,6vw,3.5rem)}
+  section.block+section.block{border-top:1px solid var(--line)}
+  .eyebrow{font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:#9a9a9a;display:block;margin-bottom:.7rem;font-weight:500}
+  section.block h2{font-weight:700;color:var(--ink);font-size:clamp(1.6rem,4vw,2.3rem);letter-spacing:-.02em;margin-bottom:1.2rem}
+  section.block p{margin-bottom:1.1rem}
+  section.block p strong{color:var(--ink);font-weight:500}
+
+  .figure{margin:1.8rem 0}
+  .figure img{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:12px;background:#faf9f7}
+  .figure svg{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:12px;background:#faf9f7;padding:1.2rem}
+  .figcap{text-align:center;font-size:.9rem;color:#9a9a9a;margin-top:.8rem}
+
+  .pull{font-family:'Poppins';font-weight:500;color:var(--ink);font-size:clamp(1.2rem,3vw,1.6rem);line-height:1.4;letter-spacing:-.01em;border-left:3px solid var(--fail);padding-left:1.3rem;margin:1.5rem 0}
+
+  .insights{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:1.2rem}
+  .insight{border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.3rem}
+  .insight .n{font-family:'Poppins';font-weight:600;color:var(--fail);font-size:.85rem}
+  .insight h3{font-weight:600;color:var(--ink);font-size:1.05rem;margin:.3rem 0 .4rem}
+  .insight p{font-size:.95rem;margin:0}
+
+  .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:1rem}
+  .metric{border-left:3px solid var(--ink);padding-left:1rem}
+  .metric .num{color:var(--ink);font-weight:700;font-size:clamp(1.4rem,3vw,1.9rem);line-height:1.1}
+  .metric .desc{font-size:.92rem;margin-top:.3rem}
+
+  .next{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding-block:2.5rem;border-top:1px solid var(--line);flex-wrap:wrap}
+  .next a{text-decoration:none;font-family:'Poppins';color:var(--ink);display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--pill-border);border-radius:8px;padding:.8rem 1.6rem;transition:.25s}
+  .next a:hover,.next a:focus-visible{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+  footer.site{background:var(--footer);color:#cfcfcf}
+  .foot{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:2rem;flex-wrap:wrap}
+  .foot p{font-size:.95rem}
+  .foot .socials{display:flex;gap:1.1rem}
+  .foot .socials a{display:grid;place-items:center;color:#cfcfcf;transition:.25s}
+  .foot .socials a:hover,.foot .socials a:focus-visible{color:#fff}
+  .foot .socials svg{width:20px;height:20px}
+
+  @media (prefers-reduced-motion:no-preference){
+    section.block,.case-hero>*{opacity:0;transform:translateY(18px);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards}
+    .case-hero .tagline{animation-delay:.08s}.case-hero .pills{animation-delay:.16s}
+    @keyframes rise{to{opacity:1;transform:translateY(0)}}
+  }
+  @media (max-width:640px){.metrics,.insights{grid-template-columns:1fr}}
+  @media (max-width:560px){
+    .menu li.navitem{display:none}.nav-toggle{display:inline-flex}
+    .menu{position:absolute;top:100%;right:0;flex-direction:column;align-items:flex-end;background:#fff;border:1px solid var(--line);border-radius:10px;padding:1rem 1.2rem;gap:.9rem;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+    .menu:not(.open){display:none}.menu.open{display:flex}.menu.open li.navitem{display:block}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site">
+  <div class="container">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="index.html"><span class="mark" aria-hidden="true">MA</span><span class="logo">Medya Asgharyan</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" onclick="var m=document.getElementById('menu');var o=m.classList.toggle('open');this.setAttribute('aria-expanded',o);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <ul class="menu" id="menu">
+        <li class="navitem"><a href="index.html">Home</a></li>
+        <li class="navitem"><a href="index.html#work">Portfolio</a></li>
+        <li class="navitem"><a href="about.html">About</a></li>
+        <li class="navitem"><a class="icon" href="https://www.linkedin.com/in/medya-asgharian/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5.001A2.5 2.5 0 014.98 3.5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21h-4z"/></svg></a></li>
+        <li class="navitem"><a class="icon" href="mailto:asgharyan.medya@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="case-hero container reader">
+    <a class="crumb" href="index.html#work">&larr; All projects</a>
+    <h1>Ontario Daycare Access</h1>
+    <p class="tagline">It should feel like package tracking for parents &mdash; but right now they&rsquo;re waiting on a package with no tracking number and no delivery date.</p>
+    <div class="pills"><span class="pill">Service Design</span><span class="pill">UX Research</span><span class="pill">Civic</span><span class="pill">Pro Bono</span></div>
+    <div class="meta-row">
+      <div class="meta-item"><div class="label">Role</div><div class="val">UX Researcher &amp; Service Designer</div></div>
+      <div class="meta-item"><div class="label">Duration</div><div class="val">8 weeks</div></div>
+      <div class="meta-item"><div class="label">Focus</div><div class="val">Ontario childcare access</div></div>
+    </div>
+  </section>
+
+  <div class="reader container">
+
+    <section class="block">
+      <span class="eyebrow">The Problem</span>
+      <h2>Affordability was fixed. Access broke.</h2>
+      <p>The $10/day CWELCC program solved the cost of childcare in Ontario &mdash; but it created zero new spots. More parents entered the search against a system that was never designed to handle the demand that affordability creates.</p>
+      <p>The result is a black box. Parents apply to 10&ndash;20 centers one at a time, then wait months to over a year with <strong>no waitlist position, no timeline, and no proactive contact</strong> &mdash; just &ldquo;we&rsquo;ll call you.&rdquo; Meanwhile providers drown in phone calls, emails, and manual spreadsheets.</p>
+      <p class="pull">The system must serve two sides at once. Any tool that solves only one side fails &mdash; exactly like everything currently on the market.</p>
+    </section>
+
+    <section class="block">
+      <span class="eyebrow">Research Approach</span>
+      <h2>How I investigated</h2>
+      <p>I started by defining the objective and mapping what we already knew against what we still needed to learn, then built research questions around the waitlist, enrollment, and the $10/day policy. Primary research combined a survey with semi-structured interviews, recruiting a deliberate mix: first-time and experienced parents, parents currently on waitlists, subsidy-eligible and newcomer families, plus daycare providers to capture both sides of the service.</p>
+    </section>
+  </div>
+
+  <section class="block">
+    <div class="reader container">
+      <span class="eyebrow">Who I Talked To</span>
+      <h2>Four parents, four ways into the same broken system</h2>
+      <p>From the research I built four personas that map the spectrum of need &mdash; from a newcomer still waiting after 1.5 years to a planner doing it all over again for a second child.</p>
+    </div>
+    <div class="wide container">
+      <div class="figure"><img src="images/daycare/daycare-personas.png" alt="Four parent personas: Uma the Returner, Natalie the Planner, Priya the Pre-birth Early Bird, and Lena the Lost Beginner, each with goals, pain points, and design implications."></div>
+      <p class="figcap">Personas grounded in the parent interviews &mdash; Uma, Natalie, Priya, and Lena.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="reader container">
+      <span class="eyebrow">What I Found</span>
+      <h2>The waitlist black box is the #1 pain</h2>
+      <p>Across the survey, waitlist transparency was the single pain point every respondent raised. Parents don&rsquo;t know their position, whether their application was even received, or how long to wait.</p>
+    </div>
+    <div class="wide container">
+      <div class="figure"><img src="images/daycare/daycare-02-painpoints.svg" alt="Bar chart of pain points by frequency: waitlist transparency 8 of 8, time and stress 7 of 8, application complexity 6 of 8, communication gaps 6 of 8, cost concerns 4 of 8."></div>
+      <p class="figcap">Pain points ranked by how many survey respondents raised each.</p>
+    </div>
+    <div class="reader container">
+      <div class="insights">
+        <div class="insight"><div class="n">01</div><h3>Zero waitlist transparency</h3><p>No position, no movement, no timeline &mdash; the source of maximum stress.</p></div>
+        <div class="insight"><div class="n">02</div><h3>Fragmented applications</h3><p>Parents contact 10&ndash;20 centers individually. No centralized system exists.</p></div>
+        <div class="insight"><div class="n">03</div><h3>No real-time availability</h3><p>Parents waste time applying to centers that are already full.</p></div>
+        <div class="insight"><div class="n">04</div><h3>Reactive communication</h3><p>Phone tag and unreturned emails. Parents must initiate every follow-up.</p></div>
+      </div>
+    </div>
+    <div class="wide container">
+      <div class="figure"><img src="images/daycare/daycare-affinity-map.png" alt="Affinity map clustering insights from six parent respondents across themes like waitlist opacity, manual tracking burden, fragmented applications, and CWELCC confusion."></div>
+      <p class="figcap">Affinity map clustering insights from the parent interviews.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="reader container">
+      <span class="eyebrow">The Journey</span>
+      <h2>Five stages, one critical failure point</h2>
+      <p>Mapping the end-to-end journey shows where it breaks: the waitlist. Stress peaks exactly where the system goes silent.</p>
+    </div>
+    <div class="wide container">
+      <div class="figure">
+<svg width="100%" viewBox="0 0 680 520" role="img" xmlns="http://www.w3.org/2000/svg" font-family="'Karla', system-ui, sans-serif">
+<title>Service blueprint of the Ontario daycare enrollment journey</title>
+<desc>Five stages from discovery to enrollment. The waitlist stage is the critical failure point, where parent stress peaks and there is no proactive communication from providers.</desc>
+<style>
+  .th { font-weight:600; fill:#1f1f1f; font-size:14px; }
+  .t  { font-weight:500; fill:#1f1f1f; font-size:14px; }
+  .ts { fill:#7a766e; font-size:12px; }
+  .box { fill:#f4f3f0; stroke:#c9c5bc; }
+  .fail { fill:#f7ece9; stroke:#c0635a; }
+  .hair { stroke:#e0ddd5; }
+</style>
+<text class="th" x="30" y="30">Parent journey: find, apply, enroll</text>
+<text class="ts" x="30" y="48">Five stages from first search to a confirmed daycare spot</text>
+<line class="hair" x1="30" y1="66" x2="650" y2="66" stroke-width="1"/>
+
+<rect class="box" x="30" y="82" width="112" height="60" rx="8" stroke-width="1"/>
+<text class="t" x="86" y="106" text-anchor="middle">1. Discovery</text>
+<text class="ts" x="86" y="124" text-anchor="middle">1–2 weeks</text>
+
+<rect class="box" x="152" y="82" width="112" height="60" rx="8" stroke-width="1"/>
+<text class="t" x="208" y="106" text-anchor="middle">2. Application</text>
+<text class="ts" x="208" y="124" text-anchor="middle">3–6 weeks</text>
+
+<rect class="fail" x="274" y="82" width="112" height="60" rx="8" stroke-width="1.5"/>
+<text class="th" x="330" y="103" text-anchor="middle" fill="#993c1d">3. Waitlist</text>
+<text class="ts" x="330" y="120" text-anchor="middle" fill="#993c1d">3–15 months</text>
+<text class="ts" x="330" y="134" text-anchor="middle" fill="#993c1d">failure point</text>
+
+<rect class="box" x="396" y="82" width="112" height="60" rx="8" stroke-width="1"/>
+<text class="t" x="452" y="106" text-anchor="middle">4. Spot offer</text>
+<text class="ts" x="452" y="124" text-anchor="middle">1–2 days</text>
+
+<rect class="box" x="518" y="82" width="112" height="60" rx="8" stroke-width="1"/>
+<text class="t" x="574" y="106" text-anchor="middle">5. Enrollment</text>
+<text class="ts" x="574" y="124" text-anchor="middle">1–2 weeks</text>
+
+<text class="ts" x="30" y="182">Parent does</text>
+<line class="hair" x1="30" y1="192" x2="650" y2="192" stroke-width="1"/>
+<text class="ts" x="86"  y="212" text-anchor="middle">Google,</text>
+<text class="ts" x="86"  y="226" text-anchor="middle">ask groups</text>
+<text class="ts" x="208" y="212" text-anchor="middle">Call 10–20</text>
+<text class="ts" x="208" y="226" text-anchor="middle">centers</text>
+<text class="ts" x="330" y="212" text-anchor="middle">Wait, chase,</text>
+<text class="ts" x="330" y="226" text-anchor="middle">track in Excel</text>
+<text class="ts" x="452" y="212" text-anchor="middle">Decide in</text>
+<text class="ts" x="452" y="226" text-anchor="middle">24–48h</text>
+<text class="ts" x="574" y="212" text-anchor="middle">Forms,</text>
+<text class="ts" x="574" y="226" text-anchor="middle">deposit</text>
+
+<text class="ts" x="30" y="264">Provider does</text>
+<line class="hair" x1="30" y1="274" x2="650" y2="274" stroke-width="1"/>
+<text class="ts" x="86"  y="294" text-anchor="middle">Answer</text>
+<text class="ts" x="86"  y="308" text-anchor="middle">calls, tours</text>
+<text class="ts" x="208" y="294" text-anchor="middle">Add to</text>
+<text class="ts" x="208" y="308" text-anchor="middle">spreadsheet</text>
+<text class="ts" x="330" y="294" text-anchor="middle" fill="#993c1d">No proactive</text>
+<text class="ts" x="330" y="308" text-anchor="middle" fill="#993c1d">contact</text>
+<text class="ts" x="452" y="294" text-anchor="middle">Call, set</text>
+<text class="ts" x="452" y="308" text-anchor="middle">deadline</text>
+<text class="ts" x="574" y="294" text-anchor="middle">Enroll,</text>
+<text class="ts" x="574" y="308" text-anchor="middle">set up file</text>
+
+<text class="ts" x="30" y="346">Parent stress</text>
+<line class="hair" x1="30" y1="356" x2="650" y2="356" stroke-width="1"/>
+<rect class="box"  x="46"  y="390" width="80" height="20" rx="4" stroke-width="1"/>
+<text class="ts" x="86"  y="404" text-anchor="middle">2 / 5</text>
+<rect class="box"  x="168" y="382" width="80" height="28" rx="4" stroke-width="1"/>
+<text class="ts" x="208" y="400" text-anchor="middle">4 / 5</text>
+<rect class="fail" x="290" y="372" width="80" height="38" rx="4" stroke-width="1.5"/>
+<text class="th" x="330" y="395" text-anchor="middle" fill="#993c1d">5 / 5</text>
+<rect class="box"  x="412" y="382" width="80" height="28" rx="4" stroke-width="1"/>
+<text class="ts" x="452" y="400" text-anchor="middle">4 / 5</text>
+<rect class="box"  x="534" y="390" width="80" height="20" rx="4" stroke-width="1"/>
+<text class="ts" x="574" y="404" text-anchor="middle">2 / 5</text>
+
+<line class="hair" x1="30" y1="436" x2="650" y2="436" stroke-width="1"/>
+<text class="ts" x="30" y="460" fill="#993c1d">Critical failure point: zero waitlist transparency — no position, no timeline, no proactive contact.</text>
+<text class="ts" x="30" y="478">Parents wait months to over a year in a black box, managing everything by hand.</text>
+</svg>
+
+      </div>
+      <p class="figcap">A simplified view of the journey &mdash; the waitlist is the critical failure point.</p>
+      <div class="figure"><img src="images/daycare/daycare-journey-map.png" alt="Detailed customer journey map for parents from pre-search through enrollment, showing actions, quotes, emotions, and design opportunities at each phase."></div>
+      <p class="figcap">The full customer journey with parent quotes, emotions, and opportunities.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="reader container">
+      <span class="eyebrow">Current-State Blueprint</span>
+      <h2>What happens behind the scenes</h2>
+      <p>The service blueprint exposes the manual, invisible work on the provider side &mdash; paper waitlists, no system, no proactive contact &mdash; that produces the parent&rsquo;s black-box experience.</p>
+    </div>
+    <div class="wide container">
+      <div class="figure"><img src="images/daycare/daycare-blueprint-detailed.png" alt="Current-state service blueprint across discovery, search and apply, waiting, spot offered, and enrollment, showing frontstage, backstage, technology, and failure points."></div>
+      <p class="figcap">Current-state service blueprint &mdash; frontstage, backstage, and failure points.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="reader container">
+      <span class="eyebrow">Competitive Landscape</span>
+      <h2>Three layers of tools, one unfilled gap</h2>
+      <p>Every existing tool covers only part of the journey. Discovery tools help you search but not act. Provider tools manage children already enrolled. Government portals list providers but aren&rsquo;t built around the parent&rsquo;s decision. None bridges discovery to enrollment.</p>
+    </div>
+    <div class="wide container">
+      <div class="figure">
+<svg width="100%" viewBox="0 0 680 400" role="img" xmlns="http://www.w3.org/2000/svg" font-family="'Karla', system-ui, sans-serif">
+<title>The three-layer gap in Ontario childcare tools</title>
+<desc>Three categories of existing tools — discovery and search, provider management, and government portals — none of which cover the full journey from discovery through application, waitlist transparency, and enrollment. The gap sits in the middle.</desc>
+<style>
+  .th { font-weight:600; fill:#1f1f1f; font-size:14px; }
+  .t  { font-weight:500; fill:#1f1f1f; font-size:14px; }
+  .ts { fill:#7a766e; font-size:12px; }
+  .layer { fill:#f4f3f0; stroke:#c9c5bc; }
+  .gap { fill:#f7ece9; stroke:#c0635a; }
+  .hair { stroke:#e0ddd5; }
+</style>
+<text class="th" x="30" y="30">Three layers of tools — and the gap none of them close</text>
+<text class="ts" x="30" y="48">Every existing tool covers only part of the journey</text>
+
+<text class="ts" x="30" y="80">Journey:</text>
+<text class="ts" x="110" y="80">Discovery</text>
+<text class="ts" x="230" y="80">Application</text>
+<text class="ts" x="360" y="80">Waitlist</text>
+<text class="ts" x="470" y="80">Spot offer</text>
+<text class="ts" x="585" y="80">Enrollment</text>
+<line class="hair" x1="30" y1="90" x2="650" y2="90" stroke-width="1"/>
+
+<rect class="layer" x="30" y="104" width="240" height="56" rx="8" stroke-width="1"/>
+<text class="t"  x="50" y="128">Layer 1 — Discovery &amp; search</text>
+<text class="ts" x="50" y="146">City &amp; provincial directories, listings</text>
+
+<rect class="layer" x="400" y="104" width="250" height="56" rx="8" stroke-width="1"/>
+<text class="t"  x="420" y="128">Layer 2 — Provider tools</text>
+<text class="ts" x="420" y="146">Brightwheel, Kangarootime, Lillio</text>
+
+<rect class="layer" x="30" y="176" width="240" height="56" rx="8" stroke-width="1"/>
+<text class="t"  x="50" y="200">Layer 3 — Government portals</text>
+<text class="ts" x="50" y="218">Fragmented, rarely updated</text>
+
+<rect class="gap" x="290" y="176" width="360" height="56" rx="8" stroke-width="1.5"/>
+<text class="th" x="310" y="200" fill="#993c1d">The gap: discovery to enrollment</text>
+<text class="ts" x="310" y="218" fill="#993c1d">No Ontario tool bridges the full journey</text>
+
+<line class="hair" x1="30" y1="258" x2="650" y2="258" stroke-width="1"/>
+<text class="t"  x="30" y="284">Layer 1 helps you search but not act.</text>
+<text class="t"  x="30" y="308">Layer 2 manages children already enrolled — not the waitlist.</text>
+<text class="t"  x="30" y="332">Layer 3 lists providers but isn't built around the parent's decision.</text>
+<text class="ts" x="30" y="364" fill="#993c1d">Quebec's mandated portal is the only system in Canada that bridges the gap — Ontario has no equivalent.</text>
+</svg>
+
+      </div>
+      <p class="figcap">The three-layer gap: no Ontario tool bridges the full journey.</p>
+      <div class="figure">
+<svg width="100%" viewBox="0 0 680 360" role="img" xmlns="http://www.w3.org/2000/svg" font-family="'Karla', system-ui, sans-serif">
+<title>Quebec benchmark: what it solved and where Ontario could improve</title>
+<desc>Quebec's centralized daycare portal solved mandatory participation, transparent ranking, single application, and public priority rules. Three gaps remain to improve on: pre-birth registration, including unlicensed home daycares, and multilingual access.</desc>
+<style>
+  .th { font-weight:600; fill:#1f1f1f; font-size:14px; }
+  .t  { fill:#1f1f1f; font-size:14px; }
+  .ts { fill:#7a766e; font-size:12px; }
+  .solved { fill:#f4f3f0; stroke:#c9c5bc; }
+  .improve { fill:#f7ece9; stroke:#c0635a; }
+  .hair { stroke:#e0ddd5; }
+</style>
+<text class="th" x="30" y="30">Learning from Quebec — and improving on it</text>
+<text class="ts" x="30" y="48">Canada's only mandated, centralized daycare system (launched Nov 2025)</text>
+
+<text class="th" x="30" y="82">What Quebec solved</text>
+<rect class="solved" x="30" y="94" width="300" height="40" rx="8" stroke-width="1"/>
+<text class="t" x="48" y="119">Mandatory participation — all centers</text>
+<rect class="solved" x="30" y="142" width="300" height="40" rx="8" stroke-width="1"/>
+<text class="t" x="48" y="167">Transparent monthly rank indicator</text>
+<rect class="solved" x="30" y="190" width="300" height="40" rx="8" stroke-width="1"/>
+<text class="t" x="48" y="215">One application covers all centers</text>
+<rect class="solved" x="30" y="238" width="300" height="40" rx="8" stroke-width="1"/>
+<text class="t" x="48" y="263">Priority rules public and documented</text>
+
+<text class="th" x="360" y="82" fill="#993c1d">Where to improve</text>
+<rect class="improve" x="360" y="94" width="290" height="40" rx="8" stroke-width="1"/>
+<text class="t" x="378" y="119">Allow pre-birth registration</text>
+<rect class="improve" x="360" y="142" width="290" height="40" rx="8" stroke-width="1"/>
+<text class="t" x="378" y="167">Include unlicensed home daycares</text>
+<rect class="improve" x="360" y="190" width="290" height="40" rx="8" stroke-width="1"/>
+<text class="t" x="378" y="215">Design for multilingual users</text>
+
+<line class="hair" x1="30" y1="304" x2="650" y2="304" stroke-width="1"/>
+<text class="ts" x="30" y="328">Quebec proved a centralized model works. Ontario's version could go further on access and inclusion.</text>
+</svg>
+
+      </div>
+      <p class="figcap">Quebec&rsquo;s mandated portal as a benchmark &mdash; and where Ontario could improve on it.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="reader container">
+      <span class="eyebrow">The Concept</span>
+      <h2>A service that serves both sides</h2>
+      <p>The opportunity is a shared service layer: search by real availability, one application across many centers, a visible waitlist position, proactive notifications, and provider tools light enough that staff will actually keep them updated. The provider-side flow &mdash; receive inquiry, add to waitlist, manage, offer spot &mdash; is designed to replace the spreadsheet without adding work.</p>
+    </div>
+    <div class="wide container">
+      <div class="figure"><img src="images/daycare/daycare-wireframes.png" alt="Provider-side wireframes showing the flow from receiving an inquiry, adding to the waitlist, managing the waitlist, a spot opening, and offering the spot."></div>
+      <p class="figcap">Provider-side flow: receive inquiry &rarr; add to waitlist &rarr; manage &rarr; offer spot.</p>
+    </div>
+  </section>
+
+  <div class="reader container">
+    <section class="block">
+      <span class="eyebrow">What&rsquo;s Still Open</span>
+      <h2>What I&rsquo;d validate next</h2>
+      <p>Senior service design means naming what you don&rsquo;t yet know. Do parents actually want their exact position &mdash; one respondent said more information increased her stress? How much time will providers spend updating a system before they abandon it? Who owns and maintains the platform &mdash; government, nonprofit, or private &mdash; and do parents trust it with their data after Quebec&rsquo;s 2021 breach? And what happens when a parent declines a spot &mdash; do they lose their place? These are the questions the next research round needs to answer.</p>
+    </section>
+
+    <div class="next">
+      <a href="finch-3d.html">&larr; Finch 3D</a>
+      <a href="index.html#work">All projects &rarr;</a>
+    </div>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="container">
+    <div class="foot">
+      <p>&copy; 2026 Medya Asgharyan. All rights reserved.</p>
+      <div class="socials">
+        <a href="mailto:asgharyan.medya@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+        <a href="https://www.linkedin.com/in/medya-asgharian/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5.001A2.5 2.5 0 014.98 3.5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21h-4z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

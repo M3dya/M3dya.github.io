@@ -1,0 +1,44 @@
+<svg width="100%" viewBox="0 0 680 400" role="img" xmlns="http://www.w3.org/2000/svg" font-family="'Karla', system-ui, sans-serif">
+<title>The three-layer gap in Ontario childcare tools</title>
+<desc>Three categories of existing tools — discovery and search, provider management, and government portals — none of which cover the full journey from discovery through application, waitlist transparency, and enrollment. The gap sits in the middle.</desc>
+<style>
+  .th { font-weight:600; fill:#1f1f1f; font-size:14px; }
+  .t  { font-weight:500; fill:#1f1f1f; font-size:14px; }
+  .ts { fill:#7a766e; font-size:12px; }
+  .layer { fill:#f4f3f0; stroke:#c9c5bc; }
+  .gap { fill:#f7ece9; stroke:#c0635a; }
+  .hair { stroke:#e0ddd5; }
+</style>
+<text class="th" x="30" y="30">Three layers of tools — and the gap none of them close</text>
+<text class="ts" x="30" y="48">Every existing tool covers only part of the journey</text>
+
+<text class="ts" x="30" y="80">Journey:</text>
+<text class="ts" x="110" y="80">Discovery</text>
+<text class="ts" x="230" y="80">Application</text>
+<text class="ts" x="360" y="80">Waitlist</text>
+<text class="ts" x="470" y="80">Spot offer</text>
+<text class="ts" x="585" y="80">Enrollment</text>
+<line class="hair" x1="30" y1="90" x2="650" y2="90" stroke-width="1"/>
+
+<rect class="layer" x="30" y="104" width="240" height="56" rx="8" stroke-width="1"/>
+<text class="t"  x="50" y="128">Layer 1 — Discovery &amp; search</text>
+<text class="ts" x="50" y="146">City &amp; provincial directories, listings</text>
+
+<rect class="layer" x="400" y="104" width="250" height="56" rx="8" stroke-width="1"/>
+<text class="t"  x="420" y="128">Layer 2 — Provider tools</text>
+<text class="ts" x="420" y="146">Brightwheel, Kangarootime, Lillio</text>
+
+<rect class="layer" x="30" y="176" width="240" height="56" rx="8" stroke-width="1"/>
+<text class="t"  x="50" y="200">Layer 3 — Government portals</text>
+<text class="ts" x="50" y="218">Fragmented, rarely updated</text>
+
+<rect class="gap" x="290" y="176" width="360" height="56" rx="8" stroke-width="1.5"/>
+<text class="th" x="310" y="200" fill="#993c1d">The gap: discovery to enrollment</text>
+<text class="ts" x="310" y="218" fill="#993c1d">No Ontario tool bridges the full journey</text>
+
+<line class="hair" x1="30" y1="258" x2="650" y2="258" stroke-width="1"/>
+<text class="t"  x="30" y="284">Layer 1 helps you search but not act.</text>
+<text class="t"  x="30" y="308">Layer 2 manages children already enrolled — not the waitlist.</text>
+<text class="t"  x="30" y="332">Layer 3 lists providers but isn't built around the parent's decision.</text>
+<text class="ts" x="30" y="364" fill="#993c1d">Quebec's mandated portal is the only system in Canada that bridges the gap — Ontario has no equivalent.</text>
+</svg>

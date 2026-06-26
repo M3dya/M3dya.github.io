@@ -1,0 +1,35 @@
+<svg width="100%" viewBox="0 0 680 360" role="img" xmlns="http://www.w3.org/2000/svg" font-family="'Karla', system-ui, sans-serif">
+<title>Quebec benchmark: what it solved and where Ontario could improve</title>
+<desc>Quebec's centralized daycare portal solved mandatory participation, transparent ranking, single application, and public priority rules. Three gaps remain to improve on: pre-birth registration, including unlicensed home daycares, and multilingual access.</desc>
+<style>
+  .th { font-weight:600; fill:#1f1f1f; font-size:14px; }
+  .t  { fill:#1f1f1f; font-size:14px; }
+  .ts { fill:#7a766e; font-size:12px; }
+  .solved { fill:#f4f3f0; stroke:#c9c5bc; }
+  .improve { fill:#f7ece9; stroke:#c0635a; }
+  .hair { stroke:#e0ddd5; }
+</style>
+<text class="th" x="30" y="30">Learning from Quebec — and improving on it</text>
+<text class="ts" x="30" y="48">Canada's only mandated, centralized daycare system (launched Nov 2025)</text>
+
+<text class="th" x="30" y="82">What Quebec solved</text>
+<rect class="solved" x="30" y="94" width="300" height="40" rx="8" stroke-width="1"/>
+<text class="t" x="48" y="119">Mandatory participation — all centers</text>
+<rect class="solved" x="30" y="142" width="300" height="40" rx="8" stroke-width="1"/>
+<text class="t" x="48" y="167">Transparent monthly rank indicator</text>
+<rect class="solved" x="30" y="190" width="300" height="40" rx="8" stroke-width="1"/>
+<text class="t" x="48" y="215">One application covers all centers</text>
+<rect class="solved" x="30" y="238" width="300" height="40" rx="8" stroke-width="1"/>
+<text class="t" x="48" y="263">Priority rules public and documented</text>
+
+<text class="th" x="360" y="82" fill="#993c1d">Where to improve</text>
+<rect class="improve" x="360" y="94" width="290" height="40" rx="8" stroke-width="1"/>
+<text class="t" x="378" y="119">Allow pre-birth registration</text>
+<rect class="improve" x="360" y="142" width="290" height="40" rx="8" stroke-width="1"/>
+<text class="t" x="378" y="167">Include unlicensed home daycares</text>
+<rect class="improve" x="360" y="190" width="290" height="40" rx="8" stroke-width="1"/>
+<text class="t" x="378" y="215">Design for multilingual users</text>
+
+<line class="hair" x1="30" y1="304" x2="650" y2="304" stroke-width="1"/>
+<text class="ts" x="30" y="328">Quebec proved a centralized model works. Ontario's version could go further on access and inclusion.</text>
+</svg>
