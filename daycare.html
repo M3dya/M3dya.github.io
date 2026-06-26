@@ -9,92 +9,97 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Karla:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:#fff; --ink:#1f1f1f; --body:#5a5a5a; --line:#e8e8e8;
-    --pill-border:#d8d8d8; --btn:#5c5c5c; --footer:#1c1c1c; --fail:#993c1d; --failbg:#f7ece9;
-    --maxw:1180px; --readw:760px; --pad:clamp(1.25rem,5vw,4rem);
+    --bg: #ffffff; --ink: #1f1f1f; --body: #5a5a5a; --line: #e8e8e8;
+    --pill-border: #d8d8d8; --btn: #5c5c5c; --footer: #1c1c1c;
+    --accent: #993c1d; --accent-bg: #f7ece9;
+    --maxw: 1180px; --readw: 760px; --pad: clamp(1.25rem, 5vw, 4rem);
   }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--body);font-family:'Karla',system-ui,sans-serif;line-height:1.7}
-  a{color:inherit}
-  h1,h2,h3,.logo,.eyebrow,.crumb,.metric .num,.tag{font-family:'Poppins',system-ui,sans-serif}
-  .skip{position:absolute;left:-999px;top:0;background:var(--ink);color:#fff;padding:.6rem 1rem;z-index:30;text-decoration:none;border-radius:4px}
-  .skip:focus{left:1rem;top:1rem}
-  .container{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
-  .reader{max-width:var(--readw);margin:0 auto}
-  .wide{max-width:980px;margin:0 auto}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--body); font-family: 'Karla', system-ui, sans-serif; line-height: 1.7; }
+  a { color: inherit; }
+  h1, h2, h3, .logo, .eyebrow, .crumb, .metric .num, .stat .num { font-family: 'Poppins', system-ui, sans-serif; }
 
-  header.site{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);z-index:20}
-  .nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:1.1rem;position:relative}
-  .brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:var(--ink)}
-  .brand .mark{width:38px;height:38px;background:var(--ink);color:#fff;border-radius:7px;display:grid;place-items:center;font-family:'Poppins';font-weight:600;font-size:.95rem}
-  .brand .logo{font-weight:600;font-size:1.15rem;color:var(--ink)}
-  .menu{list-style:none;display:flex;align-items:center;gap:clamp(1.1rem,2.6vw,2.2rem);font-size:.98rem}
-  .menu a{text-decoration:none;font-family:'Poppins';color:#4a4a4a;padding-bottom:3px;border-bottom:2px solid transparent;transition:.25s}
-  .menu a:hover,.menu a:focus-visible,.menu a[aria-current]{color:var(--ink);border-color:var(--ink)}
-  .menu .icon{display:grid;place-items:center;width:22px;height:22px;border-bottom:none}
-  .menu .icon svg{width:20px;height:20px}
-  .nav-toggle{display:none;background:none;border:0;cursor:pointer;padding:.4rem}
-  .nav-toggle svg{width:26px;height:26px}
+  .skip { position: absolute; left: -999px; top: 0; background: var(--ink); color: #fff; padding: .6rem 1rem; z-index: 30; text-decoration: none; border-radius: 4px; }
+  .skip:focus { left: 1rem; top: 1rem; }
+  .container { max-width: var(--maxw); margin: 0 auto; padding-inline: var(--pad); }
+  .reader { max-width: var(--readw); margin: 0 auto; }
 
-  .case-hero{padding-block:clamp(2.5rem,7vw,4.5rem) clamp(1.5rem,4vw,2.5rem)}
-  .crumb{font-size:.85rem;color:#9a9a9a;text-decoration:none;display:inline-flex;gap:.4rem;margin-bottom:1.5rem}
-  .crumb:hover{color:var(--ink)}
-  .case-hero h1{font-weight:700;color:var(--ink);font-size:clamp(2.4rem,6vw,4rem);line-height:1.05;letter-spacing:-.02em}
-  .case-hero .tagline{font-size:clamp(1.1rem,2.6vw,1.45rem);color:var(--body);margin-top:1rem;max-width:60ch;font-style:italic}
-  .pills{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.5rem}
-  .pill{font-family:'Poppins';font-weight:500;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;background:#fff;color:var(--ink);border:1px solid var(--pill-border);border-radius:6px;padding:.4rem .65rem}
-  .meta-row{display:flex;flex-wrap:wrap;gap:2rem 3rem;padding-block:clamp(1.5rem,4vw,2rem);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:clamp(2rem,5vw,3rem)}
-  .meta-item .label{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:#9a9a9a;margin-bottom:.35rem}
-  .meta-item .val{color:var(--ink);font-weight:500}
+  header.site { border-bottom: 1px solid var(--line); position: sticky; top: 0; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); z-index: 20; }
+  .nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 1.1rem; position: relative; }
+  .brand { display: flex; align-items: center; gap: .7rem; text-decoration: none; color: var(--ink); }
+  .brand .mark { width: 38px; height: 38px; background: var(--ink); color: #fff; border-radius: 7px; display: grid; place-items: center; font-family: 'Poppins'; font-weight: 600; font-size: .95rem; letter-spacing: -0.02em; }
+  .brand .logo { font-weight: 600; font-size: 1.15rem; color: var(--ink); }
+  .menu { list-style: none; display: flex; align-items: center; gap: clamp(1.1rem, 2.6vw, 2.2rem); }
+  .menu a { text-decoration: none; font-family: 'Poppins'; font-size: .98rem; color: #4a4a4a; padding-bottom: 3px; border-bottom: 2px solid transparent; transition: color .25s, border-color .25s; }
+  .menu a:hover, .menu a:focus-visible, .menu a[aria-current] { color: var(--ink); border-color: var(--ink); }
+  .menu .icon { display: grid; place-items: center; width: 22px; height: 22px; border-bottom: none; }
+  .menu .icon svg { width: 20px; height: 20px; }
+  .nav-toggle { display: none; background: none; border: 0; cursor: pointer; padding: .4rem; }
+  .nav-toggle svg { width: 26px; height: 26px; }
 
-  section.block{padding-block:clamp(2.2rem,6vw,3.5rem)}
-  section.block+section.block{border-top:1px solid var(--line)}
-  .eyebrow{font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:#9a9a9a;display:block;margin-bottom:.7rem;font-weight:500}
-  section.block h2{font-weight:700;color:var(--ink);font-size:clamp(1.6rem,4vw,2.3rem);letter-spacing:-.02em;margin-bottom:1.2rem}
-  section.block p{margin-bottom:1.1rem}
-  section.block p strong{color:var(--ink);font-weight:500}
+  .case-hero { padding-block: clamp(2.5rem, 7vw, 4.5rem) clamp(1.5rem, 4vw, 2.5rem); }
+  .crumb { font-size: .85rem; color: #9a9a9a; text-decoration: none; display: inline-flex; align-items: center; gap: .4rem; margin-bottom: 1.5rem; }
+  .crumb:hover { color: var(--ink); }
+  .case-hero h1 { font-weight: 700; color: var(--ink); font-size: clamp(2.4rem, 6vw, 4rem); line-height: 1.05; letter-spacing: -0.02em; }
+  .case-hero .tagline { font-family: 'Poppins'; font-weight: 600; font-size: clamp(1.2rem, 3vw, 1.7rem); color: var(--ink); margin-top: 1rem; }
+  .pills { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1.5rem; }
+  .pill { font-family: 'Poppins'; font-weight: 500; font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; background: #fff; color: var(--ink); border: 1px solid var(--pill-border); border-radius: 6px; padding: .4rem .65rem; }
+  .meta-row { display: flex; flex-wrap: wrap; gap: 2rem 3rem; padding-block: clamp(1.5rem, 4vw, 2rem); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-top: clamp(2rem, 5vw, 3rem); }
+  .meta-item .label { font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: #9a9a9a; margin-bottom: .35rem; }
+  .meta-item .val { color: var(--ink); font-weight: 500; }
 
-  .figure{margin:1.8rem 0}
-  .figure img{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:12px;background:#faf9f7}
-  .figure svg{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:12px;background:#faf9f7;padding:1.2rem}
-  .figcap{text-align:center;font-size:.9rem;color:#9a9a9a;margin-top:.8rem}
+  section.block { padding-block: clamp(2.2rem, 6vw, 3.5rem); }
+  section.block + section.block { border-top: 1px solid var(--line); }
+  .eyebrow { font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; color: #9a9a9a; display: block; margin-bottom: .7rem; font-weight: 500; }
+  section.block h2 { font-weight: 700; color: var(--ink); font-size: clamp(1.6rem, 4vw, 2.3rem); letter-spacing: -0.02em; margin-bottom: 1.2rem; }
+  section.block p { margin-bottom: 1.1rem; }
+  section.block p strong { color: var(--ink); font-weight: 500; }
 
-  .pull{font-family:'Poppins';font-weight:500;color:var(--ink);font-size:clamp(1.2rem,3vw,1.6rem);line-height:1.4;letter-spacing:-.01em;border-left:3px solid var(--fail);padding-left:1.3rem;margin:1.5rem 0}
+  .pull { border-left: 3px solid var(--accent); background: var(--accent-bg); border-radius: 0 8px 8px 0; padding: 1.2rem 1.4rem; margin: 1.6rem 0; }
+  .pull p { font-family: 'Poppins'; font-weight: 500; color: var(--accent); font-size: clamp(1.1rem, 2.6vw, 1.4rem); line-height: 1.4; margin: 0 0 .5rem; }
+  .pull cite { font-style: normal; color: #8a6a5c; font-size: .9rem; }
 
-  .insights{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:1.2rem}
-  .insight{border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.3rem}
-  .insight .n{font-family:'Poppins';font-weight:600;color:var(--fail);font-size:.85rem}
-  .insight h3{font-weight:600;color:var(--ink);font-size:1.05rem;margin:.3rem 0 .4rem}
-  .insight p{font-size:.95rem;margin:0}
+  .quote { border-left: 3px solid var(--ink); padding-left: 1.3rem; margin: 1.4rem 0; }
+  .quote p { font-style: italic; color: var(--ink); font-size: clamp(1.05rem, 2.3vw, 1.2rem); margin: 0 0 .4rem; }
+  .quote cite { font-style: normal; color: #9a9a9a; font-size: .88rem; }
 
-  .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:1rem}
-  .metric{border-left:3px solid var(--ink);padding-left:1rem}
-  .metric .num{color:var(--ink);font-weight:700;font-size:clamp(1.4rem,3vw,1.9rem);line-height:1.1}
-  .metric .desc{font-size:.92rem;margin-top:.3rem}
+  .diagram-wrap { background: #faf9f7; border: 1px solid var(--line); border-radius: 16px; padding: clamp(1.5rem, 4vw, 2.5rem); margin: 1.6rem 0; }
+  .diagram-wrap svg { width: 100%; height: auto; display: block; }
+  .diagram-cap { text-align: center; font-size: .9rem; color: #9a9a9a; margin-top: 1rem; }
 
-  .next{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding-block:2.5rem;border-top:1px solid var(--line);flex-wrap:wrap}
-  .next a{text-decoration:none;font-family:'Poppins';color:var(--ink);display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--pill-border);border-radius:8px;padding:.8rem 1.6rem;transition:.25s}
-  .next a:hover,.next a:focus-visible{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 1.6rem 0; }
+  .stat { border-left: 3px solid var(--accent); padding-left: 1rem; }
+  .stat .num { color: var(--ink); font-weight: 700; font-size: clamp(1.5rem, 3.5vw, 2.1rem); line-height: 1.1; }
+  .stat .desc { font-size: .92rem; margin-top: .3rem; }
 
-  footer.site{background:var(--footer);color:#cfcfcf}
-  .foot{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:2rem;flex-wrap:wrap}
-  .foot p{font-size:.95rem}
-  .foot .socials{display:flex;gap:1.1rem}
-  .foot .socials a{display:grid;place-items:center;color:#cfcfcf;transition:.25s}
-  .foot .socials a:hover,.foot .socials a:focus-visible{color:#fff}
-  .foot .socials svg{width:20px;height:20px}
+  .principles { list-style: none; counter-reset: p; margin: 1.4rem 0; }
+  .principles li { counter-increment: p; padding: 1rem 0 1rem 3rem; border-bottom: 1px solid var(--line); position: relative; }
+  .principles li::before { content: counter(p); position: absolute; left: 0; top: 1rem; width: 28px; height: 28px; border: 1px solid var(--ink); border-radius: 50%; display: grid; place-items: center; font-family: 'Poppins'; font-weight: 600; font-size: .85rem; color: var(--ink); }
+  .principles li strong { color: var(--ink); font-weight: 500; display: block; font-family: 'Poppins'; }
 
-  @media (prefers-reduced-motion:no-preference){
-    section.block,.case-hero>*{opacity:0;transform:translateY(18px);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards}
-    .case-hero .tagline{animation-delay:.08s}.case-hero .pills{animation-delay:.16s}
-    @keyframes rise{to{opacity:1;transform:translateY(0)}}
+  .next { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-block: 2.5rem; border-top: 1px solid var(--line); flex-wrap: wrap; }
+  .next a { text-decoration: none; font-family: 'Poppins'; color: var(--ink); display: inline-flex; align-items: center; gap: .5rem; border: 1px solid var(--pill-border); border-radius: 8px; padding: .8rem 1.6rem; transition: background .25s, color .25s; }
+  .next a:hover, .next a:focus-visible { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+  footer.site { background: var(--footer); color: #cfcfcf; }
+  .foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 2rem; flex-wrap: wrap; }
+  .foot p { font-size: .95rem; }
+  .foot .socials { display: flex; gap: 1.1rem; }
+  .foot .socials a { display: grid; place-items: center; color: #cfcfcf; transition: color .25s; }
+  .foot .socials a:hover, .foot .socials a:focus-visible { color: #fff; }
+  .foot .socials svg { width: 20px; height: 20px; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    section.block, .case-hero > * { opacity: 0; transform: translateY(18px); animation: rise .7s cubic-bezier(.2,.7,.2,1) forwards; }
+    .case-hero .tagline { animation-delay: .08s; } .case-hero .pills { animation-delay: .16s; }
+    @keyframes rise { to { opacity: 1; transform: translateY(0); } }
   }
-  @media (max-width:640px){.metrics,.insights{grid-template-columns:1fr}}
-  @media (max-width:560px){
-    .menu li.navitem{display:none}.nav-toggle{display:inline-flex}
-    .menu{position:absolute;top:100%;right:0;flex-direction:column;align-items:flex-end;background:#fff;border:1px solid var(--line);border-radius:10px;padding:1rem 1.2rem;gap:.9rem;box-shadow:0 10px 30px rgba(0,0,0,.08)}
-    .menu:not(.open){display:none}.menu.open{display:flex}.menu.open li.navitem{display:block}
+  @media (max-width: 640px) { .stats { grid-template-columns: 1fr; } }
+  @media (max-width: 560px) {
+    .menu li.navitem { display: none; } .nav-toggle { display: inline-flex; }
+    .menu { position: absolute; top: 100%; right: 0; flex-direction: column; align-items: flex-end; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 1rem 1.2rem; gap: .9rem; box-shadow: 0 10px 30px rgba(0,0,0,.08); }
+    .menu:not(.open) { display: none; } .menu.open { display: flex; } .menu.open li.navitem { display: block; }
   }
 </style>
 </head>
@@ -104,7 +109,10 @@
 <header class="site">
   <div class="container">
     <nav class="nav" aria-label="Primary">
-      <a class="brand" href="index.html"><span class="mark" aria-hidden="true">MA</span><span class="logo">Medya Asgharyan</span></a>
+      <a class="brand" href="index.html">
+        <span class="mark" aria-hidden="true">MA</span>
+        <span class="logo">Medya Asgharyan</span>
+      </a>
       <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" onclick="var m=document.getElementById('menu');var o=m.classList.toggle('open');this.setAttribute('aria-expanded',o);">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
@@ -123,8 +131,10 @@
   <section class="case-hero container reader">
     <a class="crumb" href="index.html#work">&larr; All projects</a>
     <h1>Ontario Daycare Access</h1>
-    <p class="tagline">It should feel like package tracking for parents &mdash; but right now they&rsquo;re waiting on a package with no tracking number and no delivery date.</p>
-    <div class="pills"><span class="pill">Service Design</span><span class="pill">UX Research</span><span class="pill">Civic</span><span class="pill">Pro Bono</span></div>
+    <p class="tagline">Affordability got solved. Access broke.</p>
+    <div class="pills">
+      <span class="pill">Service Design</span><span class="pill">UX Research</span><span class="pill">Civic</span><span class="pill">Pro Bono</span>
+    </div>
     <div class="meta-row">
       <div class="meta-item"><div class="label">Role</div><div class="val">UX Researcher &amp; Service Designer</div></div>
       <div class="meta-item"><div class="label">Duration</div><div class="val">8 weeks</div></div>
@@ -135,64 +145,30 @@
   <div class="reader container">
 
     <section class="block">
-      <span class="eyebrow">The Problem</span>
-      <h2>Affordability was fixed. Access broke.</h2>
-      <p>The $10/day CWELCC program solved the cost of childcare in Ontario &mdash; but it created zero new spots. More parents entered the search against a system that was never designed to handle the demand that affordability creates.</p>
-      <p>The result is a black box. Parents apply to 10&ndash;20 centers one at a time, then wait months to over a year with <strong>no waitlist position, no timeline, and no proactive contact</strong> &mdash; just &ldquo;we&rsquo;ll call you.&rdquo; Meanwhile providers drown in phone calls, emails, and manual spreadsheets.</p>
-      <p class="pull">The system must serve two sides at once. Any tool that solves only one side fails &mdash; exactly like everything currently on the market.</p>
+      <span class="eyebrow">The human stakes</span>
+      <h2>Meet Uma</h2>
+      <p>Uma is 33, an immigrant parent in Toronto. This year she went back to work with no childcare secured&mdash;driven by financial pressure, not choice. She applied to more than twenty centers and got back only generic email acknowledgements. After a year and a half on waitlists she still has no position, no timeline, and no spot. Her family patches care together day to day with informal help.</p>
+      <div class="pull">
+        <p>&ldquo;Even after applying 1.5 years back, still nothing. Still waiting.&rdquo;</p>
+        <cite>&mdash; Uma, parent (R1)</cite>
+      </div>
+      <p>The easy read is that Uma was unlucky, or started too late. She wasn&rsquo;t. <strong>She is the system working exactly as designed.</strong> Once I started talking to other parents, her story stopped looking like an exception and started looking like the rule.</p>
     </section>
 
     <section class="block">
-      <span class="eyebrow">Research Approach</span>
-      <h2>How I investigated</h2>
-      <p>I started by defining the objective and mapping what we already knew against what we still needed to learn, then built research questions around the waitlist, enrollment, and the $10/day policy. Primary research combined a survey with semi-structured interviews, recruiting a deliberate mix: first-time and experienced parents, parents currently on waitlists, subsidy-eligible and newcomer families, plus daycare providers to capture both sides of the service.</p>
+      <span class="eyebrow">What actually broke</span>
+      <h2>The program that helped&mdash;and made it worse</h2>
+      <p>Ontario&rsquo;s $10-a-day childcare program (CWELCC) was meant to help, and in one way it did: it fixed affordability. But it poured a wave of new demand into a system that was never built to handle it&mdash;and it created <strong>zero new spots</strong>.</p>
+      <p>So more parents now compete for the same spaces, using the same fragmented, manual process as before. The government solved the cost of daycare and, without meaning to, made <em>finding</em> it harder. Affordability got solved; access got worse.</p>
     </section>
-  </div>
 
-  <section class="block">
-    <div class="reader container">
-      <span class="eyebrow">Who I Talked To</span>
-      <h2>Four parents, four ways into the same broken system</h2>
-      <p>From the research I built four personas that map the spectrum of need &mdash; from a newcomer still waiting after 1.5 years to a planner doing it all over again for a second child.</p>
-    </div>
-    <div class="wide container">
-      <div class="figure"><img src="images/daycare/daycare-personas.png" alt="Four parent personas: Uma the Returner, Natalie the Planner, Priya the Pre-birth Early Bird, and Lena the Lost Beginner, each with goals, pain points, and design implications."></div>
-      <p class="figcap">Personas grounded in the parent interviews &mdash; Uma, Natalie, Priya, and Lena.</p>
-    </div>
-  </section>
-
-  <section class="block">
-    <div class="reader container">
-      <span class="eyebrow">What I Found</span>
-      <h2>The waitlist black box is the #1 pain</h2>
-      <p>Across the survey, waitlist transparency was the single pain point every respondent raised. Parents don&rsquo;t know their position, whether their application was even received, or how long to wait.</p>
-    </div>
-    <div class="wide container">
-      <div class="figure"><img src="images/daycare/daycare-02-painpoints.svg" alt="Bar chart of pain points by frequency: waitlist transparency 8 of 8, time and stress 7 of 8, application complexity 6 of 8, communication gaps 6 of 8, cost concerns 4 of 8."></div>
-      <p class="figcap">Pain points ranked by how many survey respondents raised each.</p>
-    </div>
-    <div class="reader container">
-      <div class="insights">
-        <div class="insight"><div class="n">01</div><h3>Zero waitlist transparency</h3><p>No position, no movement, no timeline &mdash; the source of maximum stress.</p></div>
-        <div class="insight"><div class="n">02</div><h3>Fragmented applications</h3><p>Parents contact 10&ndash;20 centers individually. No centralized system exists.</p></div>
-        <div class="insight"><div class="n">03</div><h3>No real-time availability</h3><p>Parents waste time applying to centers that are already full.</p></div>
-        <div class="insight"><div class="n">04</div><h3>Reactive communication</h3><p>Phone tag and unreturned emails. Parents must initiate every follow-up.</p></div>
-      </div>
-    </div>
-    <div class="wide container">
-      <div class="figure"><img src="images/daycare/daycare-affinity-map.png" alt="Affinity map clustering insights from six parent respondents across themes like waitlist opacity, manual tracking burden, fragmented applications, and CWELCC confusion."></div>
-      <p class="figcap">Affinity map clustering insights from the parent interviews.</p>
-    </div>
-  </section>
-
-  <section class="block">
-    <div class="reader container">
-      <span class="eyebrow">The Journey</span>
-      <h2>Five stages, one critical failure point</h2>
-      <p>Mapping the end-to-end journey shows where it breaks: the waitlist. Stress peaks exactly where the system goes silent.</p>
-    </div>
-    <div class="wide container">
-      <div class="figure">
+    <section class="block">
+      <span class="eyebrow">The villain</span>
+      <h2>A black box with no tracking number</h2>
+      <p>The deeper I went, the clearer the real problem became. It isn&rsquo;t cost anymore&mdash;it&rsquo;s <strong>not knowing</strong>. Parents can&rsquo;t see their position on a waitlist, can&rsquo;t see a timeline, and don&rsquo;t know the rules by which spots are handed out. They apply, and then they wait in silence.</p>
+      <div class="quote"><p>&ldquo;A lot of anxiety wondering when a spot would open up, or when someone would get back to me.&rdquo;</p><cite>&mdash; R1</cite></div>
+      <p>I mapped the full end-to-end service to find where the experience breaks. It breaks in one place, hard: the waitlist. That&rsquo;s where the wait stretches from months to over a year, where providers go quiet, and where parent stress peaks.</p>
+      <div class="diagram-wrap">
 <svg width="100%" viewBox="0 0 680 520" role="img" xmlns="http://www.w3.org/2000/svg" font-family="'Karla', system-ui, sans-serif">
 <title>Service blueprint of the Ontario daycare enrollment journey</title>
 <desc>Five stages from discovery to enrollment. The waitlist stage is the critical failure point, where parent stress peaks and there is no proactive communication from providers.</desc>
@@ -272,34 +248,65 @@
 <text class="ts" x="30" y="460" fill="#993c1d">Critical failure point: zero waitlist transparency — no position, no timeline, no proactive contact.</text>
 <text class="ts" x="30" y="478">Parents wait months to over a year in a black box, managing everything by hand.</text>
 </svg>
-
+        <p class="diagram-cap">Current-state service blueprint. The waitlist is the critical failure point&mdash;stress hits 5/5 exactly where communication goes silent.</p>
       </div>
-      <p class="figcap">A simplified view of the journey &mdash; the waitlist is the critical failure point.</p>
-      <div class="figure"><img src="images/daycare/daycare-journey-map.png" alt="Detailed customer journey map for parents from pre-search through enrollment, showing actions, quotes, emotions, and design opportunities at each phase."></div>
-      <p class="figcap">The full customer journey with parent quotes, emotions, and opportunities.</p>
-    </div>
-  </section>
+    </section>
 
-  <section class="block">
-    <div class="reader container">
-      <span class="eyebrow">Current-State Blueprint</span>
-      <h2>What happens behind the scenes</h2>
-      <p>The service blueprint exposes the manual, invisible work on the provider side &mdash; paper waitlists, no system, no proactive contact &mdash; that produces the parent&rsquo;s black-box experience.</p>
-    </div>
-    <div class="wide container">
-      <div class="figure"><img src="images/daycare/daycare-blueprint-detailed.png" alt="Current-state service blueprint across discovery, search and apply, waiting, spot offered, and enrollment, showing frontstage, backstage, technology, and failure points."></div>
-      <p class="figcap">Current-state service blueprint &mdash; frontstage, backstage, and failure points.</p>
-    </div>
-  </section>
+    <section class="block">
+      <span class="eyebrow">Proof it&rsquo;s systemic</span>
+      <h2>Not bad luck&mdash;a broken system</h2>
+      <p>If this were just Uma, it would be a sad story. It isn&rsquo;t. Across the research, one pain point came up for <strong>every single parent</strong>: not knowing where they stood. Transparency wasn&rsquo;t the top complaint&mdash;it was the universal one.</p>
+      <div class="diagram-wrap">
+<svg width="100%" viewBox="0 0 680 300" role="img" xmlns="http://www.w3.org/2000/svg" font-family="'Karla', system-ui, sans-serif">
+<title>Pain point frequency from the daycare parent survey</title>
+<desc>Bar chart of how often each pain point appeared across 8 survey respondents. Waitlist transparency was mentioned by all 8, time and stress by 7, application complexity by 6, communication gaps by 6, and cost concerns by 4.</desc>
+<style>
+  .th { font-weight:600; fill:#1f1f1f; font-size:14px; }
+  .t  { fill:#1f1f1f; font-size:14px; }
+  .ts { fill:#7a766e; font-size:12px; }
+  .bar { fill:#d3d1c7; }
+  .barlead { fill:#1f1f1f; }
+  .val { font-weight:600; fill:#1f1f1f; font-size:13px; }
+</style>
+<text class="th" x="30" y="30">What hurt most — pain points by frequency</text>
+<text class="ts" x="30" y="48">Share of 8 survey respondents who raised each issue</text>
 
-  <section class="block">
-    <div class="reader container">
-      <span class="eyebrow">Competitive Landscape</span>
-      <h2>Three layers of tools, one unfilled gap</h2>
-      <p>Every existing tool covers only part of the journey. Discovery tools help you search but not act. Provider tools manage children already enrolled. Government portals list providers but aren&rsquo;t built around the parent&rsquo;s decision. None bridges discovery to enrollment.</p>
-    </div>
-    <div class="wide container">
-      <div class="figure">
+<text class="t"  x="30" y="86">Waitlist transparency</text>
+<rect class="barlead" x="220" y="74" width="390" height="16" rx="2"/>
+<text class="val" x="620" y="86">8/8</text>
+
+<text class="t"  x="30" y="124">Time &amp; stress</text>
+<rect class="bar" x="220" y="112" width="341" height="16" rx="2"/>
+<text class="val" x="571" y="124">7/8</text>
+
+<text class="t"  x="30" y="162">Application complexity</text>
+<rect class="bar" x="220" y="150" width="293" height="16" rx="2"/>
+<text class="val" x="523" y="162">6/8</text>
+
+<text class="t"  x="30" y="200">Communication gaps</text>
+<rect class="bar" x="220" y="188" width="293" height="16" rx="2"/>
+<text class="val" x="523" y="200">6/8</text>
+
+<text class="t"  x="30" y="238">Cost concerns</text>
+<rect class="bar" x="220" y="226" width="195" height="16" rx="2"/>
+<text class="val" x="425" y="238">4/8</text>
+
+<line x1="220" y1="262" x2="610" y2="262" stroke="#e0ddd5" stroke-width="1"/>
+<text class="ts" x="30" y="284">Waitlist transparency was the only pain point every single parent raised.</text>
+</svg>
+        <p class="diagram-cap">Pain points by how often parents raised them. Waitlist transparency was the only one mentioned by everyone.</p>
+      </div>
+      <p>The most telling detail: even parents who had a <em>smooth</em> experience and already secured a spot still asked for more transparency. When people who &ldquo;won&rdquo; the process still want it changed, the problem isn&rsquo;t the individual&mdash;it&rsquo;s the design.</p>
+      <div class="quote"><p>&ldquo;Real-time updates on availability and waitlists, so parents don&rsquo;t have to follow up constantly.&rdquo;</p><cite>&mdash; R2</cite></div>
+      <p>And the workaround everyone invented was the same: a personal spreadsheet. Parents were hand-building the tracking system the service should have given them.</p>
+      <div class="quote"><p>&ldquo;Maybe they can all use the same waitlist website.&rdquo;</p><cite>&mdash; R1</cite></div>
+    </section>
+
+    <section class="block">
+      <span class="eyebrow">Why nothing fixes it</span>
+      <h2>Three layers of tools, one missing bridge</h2>
+      <p>If parents are in pain and providers are drowning, why hasn&rsquo;t a tool solved this? I ran a competitive analysis across everything in the market. The answer: every tool covers <em>part</em> of the journey, and none of them bridge it.</p>
+      <div class="diagram-wrap">
 <svg width="100%" viewBox="0 0 680 400" role="img" xmlns="http://www.w3.org/2000/svg" font-family="'Karla', system-ui, sans-serif">
 <title>The three-layer gap in Ontario childcare tools</title>
 <desc>Three categories of existing tools — discovery and search, provider management, and government portals — none of which cover the full journey from discovery through application, waitlist transparency, and enrollment. The gap sits in the middle.</desc>
@@ -344,10 +351,10 @@
 <text class="t"  x="30" y="332">Layer 3 lists providers but isn't built around the parent's decision.</text>
 <text class="ts" x="30" y="364" fill="#993c1d">Quebec's mandated portal is the only system in Canada that bridges the gap — Ontario has no equivalent.</text>
 </svg>
-
+        <p class="diagram-cap">Discovery tools, provider tools, and government portals&mdash;none bridge discovery to enrollment. That gap is the whole problem.</p>
       </div>
-      <p class="figcap">The three-layer gap: no Ontario tool bridges the full journey.</p>
-      <div class="figure">
+      <p>There&rsquo;s one exception in Canada. Quebec launched a centralized, government-mandated portal where every licensed provider must participate, parents apply once, and a monthly rank indicator shows roughly where they stand. It&rsquo;s the only system that closes the gap&mdash;and it took a mandate to do it. Ontario has no equivalent.</p>
+      <div class="diagram-wrap">
 <svg width="100%" viewBox="0 0 680 360" role="img" xmlns="http://www.w3.org/2000/svg" font-family="'Karla', system-ui, sans-serif">
 <title>Quebec benchmark: what it solved and where Ontario could improve</title>
 <desc>Quebec's centralized daycare portal solved mandatory participation, transparent ranking, single application, and public priority rules. Three gaps remain to improve on: pre-birth registration, including unlicensed home daycares, and multilingual access.</desc>
@@ -383,29 +390,34 @@
 <line class="hair" x1="30" y1="304" x2="650" y2="304" stroke-width="1"/>
 <text class="ts" x="30" y="328">Quebec proved a centralized model works. Ontario's version could go further on access and inclusion.</text>
 </svg>
-
+        <p class="diagram-cap">Quebec proved a centralized model works&mdash;and showed three places a next version could go further.</p>
       </div>
-      <p class="figcap">Quebec&rsquo;s mandated portal as a benchmark &mdash; and where Ontario could improve on it.</p>
-    </div>
-  </section>
+    </section>
 
-  <section class="block">
-    <div class="reader container">
-      <span class="eyebrow">The Concept</span>
-      <h2>A service that serves both sides</h2>
-      <p>The opportunity is a shared service layer: search by real availability, one application across many centers, a visible waitlist position, proactive notifications, and provider tools light enough that staff will actually keep them updated. The provider-side flow &mdash; receive inquiry, add to waitlist, manage, offer spot &mdash; is designed to replace the spreadsheet without adding work.</p>
-    </div>
-    <div class="wide container">
-      <div class="figure"><img src="images/daycare/daycare-wireframes.png" alt="Provider-side wireframes showing the flow from receiving an inquiry, adding to the waitlist, managing the waitlist, a spot opening, and offering the spot."></div>
-      <p class="figcap">Provider-side flow: receive inquiry &rarr; add to waitlist &rarr; manage &rarr; offer spot.</p>
-    </div>
-  </section>
-
-  <div class="reader container">
     <section class="block">
-      <span class="eyebrow">What&rsquo;s Still Open</span>
-      <h2>What I&rsquo;d validate next</h2>
-      <p>Senior service design means naming what you don&rsquo;t yet know. Do parents actually want their exact position &mdash; one respondent said more information increased her stress? How much time will providers spend updating a system before they abandon it? Who owns and maintains the platform &mdash; government, nonprofit, or private &mdash; and do parents trust it with their data after Quebec&rsquo;s 2021 breach? And what happens when a parent declines a spot &mdash; do they lose their place? These are the questions the next research round needs to answer.</p>
+      <span class="eyebrow">The vision</span>
+      <h2>It should feel like package tracking</h2>
+      <p>Here&rsquo;s the shift in one sentence. When you order a package, you get a tracking number: you know where it is, roughly when it arrives, and you&rsquo;re told if something changes. <strong>Right now, parents have sent a package with no tracking number and no estimated delivery date.</strong></p>
+      <p>The research points to a service that works for both sides at once&mdash;because any tool that fixes only one side has already failed. It rests on a few principles that came straight out of what parents told me:</p>
+      <ul class="principles">
+        <li><strong>Transparency over completeness.</strong> Parents need to know where they stand more than they need a perfect system. Even a rough position reduces anxiety.</li>
+        <li><strong>One action, many applications.</strong> The single most requested change&mdash;apply once, not to twenty centers.</li>
+        <li><strong>Proactive over reactive.</strong> Providers who reach out first transform the experience. Make that the default, not the exception.</li>
+        <li><strong>Make the rules visible.</strong> When parents understand how spots are allocated, trust grows&mdash;even if the answer isn&rsquo;t the one they wanted.</li>
+        <li><strong>Mobile-first, low-friction.</strong> Parents search on their phones while holding a baby. Every extra step loses someone.</li>
+      </ul>
+    </section>
+
+    <section class="block">
+      <span class="eyebrow">Intellectual honesty</span>
+      <h2>What I still need to validate</h2>
+      <p>A good case study shows its open edges. These are the questions I&rsquo;d test before building anything:</p>
+      <div class="stats">
+        <div class="stat"><div class="num">Stress?</div><div class="desc">One parent said more information <em>increased</em> her anxiety. How much visibility is the right amount?</div></div>
+        <div class="stat"><div class="num">2 min</div><div class="desc">If updating the system takes providers longer than two minutes, they won&rsquo;t do it. What&rsquo;s the lightest possible input?</div></div>
+        <div class="stat"><div class="num">Who owns it?</div><div class="desc">Government, nonprofit, or private&mdash;this changes everything about trust and adoption, especially after Quebec&rsquo;s 2021 data breach.</div></div>
+      </div>
+      <p>That&rsquo;s the real finding under all of it: the problem was never that parents couldn&rsquo;t afford daycare. It&rsquo;s that the system was never designed for the demand affordability created&mdash;and the fix has to be built around the one thing parents kept asking for. To know where they stand.</p>
     </section>
 
     <div class="next">
