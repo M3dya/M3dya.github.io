@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GLOCAL — Information Architecture Prototype</title>
+<style>
+  :root {
+    --yellow: #fad802;
+    --yellow-soft: #fff6c2;
+    --ink: #1b1b1b;
+    --ink-soft: #4a4a4a;
+    --line: #e5e5e0;
+    --bg: #ffffff;
+    --panel: #fbfbf8;
+    --good: #1f7a4d;
+    --good-soft: #e4f3ea;
+    --warn: #b25b00;
+    --warn-soft: #fbecd9;
+    --shadow: 0 1px 3px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.05);
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { line-height: 1.2; margin: 0 0 .4em; }
+  p { margin: 0 0 1em; color: var(--ink-soft); }
+  a { color: inherit; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 22px; }
+
+  /* ---------- top banner ---------- */
+  .banner {
+    background: var(--ink);
+    color: #fff;
+    font-size: 13px;
+    text-align: center;
+    padding: 8px 16px;
+  }
+  .banner b { color: var(--yellow); }
+
+  /* ---------- hero ---------- */
+  .hero {
+    background: linear-gradient(180deg, var(--yellow-soft) 0%, #fff 100%);
+    border-bottom: 1px solid var(--line);
+    padding: 54px 0 40px;
+  }
+  .eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--warn);
+    background: #fff;
+    border: 1px solid var(--line);
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+  }
+  .hero h1 { font-size: clamp(28px, 5vw, 44px); max-width: 16ch; }
+  .hero p { font-size: 17px; max-width: 60ch; }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px;
+  }
+  .chip {
+    font-size: 13px; font-weight: 600;
+    background: #fff; border: 1px solid var(--line);
+    padding: 7px 14px; border-radius: 999px;
+  }
+  .chip b { color: var(--ink); }
+
+  /* ---------- tabs ---------- */
+  .tabbar {
+    position: sticky; top: 0; z-index: 40;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .tabs { display: flex; gap: 4px; overflow-x: auto; }
+  .tab {
+    appearance: none; border: 0; background: transparent;
+    font: inherit; font-weight: 600; font-size: 15px;
+    color: var(--ink-soft);
+    padding: 16px 16px 13px; cursor: pointer;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+  }
+  .tab:hover { color: var(--ink); }
+  .tab.active { color: var(--ink); border-bottom-color: var(--yellow); }
+
+  section.view { display: none; padding: 40px 0 64px; }
+  section.view.active { display: block; }
+
+  .lead { font-size: 18px; color: var(--ink); max-width: 64ch; }
+  .kicker {
+    font-size: 12px; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--warn); margin-bottom: 8px;
+  }
+
+  /* ---------- before/after ---------- */
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 26px; }
+  .col {
+    border: 1px solid var(--line); border-radius: var(--radius);
+    background: var(--panel); overflow: hidden;
+  }
+  .col-head {
+    padding: 14px 18px; font-weight: 700; font-size: 15px;
+    display: flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+  .col-head.bad { background: var(--warn-soft); color: var(--warn); }
+  .col-head.good { background: var(--good-soft); color: var(--good); }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: currentColor; }
+  .navlist { list-style: none; margin: 0; padding: 12px; }
+  .navlist li {
+    padding: 9px 12px; font-size: 14px; font-weight: 600;
+    border-radius: 8px; color: var(--ink);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .navlist li.sub { font-weight: 500; color: var(--ink-soft); padding-left: 28px; font-size: 13px; }
+  .navlist li .tag { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; }
+  .tag.flag { background: var(--warn-soft); color: var(--warn); }
+  .tag.fix { background: var(--good-soft); color: var(--good); }
+  .count { font-size: 13px; font-weight: 600; padding: 4px 0 0 12px; color: var(--ink-soft); }
+
+  .findings { margin-top: 30px; }
+  .finding {
+    display: flex; gap: 14px; padding: 16px 0; border-top: 1px solid var(--line);
+  }
+  .finding:last-child { border-bottom: 1px solid var(--line); }
+  .finding .num {
+    flex: 0 0 auto; width: 28px; height: 28px; border-radius: 50%;
+    background: var(--yellow); color: var(--ink); font-weight: 800;
+    display: grid; place-items: center; font-size: 14px;
+  }
+  .finding h4 { margin: 2px 0 4px; font-size: 15px; }
+  .finding p { margin: 0; font-size: 14px; }
+
+  /* ---------- prototype (improved nav demo) ---------- */
+  .browser {
+    border: 1px solid var(--line); border-radius: var(--radius);
+    overflow: hidden; box-shadow: var(--shadow); margin-top: 24px; background: #fff;
+  }
+  .chrome {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px; background: var(--panel); border-bottom: 1px solid var(--line);
+  }
+  .chrome .lights { display: flex; gap: 6px; }
+  .chrome .lights span { width: 11px; height: 11px; border-radius: 50%; background: #d9d9d4; }
+  .chrome .url {
+    flex: 1; font-size: 12px; color: var(--ink-soft);
+    background: #fff; border: 1px solid var(--line); border-radius: 7px;
+    padding: 5px 10px; font-family: ui-monospace, monospace;
+  }
+  .sitenav {
+    display: flex; align-items: center; gap: 4px; flex-wrap: wrap;
+    padding: 12px 16px; border-bottom: 1px solid var(--line);
+  }
+  .brandmark {
+    font-weight: 800; font-size: 15px; margin-right: 10px; letter-spacing: -.01em;
+  }
+  .brandmark span { color: #c9ad00; }
+  .navbtn {
+    position: relative;
+    appearance: none; border: 0; background: transparent; font: inherit;
+    font-size: 13.5px; font-weight: 600; color: var(--ink-soft);
+    padding: 8px 11px; border-radius: 8px; cursor: pointer;
+  }
+  .navbtn:hover { background: var(--yellow-soft); color: var(--ink); }
+  .navbtn.cta { background: var(--ink); color: #fff; margin-left: auto; }
+  .navbtn.cta:hover { background: #000; }
+  .navbtn .caret { font-size: 10px; opacity: .6; margin-left: 3px; }
+  .dropdown {
+    display: none; position: absolute; top: 100%; left: 0; z-index: 5;
+    background: #fff; border: 1px solid var(--line); border-radius: 10px;
+    box-shadow: var(--shadow); padding: 6px; min-width: 220px; margin-top: 4px;
+  }
+  .navitem.open .dropdown { display: block; }
+  .dropdown a {
+    display: block; text-decoration: none; font-size: 13.5px; font-weight: 600;
+    color: var(--ink); padding: 9px 11px; border-radius: 7px;
+  }
+  .dropdown a small { display: block; font-weight: 500; color: var(--ink-soft); font-size: 12px; }
+  .dropdown a:hover { background: var(--yellow-soft); }
+  .stage {
+    padding: 30px 24px; min-height: 220px;
+    background: linear-gradient(180deg,#fff,var(--panel));
+  }
+  .page-demo h3 { font-size: 22px; }
+  .page-demo .crumb { font-size: 12px; color: var(--ink-soft); margin-bottom: 10px; font-weight: 600; }
+  .page-demo .crumb b { color: var(--warn); }
+  .demo-actions { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+  .demo-actions button {
+    font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+    border: 1px solid var(--line); background: #fff; padding: 9px 14px; border-radius: 8px;
+  }
+  .demo-actions button.primary { background: var(--yellow); border-color: var(--yellow); }
+  .hint {
+    margin-top: 18px; font-size: 13px; color: var(--ink-soft);
+    background: var(--yellow-soft); border-radius: 10px; padding: 12px 14px;
+  }
+  .hint b { color: var(--ink); }
+
+  /* ---------- survey ---------- */
+  .survey-card {
+    border: 1px solid var(--line); border-radius: var(--radius);
+    box-shadow: var(--shadow); background: #fff; margin-top: 24px; overflow: hidden;
+  }
+  .progress { height: 5px; background: var(--line); }
+  .progress > div { height: 100%; background: var(--yellow); width: 0; transition: width .3s ease; }
+  .q-body { padding: 30px 28px; }
+  .q-count { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--warn); margin-bottom: 10px; }
+  .q-text { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+  .q-sub { font-size: 13.5px; color: var(--ink-soft); margin-bottom: 20px; }
+  .options { display: grid; gap: 10px; }
+  .opt {
+    display: flex; align-items: center; gap: 12px; cursor: pointer;
+    border: 1.5px solid var(--line); border-radius: 11px; padding: 13px 16px;
+    font-size: 14.5px; font-weight: 600; transition: .15s;
+  }
+  .opt:hover { border-color: #d6c200; background: var(--yellow-soft); }
+  .opt.sel { border-color: var(--yellow); background: var(--yellow-soft); }
+  .opt .mark {
+    flex: 0 0 auto; width: 20px; height: 20px; border-radius: 50%;
+    border: 2px solid #c9c9c2; display: grid; place-items: center;
+  }
+  .opt.sel .mark { border-color: #c9ad00; }
+  .opt.sel .mark::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: #c9ad00; }
+  textarea {
+    width: 100%; min-height: 90px; resize: vertical; font: inherit; font-size: 14px;
+    border: 1.5px solid var(--line); border-radius: 11px; padding: 12px 14px;
+  }
+  textarea:focus { outline: none; border-color: var(--yellow); }
+  .q-foot {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 28px; border-top: 1px solid var(--line); background: var(--panel);
+  }
+  .btn {
+    font: inherit; font-size: 14px; font-weight: 700; cursor: pointer;
+    border-radius: 9px; padding: 11px 22px; border: 1px solid var(--line); background: #fff;
+  }
+  .btn.primary { background: var(--yellow); border-color: var(--yellow); }
+  .btn:disabled { opacity: .4; cursor: not-allowed; }
+  .done { text-align: center; padding: 50px 28px; }
+  .done .big { font-size: 46px; }
+  .done h3 { font-size: 24px; }
+  .recap { text-align: left; margin: 22px auto 0; max-width: 520px; }
+  .recap .row {
+    display: flex; gap: 12px; padding: 11px 0; border-top: 1px solid var(--line); font-size: 13.5px;
+  }
+  .recap .row b { flex: 0 0 46%; color: var(--ink); }
+  .recap .row span { color: var(--ink-soft); }
+
+  /* ---------- scenario ---------- */
+  .scenario { margin-top: 24px; display: grid; gap: 16px; }
+  .step {
+    display: grid; grid-template-columns: 40px 1fr; gap: 16px; align-items: start;
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; background: var(--panel);
+  }
+  .step .n {
+    width: 36px; height: 36px; border-radius: 10px; background: var(--ink); color: var(--yellow);
+    font-weight: 800; display: grid; place-items: center;
+  }
+  .step h4 { margin: 4px 0 4px; font-size: 16px; }
+  .step p { margin: 0; font-size: 14px; }
+  .step .meta { font-size: 12px; font-weight: 700; color: var(--warn); text-transform: uppercase; letter-spacing: .08em; }
+
+  footer {
+    border-top: 1px solid var(--line); background: var(--panel);
+    padding: 28px 0; font-size: 13px; color: var(--ink-soft); text-align: center;
+  }
+  footer b { color: var(--ink); }
+
+  @media (max-width: 720px) {
+    .compare { grid-template-columns: 1fr; }
+    .navbtn.cta { margin-left: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="banner">Interactive prototype &nbsp;·&nbsp; <b>GLOCAL — Information Architecture redesign</b> &nbsp;·&nbsp; not the live site</div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Task T01205 · Digital · Advanced</span>
+    <h1>Rethinking how people find their way around GLOCAL</h1>
+    <p>The current site lists fourteen top-level menu items and scatters its three core programs across the navigation. This prototype shows the problem, proposes a cleaner structure, and lets reviewers test it through a short survey.</p>
+    <div class="hero-meta">
+      <span class="chip"><b>Goal</b> · validate navigation before redesign</span>
+      <span class="chip"><b>Method</b> · IA audit + survey</span>
+      <span class="chip"><b>Source</b> · glocalfoundation.ca</span>
+    </div>
+  </div>
+</header>
+
+<div class="tabbar">
+  <div class="wrap">
+    <div class="tabs">
+      <button class="tab active" data-view="compare">1 · Before / After</button>
+      <button class="tab" data-view="proto">2 · Click the new nav</button>
+      <button class="tab" data-view="survey">3 · Take the survey</button>
+      <button class="tab" data-view="scenario">4 · Walkthrough</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ VIEW 1: COMPARE ============ -->
+<section class="view active" id="compare">
+  <div class="wrap">
+    <div class="kicker">Information architecture audit</div>
+    <p class="lead">A side-by-side look at the live menu versus a proposed structure that groups the three programs and trims the top level from fourteen items to six.</p>
+
+    <div class="compare">
+      <div class="col">
+        <div class="col-head bad"><span class="dot"></span> Live site — top level (14 items)</div>
+        <ul class="navlist">
+          <li>Home</li>
+          <li>YouCount.ca <span class="tag flag">unclear name</span></li>
+          <li>Online Volunteering <span class="tag flag">program</span></li>
+          <li>Microgrants <span class="tag flag">program</span></li>
+          <li>Civic Essay Contest <span class="tag flag">program</span></li>
+          <li>About Us</li>
+          <li>Project Showcase</li>
+          <li>Our Research ▾</li>
+          <li>Our Events</li>
+          <li>Get Involved <span class="tag flag">overlaps</span></li>
+          <li>Resources ▾</li>
+          <li>Contact Us</li>
+          <li>Careers</li>
+          <li>More ▾ <span class="tag flag">duplicate</span></li>
+        </ul>
+        <div class="count">Programs are spread across 4 separate links. "Get Involved" overlaps them. Footer adds Reports &amp; Explore that aren't in the menu.</div>
+      </div>
+
+      <div class="col">
+        <div class="col-head good"><span class="dot"></span> Proposed — top level (6 items)</div>
+        <ul class="navlist">
+          <li>Home</li>
+          <li>Programs ▾ <span class="tag fix">grouped</span></li>
+          <li class="sub">Online Volunteering</li>
+          <li class="sub">Microgrants</li>
+          <li class="sub">Civic Essay Contest</li>
+          <li class="sub">YouCount.ca</li>
+          <li>Get Involved <span class="tag fix">one clear path</span></li>
+          <li>Resources ▾</li>
+          <li class="sub">How It Works &amp; FAQs</li>
+          <li class="sub">Educational Resources · Training</li>
+          <li class="sub">Reports &amp; Publications</li>
+          <li>Events</li>
+          <li>About Us ▾ <span class="tag fix">+ Careers, Team</span></li>
+        </ul>
+        <div class="count">Three programs live under one menu. Everything a volunteer needs to start sits under "Get Involved." Nothing hides only in the footer.</div>
+      </div>
+    </div>
+
+    <div class="findings">
+      <div class="finding"><div class="num">1</div><div><h4>Too many top-level choices</h4><p>Fourteen items force visitors to scan the whole bar before acting. Six labelled groups let them predict where things live.</p></div></div>
+      <div class="finding"><div class="num">2</div><div><h4>Programs are scattered</h4><p>Online Volunteering, Microgrants, the Essay Contest, and YouCount each sit on their own. Grouping them under "Programs" makes the offer legible at a glance.</p></div></div>
+      <div class="finding"><div class="num">3</div><div><h4>"Get Involved" competes with the programs</h4><p>Right now it overlaps the program links. It becomes the single, obvious starting point for a new volunteer.</p></div></div>
+      <div class="finding"><div class="num">4</div><div><h4>Menu and footer disagree</h4><p>Reports and Explore appear only in the footer. The proposal pulls reporting into Resources so navigation is consistent everywhere.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VIEW 2: PROTOTYPE ============ -->
+<section class="view" id="proto">
+  <div class="wrap">
+    <div class="kicker">Clickable prototype</div>
+    <p class="lead">This is the proposed navigation, live. Open the menus, click a destination, and watch the breadcrumb confirm where each path leads.</p>
+
+    <div class="browser">
+      <div class="chrome">
+        <div class="lights"><span></span><span></span><span></span></div>
+        <div class="url">glocalfoundation.ca</div>
+      </div>
+      <nav class="sitenav" id="sitenav">
+        <span class="brandmark">GLO<span>CAL</span></span>
+
+        <button class="navbtn" data-go="home" data-crumb="Home">Home</button>
+
+        <div class="navitem">
+          <button class="navbtn" data-menu>Programs <span class="caret">▼</span></button>
+          <div class="dropdown">
+            <a data-go="ov" data-crumb="Programs › Online Volunteering">Online Volunteering<small>Volunteer at your own pace</small></a>
+            <a data-go="mg" data-crumb="Programs › Microgrants">Microgrants<small>Up to $5,000 for community projects</small></a>
+            <a data-go="essay" data-crumb="Programs › Civic Essay Contest">Civic Essay Contest<small>Write, submit, win</small></a>
+            <a data-go="yc" data-crumb="Programs › YouCount.ca">YouCount.ca<small>Civic engagement platform</small></a>
+          </div>
+        </div>
+
+        <button class="navbtn" data-go="involved" data-crumb="Get Involved">Get Involved</button>
+
+        <div class="navitem">
+          <button class="navbtn" data-menu>Resources <span class="caret">▼</span></button>
+          <div class="dropdown">
+            <a data-go="how" data-crumb="Resources › How It Works &amp; FAQs">How It Works &amp; FAQs<small>Start volunteering</small></a>
+            <a data-go="edu" data-crumb="Resources › Educational Resources">Educational Resources · Training</a>
+            <a data-go="reports" data-crumb="Resources › Reports &amp; Publications">Reports &amp; Publications<small>Read our research</small></a>
+          </div>
+        </div>
+
+        <button class="navbtn" data-go="events" data-crumb="Events">Events</button>
+
+        <div class="navitem">
+          <button class="navbtn" data-menu>About Us <span class="caret">▼</span></button>
+          <div class="dropdown">
+            <a data-go="about" data-crumb="About Us › Our Story">Our Story &amp; Mission</a>
+            <a data-go="team" data-crumb="About Us › Team">Team &amp; Board</a>
+            <a data-go="careers" data-crumb="About Us › Careers">Careers</a>
+          </div>
+        </div>
+
+        <button class="navbtn cta" data-go="start" data-crumb="Get Involved › Start now">Volunteer now</button>
+      </nav>
+
+      <div class="stage" id="stage">
+        <div class="page-demo">
+          <div class="crumb">You are here: <b>Home</b></div>
+          <h3>Welcome to GLOCAL</h3>
+          <p>Open a menu above and choose a destination. Each click loads the matching page and updates the breadcrumb — the same way the redesigned site would behave.</p>
+          <div class="hint"><b>Try this:</b> you want to apply for a $5,000 grant. Open <b>Programs</b> and pick Microgrants.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VIEW 3: SURVEY ============ -->
+<section class="view" id="survey">
+  <div class="wrap">
+    <div class="kicker">Pilot survey · stage one</div>
+    <p class="lead">A trimmed first-stage survey that tests where people expect things to live — before they ever see the menu. Click through it as a reviewer would.</p>
+
+    <div class="survey-card">
+      <div class="progress"><div id="bar"></div></div>
+      <div id="qzone"></div>
+      <div class="q-foot" id="qfoot">
+        <button class="btn" id="backBtn" disabled>Back</button>
+        <button class="btn primary" id="nextBtn" disabled>Next</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VIEW 4: SCENARIO ============ -->
+<section class="view" id="scenario">
+  <div class="wrap">
+    <div class="kicker">Walkthrough scenario for reviewers</div>
+    <p class="lead">Hand this to a stakeholder. It frames the user, the task, the steps, and what success looks like — so everyone reviews the prototype the same way.</p>
+
+    <div class="scenario">
+      <div class="step"><div class="n">U</div><div><div class="meta">The user</div><h4>Maya, 22, first-time visitor</h4><p>A student who heard GLOCAL gives small grants for community projects. She has never used the site and wants to apply.</p></div></div>
+      <div class="step"><div class="n">G</div><div><div class="meta">Her goal</div><h4>Find and start a $5,000 grant application</h4><p>She lands on the homepage with one job in mind: figure out where grants live and how to begin.</p></div></div>
+      <div class="step"><div class="n">1</div><div><div class="meta">Step one</div><h4>Scan the menu</h4><p>On the live site she meets fourteen links and hesitates. In the prototype she sees six, and "Programs" reads as the likely home for grants.</p></div></div>
+      <div class="step"><div class="n">2</div><div><div class="meta">Step two</div><h4>Open Programs → Microgrants</h4><p>The grouped menu confirms her guess on the first click. The breadcrumb shows <b>Programs › Microgrants</b>.</p></div></div>
+      <div class="step"><div class="n">3</div><div><div class="meta">Step three</div><h4>Start the application</h4><p>The Microgrants page leads with a clear "Apply" action rather than burying it in body text.</p></div></div>
+      <div class="step"><div class="n">✓</div><div><div class="meta">Expected outcome</div><h4>Maya reaches the application in two clicks</h4><p>Success = she never uses search, never backtracks, and can describe afterwards why each step made sense. The survey captures whether real users predict the same paths.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <b>GLOCAL Information Architecture Prototype</b> · built for volunteer task T01205 · demonstration only, not affiliated with the live site
+  </div>
+</footer>
+
+<script>
+/* ---------- tab switching ---------- */
+const tabs = document.querySelectorAll('.tab');
+const views = document.querySelectorAll('.view');
+tabs.forEach(t => t.addEventListener('click', () => {
+  tabs.forEach(x => x.classList.remove('active'));
+  views.forEach(v => v.classList.remove('active'));
+  t.classList.add('active');
+  document.getElementById(t.dataset.view).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'auto' });
+}));
+
+/* ---------- prototype nav ---------- */
+const sitenav = document.getElementById('sitenav');
+const stage = document.getElementById('stage');
+
+const pages = {
+  home:    ['Home', 'Welcome to GLOCAL', 'Open a menu above and pick a destination.'],
+  ov:      ['Programs › Online Volunteering', 'Online Volunteering', 'Contribute to your community at your own pace, from anywhere in Canada.'],
+  mg:      ['Programs › Microgrants', 'CANConnect Microgrants', 'Apply for up to $5,000 to bring a community project to life.'],
+  essay:   ['Programs › Civic Essay Contest', 'Civic Essay Contest', 'Share your perspective on civic life and compete for recognition.'],
+  yc:      ['Programs › YouCount.ca', 'YouCount.ca', 'Our civic engagement platform connecting young Canadians nationwide.'],
+  involved:['Get Involved', 'Get Involved', 'The single starting point — choose how you want to take part.'],
+  how:     ['Resources › How It Works & FAQs', 'How It Works', 'Step-by-step answers for new volunteers.'],
+  edu:     ['Resources › Educational Resources', 'Educational Resources & Training', 'Guides and training to build your skills.'],
+  reports: ['Resources › Reports & Publications', 'Reports & Publications', 'Read the research GLOCAL publishes on civic engagement.'],
+  events:  ['Events', 'GLOCAL Events', 'Workshops, LegisTALK sessions, and community socials.'],
+  about:   ['About Us › Our Story', 'Who We Are', 'A national not-for-profit connecting local action with global understanding.'],
+  team:    ['About Us › Team', 'Team & Board', 'The people behind GLOCAL.'],
+  careers: ['About Us › Careers', 'Careers', 'Join the team building civic engagement in Canada.'],
+  start:   ['Get Involved › Start now', "Let's get you started", 'Create your volunteer profile and pick your first task.']
+};
+
+function closeMenus(){ sitenav.querySelectorAll('.navitem').forEach(i => i.classList.remove('open')); }
+
+sitenav.addEventListener('click', e => {
+  const menuBtn = e.target.closest('[data-menu]');
+  if (menuBtn) {
+    const item = menuBtn.closest('.navitem');
+    const wasOpen = item.classList.contains('open');
+    closeMenus();
+    if (!wasOpen) item.classList.add('open');
+    return;
+  }
+  const go = e.target.closest('[data-go]');
+  if (go) {
+    const key = go.dataset.go;
+    const [crumb, title, body] = pages[key] || pages.home;
+    const isHome = key === 'home';
+    stage.innerHTML = `
+      <div class="page-demo">
+        <div class="crumb">You are here: <b>${crumb}</b></div>
+        <h3>${title}</h3>
+        <p>${body}</p>
+        ${ (key==='mg'||key==='start'||key==='involved'||key==='ov') ? `
+          <div class="demo-actions">
+            <button class="primary">${key==='mg'?'Apply for a grant':'Start now'}</button>
+            <button>Learn more</button>
+          </div>` : '' }
+        ${ isHome ? `<div class="hint"><b>Try this:</b> you want to apply for a $5,000 grant. Open <b>Programs</b> and pick Microgrants.</div>` : '' }
+        ${ key==='mg' ? `<div class="hint">✓ Reached in <b>one click</b> from the homepage — no search, no backtracking.</div>` : '' }
+      </div>`;
+    closeMenus();
+  }
+});
+document.addEventListener('click', e => { if (!e.target.closest('#sitenav')) closeMenus(); });
+
+/* ---------- survey engine ---------- */
+const Q = [
+  { sec:'Screening', q:'Have you used the GLOCAL or YouCount website before?', sub:'Helps us separate first-time impressions from returning users.',
+    opts:['First time','Once or twice','I use it regularly'] },
+  { sec:'What you expect', q:'You want to apply for a $5,000 grant for a community project. Where would you look first?', sub:'No peeking at the menu — go with instinct.',
+    opts:['Programs','Get Involved','About Us','Resources','I’d use search'] },
+  { sec:'What you expect', q:'You completed 10 volunteer hours and want to log them. Where would you expect that to live?',
+    opts:['My profile / dashboard','The volunteering page','A separate “Hours” page','I’d email them'] },
+  { sec:'Labels & language', q:'Which label makes you most confident you’re in the right place to start volunteering?',
+    opts:['Online Volunteering','Get Involved','Volunteer now','Programs','Join us'] },
+  { sec:'Labels & language', q:'Before clicking it, what do you expect “YouCount.ca” to be?', sub:'Tests whether the brand name communicates anything on its own.',
+    opts:['An hour-tracking tool','A civic platform','A survey / census tool','A youth program','No idea'] },
+  { sec:'Structure', q:'GLOCAL has several programs. How should they appear in the navigation?',
+    opts:['All under one “Programs” menu','Each as its own top link','All under “Get Involved”','No strong preference'] },
+  { sec:'Structure', q:'Which top-level structure feels most intuitive?',
+    opts:['Home · Programs · Resources · About · Get Involved','Home · Volunteer · Events · Research · About','Home · Get Involved · Learn · About','I’d organize it differently'] },
+  { sec:'Homepage', q:'Which homepage would make you more likely to take action?',
+    opts:['Bold hero + single “Get Involved” button','Dashboard with separate paths','Short intro video + key links','A simple list of everything'] },
+  { sec:'Open feedback', q:'Anything you’d expect from a volunteer org’s website that’s often missing?', sub:'Optional — a sentence or two is plenty.',
+    open:true }
+];
+
+let idx = 0;
+const answers = new Array(Q.length).fill(null);
+const qzone = document.getElementById('qzone');
+const bar = document.getElementById('bar');
+const backBtn = document.getElementById('backBtn');
+const nextBtn = document.getElementById('nextBtn');
+const qfoot = document.getElementById('qfoot');
+
+function render(){
+  const item = Q[idx];
+  bar.style.width = (idx/Q.length*100) + '%';
+  let html = `<div class="q-body">
+    <div class="q-count">${item.sec} · ${idx+1} of ${Q.length}</div>
+    <div class="q-text">${item.q}</div>
+    ${item.sub ? `<div class="q-sub">${item.sub}</div>` : ''}`;
+  if (item.open){
+    html += `<textarea id="openInput" placeholder="Type your answer…">${answers[idx]||''}</textarea>`;
+  } else {
+    html += `<div class="options">` + item.opts.map((o,i)=>
+      `<div class="opt ${answers[idx]===i?'sel':''}" data-i="${i}"><span class="mark"></span>${o}</div>`).join('') + `</div>`;
+  }
+  html += `</div>`;
+  qzone.innerHTML = html;
+
+  if (item.open){
+    const ta = document.getElementById('openInput');
+    ta.addEventListener('input', () => { answers[idx] = ta.value; updateNext(); });
+  } else {
+    qzone.querySelectorAll('.opt').forEach(o => o.addEventListener('click', () => {
+      answers[idx] = +o.dataset.i;
+      qzone.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));
+      o.classList.add('sel');
+      updateNext();
+    }));
+  }
+  backBtn.disabled = idx === 0;
+  nextBtn.textContent = idx === Q.length-1 ? 'See summary' : 'Next';
+  updateNext();
+}
+function updateNext(){
+  const item = Q[idx];
+  nextBtn.disabled = item.open ? false : (answers[idx] === null);
+}
+backBtn.addEventListener('click', () => { if(idx>0){idx--; render();} });
+nextBtn.addEventListener('click', () => {
+  if (idx < Q.length-1){ idx++; render(); }
+  else finish();
+});
+function finish(){
+  bar.style.width = '100%';
+  qfoot.style.display = 'none';
+  const rows = Q.map((item,i)=>{
+    const a = answers[i];
+    const val = item.open ? (a ? a : '—(skipped)') : (a===null ? '—' : item.opts[a]);
+    return `<div class="row"><b>${item.q}</b><span>${val}</span></div>`;
+  }).join('');
+  qzone.innerHTML = `<div class="done">
+    <div class="big">✓</div>
+    <h3>Thanks — that’s the pilot</h3>
+    <p>In the real study these answers feed a navigation map showing where people <i>expect</i> things, versus where they live today.</p>
+    <div class="recap">${rows}</div>
+  </div>`;
+}
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glocal Foundation — Translating 24 Years of Government Data into a Policy-Ready Equity Narrative</title>
+<style>
+:root{
+  --ink:#1a1a1a; --muted:#6b6b6b; --line:#e6e6e6;
+  --bg:#ffffff; --panel:#1a1a1a; --pill:#4a4a4a;
+  --accent:#1a1a1a; --soft:#f6f6f4;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:Georgia,'Times New Roman',serif;
+  color:var(--ink); background:var(--bg);
+  line-height:1.7; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px;}
+/* Header / nav */
+header.site{
+  position:sticky;top:0;z-index:50;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+header.site .bar{display:flex;align-items:center;justify-content:space-between;
+  height:64px;max-width:880px;margin:0 auto;padding:0 24px;}
+.brand{display:flex;align-items:center;gap:10px;font-weight:bold;letter-spacing:.04em;}
+.brand .mark{width:34px;height:34px;border-radius:8px;background:var(--panel);
+  color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;}
+nav.site a{color:var(--ink);text-decoration:none;margin-left:22px;font-size:15px;
+  font-family:Arial,Helvetica,sans-serif;}
+nav.site a:hover{text-decoration:underline;}
+/* Hero cover */
+.cover{background:var(--panel);color:#fff;border-radius:0;}
+.cover .inner{max-width:880px;margin:0 auto;padding:64px 24px;}
+.eyebrow{font-family:Arial,Helvetica,sans-serif;font-size:13px;letter-spacing:.14em;
+  text-transform:uppercase;color:#bdbdbd;margin-bottom:18px;}
+.cover h1{font-size:40px;line-height:1.18;font-weight:normal;letter-spacing:-.01em;}
+.meta{margin-top:18px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#cfcfcf;}
+.tags{margin-top:22px;display:flex;flex-wrap:wrap;gap:8px;}
+.tag{font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;background:#2b2b2b;color:#e8e8e8;border:1px solid #3a3a3a;
+  padding:6px 12px;border-radius:6px;}
+section{padding:46px 0;border-bottom:1px solid var(--line);}
+section:last-of-type{border-bottom:none;}
+h2{font-size:26px;font-weight:normal;margin-bottom:8px;letter-spacing:-.01em;}
+h3{font-size:18px;font-weight:bold;margin:22px 0 6px;
+  font-family:Arial,Helvetica,sans-serif;}
+p{margin:12px 0;font-size:18px;color:#2a2a2a;}
+.lead{font-size:20px;color:#1a1a1a;}
+.kicker{font-family:Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.problem-quote{background:var(--soft);border-left:3px solid var(--ink);
+  padding:22px 26px;border-radius:0 8px 8px 0;font-size:20px;line-height:1.6;margin:8px 0;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px;}
+.card{border:1px solid var(--line);border-radius:12px;padding:20px 22px;background:#fff;}
+.card .ic{font-size:22px;}
+.card h4{font-family:Arial,Helvetica,sans-serif;font-size:16px;margin:8px 0 6px;}
+.card p{font-size:15px;color:#454545;margin:0;}
+.steps{counter-reset:s;margin-top:18px;}
+.step{display:flex;gap:18px;padding:18px 0;border-top:1px solid var(--line);}
+.step:first-child{border-top:none;}
+.step .n{counter-increment:s;font-family:Arial,Helvetica,sans-serif;font-weight:bold;
+  font-size:14px;min-width:34px;height:34px;border-radius:50%;background:var(--panel);
+  color:#fff;display:flex;align-items:center;justify-content:center;}
+.step .n::before{content:counter(s,decimal-leading-zero);}
+.step h4{font-family:Arial,Helvetica,sans-serif;font-size:17px;margin-bottom:4px;}
+.step p{margin:0;font-size:16px;color:#3a3a3a;}
+.principles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px;}
+.principle{background:var(--soft);border-radius:12px;padding:22px;}
+.principle .num{font-family:Arial,Helvetica,sans-serif;font-size:30px;color:#c9c7bd;font-weight:bold;}
+.principle p{font-size:15px;margin-top:8px;color:#333;}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:18px;}
+.stat{border:1px solid var(--line);border-radius:12px;padding:22px;}
+.stat .big{font-family:Arial,Helvetica,sans-serif;font-size:30px;font-weight:bold;}
+.stat .lbl{font-family:Arial,Helvetica,sans-serif;font-size:14px;color:var(--muted);margin-top:4px;}
+.coverimg{margin:18px 0;border-radius:12px;overflow:hidden;border:1px solid var(--line);
+  background:var(--soft);}
+.coverimg img{display:block;width:100%;height:auto;}
+.shot{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--soft);}
+.shot img{display:block;width:100%;height:auto;}
+figure.g{margin:0;}
+figure.g figcaption{font-family:Arial,Helvetica,sans-serif;font-size:13px;color:var(--muted);
+  margin-top:8px;text-align:center;}
+.pull{font-style:italic;font-size:22px;line-height:1.5;color:#1a1a1a;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:28px 0;margin:30px 0;}
+footer.site{background:var(--panel);color:#cfcfcf;padding:40px 0;
+  font-family:Arial,Helvetica,sans-serif;font-size:14px;}
+footer.site a{color:#fff;text-decoration:none;margin-right:18px;}
+.backhome{font-family:Arial,Helvetica,sans-serif;font-size:15px;}
+@media(max-width:680px){
+  .cover h1{font-size:30px;}
+  .grid2,.grid3,.principles,.stats{grid-template-columns:1fr;}
+  p,.lead{font-size:17px;}
+}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="bar">
+    <div class="brand"><span class="mark">MA</span><span>Medya Asgharian</span></div>
+    <nav class="site">
+      <a href="index.html">Home</a>
+      <a href="index.html#work">Work</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="cover">
+  <div class="inner">
+    <div class="eyebrow">Case Study · Civic Research &amp; Information Design</div>
+    <h1>Translating 24 years of government data into a policy-ready equity narrative</h1>
+    <div class="meta">Lead UX Researcher &amp; Information Designer · Glocal Foundation of Canada · 2024</div>
+    <div class="tags">
+      <span class="tag">Mixed-Methods Research</span>
+      <span class="tag">Evidence Synthesis</span>
+      <span class="tag">Information Architecture</span>
+      <span class="tag">Data Storytelling</span>
+      <span class="tag">Civic / Policy</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="coverimg"><img src="images/glocal/infographic.jpeg" alt="Twelve-panel infographic: What does gender equality in Canada's workforce really look like? Insights from 20+ years of Statistics Canada data, 2000-2024."></div>
+
+  <section>
+    <div class="kicker">The Problem — told as it was faced</div>
+    <div class="problem-quote">
+      Glocal needed to advocate to government on gender inequality in Canada&rsquo;s labour
+      market. The evidence existed &mdash; but it was buried across eleven dense Statistics
+      Canada reports spanning 24 years, in language no policymaker has time to parse.
+    </div>
+    <p>This wasn&rsquo;t a data-availability problem. The numbers were authoritative and public.
+    It was a communication problem: scattered, statistical, and without a throughline, the
+    evidence couldn&rsquo;t travel into the rooms where decisions get made.</p>
+  </section>
+
+  <section>
+    <div class="kicker">Context &amp; Stakes</div>
+    <h2>Authoritative data that couldn&rsquo;t move anyone</h2>
+    <p>Advocacy to government is only as strong as its evidence &mdash; and only as effective
+    as that evidence is legible. The relevant findings lived in eleven distinct StatCan
+    publications, each with its own scope, methodology, and timeframe. No single source told
+    the whole story, and decision-makers act on clear, defensible narratives, not on tables.</p>
+    <h3>My Role</h3>
+    <p>I led the work end to end: sourced and synthesized two decades of federal data, found
+    the narrative that connected it, and designed how that narrative would reach a government
+    audience &mdash; a twelve-panel evidence brief built to be absorbed, trusted, and acted on.</p>
+  </section>
+
+  <section>
+    <div class="kicker">Why the evidence didn&rsquo;t land</div>
+    <h2>Three barriers, compounding</h2>
+    <div class="grid3">
+      <div class="card">
+        <div class="ic">🧩</div>
+        <h4>Fragmentation</h4>
+        <p>Eleven separate reports, each with its own scope and timeframe. The full picture
+        existed only if someone assembled it.</p>
+      </div>
+      <div class="card">
+        <div class="ic">📊</div>
+        <h4>Inaccessibility</h4>
+        <p>Wage gaps, percentage-point shifts, R&amp;D differentials, automation risk &mdash;
+        accurate, but not absorbable under time pressure.</p>
+      </div>
+      <div class="card">
+        <div class="ic">🧭</div>
+        <h4>No throughline</h4>
+        <p>Each figure was undeniable alone; together they had no &ldquo;so what.&rdquo; The
+        argument was invisible until constructed.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker">Research Process → Solution Design</div>
+    <h2>From eleven reports to one argument</h2>
+    <div class="steps">
+      <div class="step"><div class="n"></div><div>
+        <h4>Synthesize the evidence</h4>
+        <p>Worked through all eleven StatCan reports, extracting the load-bearing findings and
+        reconciling them across inconsistent timeframes and definitions to find a single
+        defensible thesis.</p></div></div>
+      <div class="step"><div class="n"></div><div>
+        <h4>Name the thesis</h4>
+        <p>It emerged clearly: equality of <em>access</em> has improved; equality of
+        <em>outcome</em> has not. That tension became the spine of the entire brief.</p></div></div>
+      <div class="step"><div class="n"></div><div>
+        <h4>Architect the narrative</h4>
+        <p>Sequenced twelve panels as a deliberate argument &mdash; context, gains, persistent
+        barriers, intersectional reality, then implication and call to action &mdash; so the
+        order itself does the persuading.</p></div></div>
+      <div class="step"><div class="n"></div><div>
+        <h4>Design for comprehension</h4>
+        <p>Built a scannable visual system: one idea per panel, consistent encoding (paired bars
+        for the narrowing wage gap, dials for representation), and an institutional palette that
+        reads as credible, not promotional.</p></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker">The Solution</div>
+    <h2>The twelve-panel evidence brief</h2>
+    <p>The finished artifact carries the full argument in twelve sequenced panels &mdash;
+    progress and barrier held in deliberate tension from the opening frame to the call to act.</p>
+    <figure class="g">
+      <div class="shot"><img src="images/glocal/infographic.jpeg" alt="Full twelve-panel gender-equality evidence brief synthesized from Statistics Canada data."></div>
+      <figcaption>The complete brief &mdash; synthesized from eleven Statistics Canada reports, 2000&ndash;2024</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="kicker">Key decisions</div>
+    <h2>Three choices, each a real tradeoff</h2>
+    <div class="grid3">
+      <div class="card">
+        <div class="ic">⚖️</div>
+        <h4>Pair every gain with a barrier</h4>
+        <p>Too positive and the advocacy collapses; too negative and the audience disengages.
+        Pairing each progress panel with a barrier kept it honest and made the thesis
+        unavoidable.</p>
+      </div>
+      <div class="card">
+        <div class="ic">👥</div>
+        <h4>Give intersectionality its own space</h4>
+        <p>The easy cut was a footnote. Instead, Indigenous, racialized, immigrant, and disabled
+        women got dedicated panels &mdash; aggregated data hides exactly what government needs to
+        see.</p>
+      </div>
+      <div class="card">
+        <div class="ic">🎯</div>
+        <h4>Encode for comprehension</h4>
+        <p>Not every statistic made the cut. One idea per panel, in the simplest form that
+        preserves accuracy &mdash; attention, not data, was the binding constraint.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker">Impact</div>
+    <h2>Outcome</h2>
+    <div class="stats">
+      <div class="stat"><div class="big">11 → 1</div>
+        <div class="lbl">Eleven StatCan reports synthesized into one coherent narrative</div></div>
+      <div class="stat"><div class="big">24 yrs</div>
+        <div class="lbl">Of federal labour-market data made legible to a policy audience</div></div>
+      <div class="stat"><div class="big">12 panels</div>
+        <div class="lbl">Sequenced as a single argument, progress paired with barrier</div></div>
+      <div class="stat"><div class="big">Repeatable</div>
+        <div class="lbl">A reusable model for turning public data into advocacy-ready communication</div></div>
+    </div>
+    <div class="pull">&ldquo;The data was never the problem &mdash; the silence between the
+    reports was. Once I named the thesis, the whole story had somewhere to go.&rdquo;</div>
+  </section>
+
+  <section>
+    <div class="kicker">Reflection</div>
+    <h2>What I&rsquo;d do next</h2>
+    <p>The brief rests on a strong analytical thesis and audience-aware design &mdash; but its
+    persuasive effect on policymakers is currently a designed hypothesis, not a tested one. The
+    natural next iteration is to validate it against the people it&rsquo;s meant to move.</p>
+    <p>I&rsquo;d run a short comprehension study with four to five stakeholders in the target
+    audience, focused on the densest panels (R&amp;D investment, automation risk), to confirm the
+    takeaways land in seconds rather than minutes. I&rsquo;d also test the progress-first order
+    against a barrier-first variant to measure which framing strengthens the call to action
+    without triggering disengagement. That loop &mdash; design the communication, then validate
+    it &mdash; is what turns an evidence brief into a research-driven instrument.</p>
+    <p class="backhome" style="margin-top:28px;"><a href="index.html">&larr; Back to all work</a></p>
+  </section>
+
+</div>
+
+<footer class="site">
+  <div class="wrap">
+    <div style="margin-bottom:10px;">&copy; 2026 Medya Asgharyan</div>
+    <a href="mailto:asgharyan.medya@gmail.com">Email</a>
+    <a href="https://www.linkedin.com/in/asgharyan-medya/">LinkedIn</a>
+    <a href="https://github.com/M3dya">GitHub</a>
+  </div>
+</footer>
+
+</body>
+</html>

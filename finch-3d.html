@@ -15,7 +15,7 @@
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; scroll-behavior: smooth; }
-  body { background: var(--bg); color: var(--body); font-family: 'Karla', system-ui, sans-serif; line-height: 1.65; }
+  body { background: var(--bg); color: var(--body); font-family: 'Karla', system-ui, sans-serif; line-height: 1.65; overflow-x: hidden; }
   a { color: inherit; }
   h1, h2, h3, .logo, .eyebrow { font-family: 'Poppins', system-ui, sans-serif; }
 
@@ -112,14 +112,14 @@
   .principle p { font-size: .95rem; margin-top: 8px; color: #333; }
 
   /* ---- Image gallery ---- */
-  .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px; }
+  .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 18px; width: min(100vw, 1440px); position: relative; left: 50%; transform: translateX(-50%); padding-inline: 2rem; box-sizing: border-box; }
   figure.g { margin: 0; }
   figure.g figcaption { font-size: .8rem; color: #9a9a9a; margin-top: 8px; text-align: center; }
-  .shot { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #f6f6f4; }
+  .shot { border-radius: 12px; overflow: hidden; background: #f6f6f4; box-shadow: 0 8px 30px rgba(0,0,0,.12); }
   .shot img { display: block; width: 100%; height: auto; }
 
   /* ---- Before / After ---- */
-  .ba { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 22px; }
+  .ba { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 22px; width: min(100vw, 1280px); position: relative; left: 50%; transform: translateX(-50%); padding-inline: 2rem; box-sizing: border-box; }
   .ba-col { display: flex; flex-direction: column; }
   .ba-label { font-family: 'Poppins'; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; padding: 5px 12px; border-radius: 6px; align-self: flex-start; margin-bottom: 10px; }
   .ba-before { background: #fbeaea; color: #a32d2d; }
@@ -128,14 +128,33 @@
 
   /* ---- Pull quote ---- */
   .pull { font-style: italic; font-size: 1.1rem; line-height: 1.55; color: var(--ink); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 28px 0; margin: 30px 0; }
+  .pull .pull-attr { display: block; font-style: normal; font-size: .82rem; color: #9a9a9a; margin-top: .7rem; letter-spacing: .03em; }
+  .cs-nav { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+  .cs-nav-link { font-family: 'Poppins'; font-size: .92rem; color: var(--body); text-decoration: none; transition: color .2s; }
+  .cs-nav-link:hover, .cs-nav-link:focus-visible { color: #c9a84c; }
+  .cs-nav-next { text-align: right; color: #c9a84c; font-weight: 600; }
+  .cs-nav-next:hover, .cs-nav-next:focus-visible { color: #b8922e; }
+  .cs-nav-title { display: block; font-size: .8rem; font-weight: 400; color: var(--body); margin-top: .2rem; }
 
   /* ---- Prototype video ---- */
   .video { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; margin-top: 18px; background: #000; }
   .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
-  @media (max-width: 680px) {
-    .grid2, .principles, .gallery, .ba { grid-template-columns: 1fr; }
+  @media (max-width: 1000px) {
+    .ba { grid-template-columns: 1fr; }
   }
+  @media (max-width: 680px) {
+    .grid2, .principles, .gallery { grid-template-columns: 1fr; }
+    .ba, .gallery { width: 100%; left: auto; transform: none; padding-inline: 0; }
+  }
+
+  /* ---- Lightbox ---- */
+  main img { cursor: zoom-in; }
+  #lb-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.85); z-index: 200; align-items: center; justify-content: center; cursor: zoom-out; }
+  #lb-overlay.open { display: flex; }
+  #lb-img { max-width: 90vw; max-height: 90vh; border-radius: 12px; object-fit: contain; cursor: default; display: block; }
+  #lb-close { position: absolute; top: 1.2rem; right: 1.2rem; background: rgba(255,255,255,.15); border: none; color: #fff; font-size: 2rem; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; line-height: 1; }
+  #lb-close:hover, #lb-close:focus-visible { background: rgba(255,255,255,.3); outline: 2px solid rgba(255,255,255,.5); outline-offset: 2px; }
 
   @media (max-width: 560px) {
     .stats { grid-template-columns: 1fr; }
@@ -177,7 +196,7 @@
   <section class="hero container" aria-labelledby="cs-heading">
     <span class="eyebrow">Case Study &middot; AEC Software</span>
     <h1 id="cs-heading">Finch 3D</h1>
-    <p class="tagline">Turning an unusable first step into a guided flow &mdash; diagnosing an onboarding failure and redesigning the experience from the ground up.</p>
+    <p class="tagline">Before architects could explore massing options, they first had to complete a complex centerline workflow that many found difficult to understand. UX research uncovered this pain point, and I designed an intuitive, guided interface that reduced confusion and improved the overall experience.</p>
     <div class="pills" aria-label="Tags">
       <span class="pill">UX Research</span>
       <span class="pill">Onboarding Design</span>
@@ -327,19 +346,6 @@
       </div>
     </section>
 
-    <!-- Impact -->
-    <section class="block">
-      <span class="kicker">Impact</span>
-      <h2>Outcome</h2>
-      <div class="stats">
-        <div class="stat"><div class="big">~20%</div><div class="lbl">Projected reduction in onboarding time</div></div>
-        <div class="stat"><div class="big">Zero</div><div class="lbl">Ambiguity in the first step &mdash; the biggest drop-off point eliminated</div></div>
-        <div class="stat"><div class="big">4 steps</div><div class="lbl">Guided onboarding flow: explain &rarr; show &rarr; place &rarr; connect</div></div>
-        <div class="stat"><div class="big">Reusable</div><div class="lbl">Figma design-system components with variants, built for scalability</div></div>
-      </div>
-      <p class="pull">&ldquo;The centerline problem was never a technical problem &mdash; it was a communication problem. Once I named it as that, the solution was obvious.&rdquo;</p>
-    </section>
-
     <!-- Design System -->
     <section class="block">
       <span class="kicker">Design System</span>
@@ -371,7 +377,11 @@
         <div class="stat"><div class="big">Zero</div><div class="lbl">Ambiguity remaining at the first required input</div></div>
         <div class="stat"><div class="big">Reusable</div><div class="lbl">Figma component system with variants, built to scale</div></div>
       </div>
-      <a class="back" href="index.html#work">&larr; Back to all work</a>
+      <p class="pull">&ldquo;The centerline problem was never a technical problem &mdash; it was a communication problem. Once I named it as that, the solution was obvious.&rdquo;<cite class="pull-attr">&mdash; Medya Asgharyan, UX Researcher</cite></p>
+      <nav class="cs-nav" aria-label="Case study navigation">
+        <a class="cs-nav-link" href="index.html#work">&larr; Back to all work</a>
+        <a class="cs-nav-link cs-nav-next" href="daycare.html">Next project &rarr;<span class="cs-nav-title">Ontario Daycare Access</span></a>
+      </nav>
     </section>
 
   </div>
@@ -402,6 +412,42 @@
     document.addEventListener('click', function (e) {
       if (!menu.contains(e.target) && !toggle.contains(e.target)) close();
     });
+  }());
+</script>
+<script>
+  (function () {
+    var overlay = document.createElement('div');
+    overlay.id = 'lb-overlay';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-label', 'Image preview');
+    var closeBtn = document.createElement('button');
+    closeBtn.id = 'lb-close';
+    closeBtn.setAttribute('aria-label', 'Close preview');
+    closeBtn.textContent = '×';
+    var lbImg = document.createElement('img');
+    lbImg.id = 'lb-img';
+    lbImg.alt = '';
+    overlay.appendChild(closeBtn);
+    overlay.appendChild(lbImg);
+    document.body.appendChild(overlay);
+    function openLb(src, alt) {
+      lbImg.src = src;
+      lbImg.alt = alt || '';
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus();
+    }
+    function closeLb() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.querySelectorAll('main img').forEach(function (img) {
+      img.addEventListener('click', function () { openLb(img.src, img.alt); });
+    });
+    closeBtn.addEventListener('click', closeLb);
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) closeLb(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('open')) closeLb(); });
   }());
 </script>
 </body>
