@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ideate Live Case Study — Medya Asgharyan</title>
+<meta name="description" content="UX case study: redesigning Ideate Live's onboarding, event creation, and live facilitation controls around 'options before explanations.'">
+<meta property="og:title" content="Ideate Live Case Study — Medya Asgharyan">
+<meta property="og:description" content="A live workshop platform that made people freeze right when they needed momentum most — redesigned around one idea: options before explanations.">
+<meta property="og:image" content="images/ideate/after-homepage.png">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Karla:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff; --ink: #1f1f1f; --body: #5a5a5a; --line: #e8e8e8;
+    --pill-border: #d8d8d8; --footer: #1c1c1c;
+    --maxw: 1180px; --readw: 760px; --pad: clamp(1.25rem, 5vw, 4rem);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--body); font-family: 'Karla', system-ui, sans-serif; line-height: 1.65; overflow-x: hidden; }
+  a { color: inherit; }
+  h1, h2, h3, .logo, .eyebrow { font-family: 'Poppins', system-ui, sans-serif; }
+
+  .skip { position: absolute; left: -999px; top: 0; background: var(--ink); color: #fff; padding: .6rem 1rem; z-index: 30; text-decoration: none; border-radius: 4px; }
+  .skip:focus { left: 1rem; top: 1rem; }
+  :focus-visible { outline: 3px solid #1f1f1f; outline-offset: 3px; }
+  .container { max-width: var(--maxw); margin: 0 auto; padding-inline: var(--pad); }
+  .reader { max-width: var(--readw); margin: 0 auto; padding-inline: var(--pad); }
+
+  header.site { border-bottom: 1px solid var(--line); position: sticky; top: 0; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 20; }
+  .nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 1.1rem; position: relative; }
+  .brand { display: flex; align-items: center; gap: .7rem; text-decoration: none; color: var(--ink); }
+  .brand .mark { width: 38px; height: 38px; background: var(--ink); color: #fff; border-radius: 7px; display: grid; place-items: center; font-family: 'Poppins'; font-weight: 600; font-size: .95rem; letter-spacing: -0.02em; flex-shrink: 0; }
+  .brand .logo { font-weight: 600; font-size: 1.15rem; color: var(--ink); }
+  .menu { list-style: none; display: flex; align-items: center; gap: clamp(1.1rem, 2.6vw, 2.2rem); }
+  .menu a { text-decoration: none; font-family: 'Poppins'; font-size: .98rem; color: #4a4a4a; padding-bottom: 3px; border-bottom: 2px solid transparent; transition: color .25s, border-color .25s; }
+  .menu a:hover, .menu a:focus-visible, .menu a[aria-current] { color: var(--ink); border-color: var(--ink); }
+  .menu .icon { display: grid; place-items: center; width: 22px; height: 22px; border-bottom: none !important; }
+  .menu .icon svg { width: 20px; height: 20px; }
+  .nav-toggle { display: none; background: none; border: 0; cursor: pointer; padding: .4rem; color: var(--ink); }
+  .nav-toggle svg { width: 26px; height: 26px; display: block; }
+
+  .hero { padding-block: clamp(3rem, 8vw, 5rem) clamp(2rem, 5vw, 3rem); }
+  .eyebrow { font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; color: #9a9a9a; display: block; margin-bottom: .9rem; font-weight: 500; }
+  .hero h1 { font-weight: 700; color: var(--ink); font-size: clamp(2.4rem, 7vw, 4.6rem); line-height: 1.05; letter-spacing: -0.02em; }
+  .hero .tagline { font-size: clamp(1.05rem, 2.3vw, 1.25rem); color: var(--body); margin-top: .9rem; max-width: 58ch; }
+  .pills { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.4rem; }
+  .pill { font-family: 'Poppins'; font-weight: 500; font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; background: #f3f3f3; color: var(--ink); border: 1px solid var(--pill-border); border-radius: 6px; padding: .4rem .65rem; }
+  .meta-row { display: flex; flex-wrap: wrap; gap: 2rem; margin-top: 1.6rem; padding-top: 1.6rem; border-top: 1px solid var(--line); }
+  .meta-item strong { font-family: 'Poppins'; font-weight: 600; color: var(--ink); display: block; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .25rem; }
+  .meta-item span { font-size: .97rem; color: var(--body); }
+
+  .glance { background: #f6f6f4; border: 1px solid var(--line); border-radius: 14px; padding: clamp(1.4rem, 3vw, 2.2rem); margin-top: 2rem; }
+  .glance-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem; }
+  .glance-item .glance-label { font-family: 'Poppins'; font-weight: 600; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: #c9a84c; margin-bottom: .5rem; display: block; }
+  .glance-item p { font-size: .97rem; color: #333; margin: 0; line-height: 1.55; }
+  @media (max-width: 780px) { .glance-grid { grid-template-columns: 1fr; } }
+
+  .secnav { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; margin-top: 1.4rem; }
+  .secnav a { font-family: 'Poppins'; font-size: .82rem; color: #8a8a8a; text-decoration: none; padding-bottom: 2px; border-bottom: 1px solid transparent; transition: color .2s, border-color .2s; }
+  .secnav a:hover, .secnav a:focus-visible { color: #c9a84c; border-color: #c9a84c; }
+
+  section.block { padding-block: clamp(2.2rem, 6vw, 3.5rem); border-top: 1px solid var(--line); }
+  section.block h2 { font-weight: 700; color: var(--ink); font-size: clamp(1.5rem, 3.5vw, 2.2rem); letter-spacing: -0.02em; margin-bottom: 1.1rem; }
+  section.block h3 { font-family: 'Poppins'; font-weight: 600; color: var(--ink); font-size: 1rem; margin: 1.6rem 0 .5rem; }
+  section.block p { margin-bottom: 1rem; font-size: clamp(1rem, 2vw, 1.08rem); }
+  section.block p:last-child { margin-bottom: 0; }
+
+  .problem-quote { background: #f6f6f4; border-left: 3px solid var(--ink); padding: 1.2rem 1.5rem; border-radius: 0 8px 8px 0; font-size: clamp(1.05rem, 2.2vw, 1.2rem); line-height: 1.6; margin: 1.2rem 0; color: var(--ink); }
+  .quote-cite { display: block; font-family: 'Karla'; font-style: normal; font-size: .85rem; color: #9a9a9a; margin-top: .6rem; }
+
+  .insight-box { background: #f6f6f4; border-radius: 12px; padding: 1.3rem 1.6rem; margin: 1.4rem 0; }
+  .insight-box .tag2 { font-family: 'Poppins'; font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #c9a84c; margin-bottom: .5rem; display: block; }
+  .insight-box p { margin: 0; font-size: .97rem; color: #333; }
+
+  .honest { background: #fff; border: 1px solid var(--line); border-left: 3px solid #c9a84c; border-radius: 0 12px 12px 0; padding: 1.2rem 1.5rem; margin: 1.2rem 0; }
+  .honest .htag { font-family: 'Poppins'; font-weight: 600; font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--ink); display: block; margin-bottom: .5rem; }
+  .honest p { font-size: .95rem; margin: 0; }
+
+  .journey { display: flex; flex-wrap: wrap; gap: .8rem; background: #f6f6f4; border-radius: 14px; padding: 1.4rem; margin: 1.4rem 0; }
+  .journey-step { flex: 1; min-width: 120px; text-align: center; }
+  .journey-step .mood { font-family: 'Poppins'; font-weight: 700; font-size: 1.3rem; color: var(--ink); margin-bottom: .4rem; }
+  .journey-step .label { font-family: 'Poppins'; font-size: .78rem; font-weight: 600; color: var(--ink); }
+  .journey-step .sub { font-size: .78rem; color: #9a9a9a; margin-top: .1rem; }
+
+  .result-list { list-style: none; margin-top: 1rem; }
+  .result-list li { padding: 1.1rem 0; border-top: 1px solid var(--line); font-size: .97rem; }
+  .result-list li:first-child { border-top: none; }
+  .result-list strong { color: var(--ink); font-family: 'Poppins'; font-weight: 600; }
+
+  .back { display: inline-block; margin-top: 2.5rem; font-family: 'Poppins'; font-size: .92rem; color: var(--body); text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 2px; transition: color .2s, border-color .2s; }
+  .back:hover { color: var(--ink); border-color: var(--ink); }
+
+  footer.site { background: var(--footer); color: #cfcfcf; margin-top: clamp(2rem, 6vw, 4rem); }
+  .foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 2rem; flex-wrap: wrap; }
+  .foot p { font-size: .95rem; }
+  .foot .socials { display: flex; gap: 1.1rem; }
+  .foot .socials a { display: grid; place-items: center; color: #cfcfcf; transition: color .25s; }
+  .foot .socials a:hover { color: #fff; }
+  .foot .socials svg { width: 20px; height: 20px; }
+
+  .coverimg { margin: 1.4rem 0 2rem; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: #f6f6f4; }
+  .coverimg img { display: block; width: 100%; height: auto; }
+
+  .kicker { font-family: 'Poppins'; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: #9a9a9a; margin-bottom: 14px; display: block; }
+
+  .shot { border-radius: 12px; overflow: hidden; background: #f6f6f4; box-shadow: 0 8px 30px rgba(0,0,0,.12); }
+  .shot img { display: block; width: 100%; height: auto; }
+
+  .ba { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 22px; width: min(100vw, 1280px); position: relative; left: 50%; transform: translateX(-50%); padding-inline: 2rem; box-sizing: border-box; }
+  .ba-col { display: flex; flex-direction: column; }
+  .ba-label { font-family: 'Poppins'; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; padding: 5px 12px; border-radius: 6px; align-self: flex-start; margin-bottom: 10px; }
+  .ba-before { background: #fbeaea; color: #a32d2d; }
+  .ba-after { background: #e7f3ea; color: #1f6b3a; }
+  .cap { font-size: .9rem; color: #555; margin-top: 10px; }
+  .pair-title { font-family: 'Poppins'; font-weight: 600; font-size: .85rem; text-transform: uppercase; letter-spacing: .06em; color: var(--ink); margin: 2.4rem 0 0; }
+  .pair-note { font-size: .95rem; color: var(--body); margin-top: 1rem; max-width: 70ch; }
+  .pair-note strong { color: var(--ink); font-family: 'Poppins'; font-weight: 600; }
+
+  .pull { font-style: italic; font-size: 1.1rem; line-height: 1.55; color: var(--ink); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 28px 0; margin: 30px 0; }
+  .pull .pull-attr { display: block; font-style: normal; font-size: .82rem; color: #9a9a9a; margin-top: .7rem; letter-spacing: .03em; }
+  .cs-nav { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+  .cs-nav-link { font-family: 'Poppins'; font-size: .92rem; color: var(--body); text-decoration: none; transition: color .2s; }
+  .cs-nav-link:hover, .cs-nav-link:focus-visible { color: #c9a84c; }
+  .cs-nav-next { text-align: right; color: #c9a84c; font-weight: 600; }
+  .cs-nav-next:hover, .cs-nav-next:focus-visible { color: #b8922e; }
+  .cs-nav-title { display: block; font-size: .8rem; font-weight: 400; color: var(--body); margin-top: .2rem; }
+
+  .video { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; margin-top: 18px; background: #000; }
+  .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+  @media (max-width: 1000px) { .ba { grid-template-columns: 1fr; } }
+  @media (max-width: 680px) {
+    .ba { width: 100%; left: auto; transform: none; padding-inline: 0; }
+    .journey { flex-direction: column; }
+  }
+
+  main img { cursor: zoom-in; }
+  #lb-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.85); z-index: 200; align-items: center; justify-content: center; cursor: zoom-out; }
+  #lb-overlay.open { display: flex; }
+  #lb-img { max-width: 90vw; max-height: 90vh; border-radius: 12px; object-fit: contain; cursor: default; display: block; }
+  #lb-close { position: absolute; top: 1.2rem; right: 1.2rem; background: rgba(255,255,255,.15); border: none; color: #fff; font-size: 2rem; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; line-height: 1; }
+  #lb-close:hover, #lb-close:focus-visible { background: rgba(255,255,255,.3); outline: 2px solid rgba(255,255,255,.5); outline-offset: 2px; }
+
+  @media (max-width: 560px) {
+    .menu li.navitem { display: none; }
+    .nav-toggle { display: inline-flex; align-items: center; }
+    .menu { position: absolute; top: 100%; right: 0; flex-direction: column; align-items: flex-end; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 1rem 1.2rem; gap: .9rem; box-shadow: 0 10px 30px rgba(0,0,0,.08); min-width: 180px; }
+    .menu:not(.open) { display: none; }
+    .menu.open { display: flex; }
+    .menu.open li.navitem { display: block; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+
+<header class="site">
+  <div class="container">
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="index.html" aria-label="Medya Asgharyan — home">
+        <span class="mark" aria-hidden="true">MA</span>
+        <span class="logo">Medya Asgharyan</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <ul class="menu" id="menu" role="list">
+        <li class="navitem"><a href="index.html">Home</a></li>
+        <li class="navitem"><a href="index.html#work">Portfolio</a></li>
+        <li class="navitem"><a href="about.html">About</a></li>
+        <li class="navitem"><a class="icon" href="https://www.linkedin.com/in/asgharyan-medya/" aria-label="LinkedIn profile" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5.001A2.5 2.5 0 014.98 3.5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21h-4z"/></svg></a></li>
+        <li class="navitem"><a class="icon" href="mailto:asgharyan.medya@gmail.com" aria-label="Send email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero container" aria-labelledby="cs-heading">
+    <span class="eyebrow">Case Study &middot; Service Design</span>
+    <h1 id="cs-heading">Ideate Live</h1>
+    <p class="tagline">A live workshop platform that made people freeze right when they needed momentum most &mdash; redesigned around one idea: options before explanations.</p>
+    <div class="pills" aria-label="Tags">
+      <span class="pill">Service Design</span>
+      <span class="pill">Facilitation</span>
+      <span class="pill">AI Integration</span>
+    </div>
+    <div class="meta-row">
+      <div class="meta-item"><strong>Role</strong><span>UX &amp; Service Designer</span></div>
+      <div class="meta-item"><strong>Duration</strong><span>4-week sprint</span></div>
+      <div class="meta-item"><strong>Focus</strong><span>Event creation &amp; live facilitation</span></div>
+    </div>
+
+    <nav class="secnav" aria-label="Jump to section">
+      <a href="#why-h">Why this happened</a>
+      <a href="#challenges-h">Challenges</a>
+      <a href="#approach-h">Approach</a>
+      <a href="#ba-h">Before / after</a>
+      <a href="#outcome-h">Result</a>
+    </nav>
+  </section>
+
+  <div class="reader">
+
+    <div class="coverimg"><img src="images/ideate/after-homepage.png" alt="Redesigned Ideate Live homepage"></div>
+
+    <section class="block" aria-labelledby="why-h">
+      <span class="eyebrow">Why This Happened</span>
+      <h2 id="why-h">A great idea that lost people at the door</h2>
+      <p>Ideate Live&rsquo;s premise is genuinely good: run a live brainstorm with your team <em>and</em> a few AI &ldquo;synthetic experts&rdquo; who contribute and vote alongside everyone else. In testing, that part worked &mdash; people lit up watching ideas roll in from both humans and bots in real time.</p>
+      <p>But almost nobody got that far without friction first. The team had a hunch something in onboarding and event creation was quietly costing them users, and asked for a proper look before building more features on top of a shaky foundation.</p>
+    </section>
+
+    <section class="block" id="challenges-h">
+      <span class="kicker">Challenges</span>
+      <h2>The interface asked for confidence nobody had yet</h2>
+      <p>Maria is 50, an event director who plans every workshop down to the minute. She typed a topic, hit generate, and <strong>nothing happened &mdash; the AI silently rejected it</strong> for being too short, with no message telling her why.</p>
+      <div class="problem-quote">&ldquo;My topic was too short &mdash; it rejected it with no guidance.&rdquo;<span class="quote-cite">&mdash; Maria, 50 &middot; Expectation Planner (usability session)</span></div>
+      <p>That moment turned out to be the whole project in miniature. Across every persona tested &mdash; a first-time facilitator, a detail-driven planner, a recurring power user &mdash; the same pattern kept surfacing: the product assumed a confidence level the user didn&rsquo;t have yet, and gave them no way to build it.</p>
+      <div class="problem-quote">&ldquo;Why are the username and password on different pages?&rdquo;<span class="quote-cite">&mdash; Jennifer, 23 &middot; Explorer (usability session)</span></div>
+      <p>Mapped across the full host journey, the emotional arc made it impossible to miss:</p>
+      <div class="journey">
+        <div class="journey-step"><div class="mood">1</div><div class="label">Awareness</div><div class="sub">purpose unclear</div></div>
+        <div class="journey-step"><div class="mood">2</div><div class="label">Sign-up</div><div class="sub">fragmented flow</div></div>
+        <div class="journey-step"><div class="mood">3</div><div class="label">Event creation</div><div class="sub">silent rejection</div></div>
+        <div class="journey-step"><div class="mood">4</div><div class="label">Live session</div><div class="sub">energy, no control</div></div>
+        <div class="journey-step"><div class="mood">5</div><div class="label">Post-session</div><div class="sub">trust in question</div></div>
+      </div>
+      <p>Even the bright spot &mdash; the live session &mdash; had a hole in it: once a workshop started, the host had <strong>no way to exit and return, no way to hand hosting to someone else, and no way to adjust a timer that was already running.</strong> Three separate participants flagged this independently, unprompted.</p>
+    </section>
+
+    <section class="block" id="approach-h">
+      <span class="kicker">Approach</span>
+      <h2>Watch first, don&rsquo;t just ask</h2>
+      <p>We ran think-aloud usability sessions with two contrasting users rather than surveying opinions after the fact, synthesized the raw reactions into empathy maps, then reframed pain points as How Might We questions so the team solved the real problem instead of the first idea that came to mind. A competitive scan (Miro, Mural, FigJam AI) confirmed the gap was real: nobody in the category explains AI participation clearly, and nobody hands facilitators control once a session goes live.</p>
+      <div class="insight-box">
+        <span class="tag2">A gap I hit while designing it too</span>
+        <p>Interestingly, the live-session screen was the hardest for me to spec from a blank page &mdash; I couldn&rsquo;t easily write down everything a facilitator would need in one sitting. What worked instead was sketching a few concrete options first, reacting to those, and only then writing the fuller explanation. That&rsquo;s the exact same pattern the research surfaced: <strong>options before explanation is easier to work with than explanation before options</strong> &mdash; for facilitators using the product, and for me designing it.</p>
+      </div>
+      <p>Everything downstream came back to one working principle:</p>
+      <div class="problem-quote">Guidance before commitment, control once committed.</div>
+      <p>Upstream of clicking &ldquo;Generate,&rdquo; the job is to lower the bar to entry. Once a session is live, the job flips &mdash; the facilitator needs full control, because mistakes at that point are costly and hard to undo.</p>
+    </section>
+
+    <section class="block" id="ba-h">
+      <span class="kicker">Before &rarr; After</span>
+      <h2>Three moments, rebuilt</h2>
+
+      <h3 class="pair-title" style="margin-top:0;">01 &middot; First impression</h3>
+      <div class="ba">
+        <div class="ba-col">
+          <div class="ba-label ba-before">Before</div>
+          <div class="shot"><img src="images/ideate/before-homepage.png" alt="Original ideate.live homepage"></div>
+        </div>
+        <div class="ba-col">
+          <div class="ba-label ba-after">After</div>
+          <div class="shot"><img src="images/ideate/after-homepage.png" alt="Redesigned homepage"></div>
+        </div>
+      </div>
+      <p class="pair-note"><strong>Why:</strong> the tagline said &ldquo;efficient&rdquo; and &ldquo;fun&rdquo; &mdash; not what the product actually did. The redesign states the value prop in the first sentence and labels AI vs. human contributors side by side, so nobody has to guess what &ldquo;AI experts&rdquo; means three steps later.</p>
+
+      <h3 class="pair-title">02 &middot; Event creation</h3>
+      <div class="ba">
+        <div class="ba-col">
+          <div class="ba-label ba-before">Before</div>
+          <div class="shot"><img src="images/ideate/before-eventcreation.png" alt="Original blank topic field"></div>
+        </div>
+        <div class="ba-col">
+          <div class="ba-label ba-after">After</div>
+          <div class="shot"><img src="images/ideate/after-eventcreation.png" alt="Redesigned category picker"></div>
+        </div>
+      </div>
+      <p class="pair-note"><strong>Why:</strong> a single open text box put the burden of &ldquo;knowing exactly what to type&rdquo; on the user. Category chips give Explorers a starting point &mdash; options first &mdash; and two short AI-guided questions replace the silent character-minimum rejection entirely.</p>
+
+      <h3 class="pair-title">03 &middot; Facilitator control</h3>
+      <div class="ba">
+        <div class="ba-col">
+          <div class="ba-label ba-before">Before</div>
+          <div class="shot"><img src="images/ideate/before-livesession.png" alt="Original session with no back navigation, annotated"></div>
+        </div>
+        <div class="ba-col">
+          <div class="ba-label ba-after">After</div>
+          <div class="shot"><img src="images/ideate/after-livesession.png" alt="Redesigned session with persistent facilitator toolbar"></div>
+        </div>
+      </div>
+      <p class="pair-note"><strong>Why:</strong> research literally circled the missing exit path. The redesign adds one persistent toolbar &mdash; Exit, Give the lead, an editable timer, and a parking lot &mdash; present in every phase of the session.</p>
+    </section>
+
+    <section class="block">
+      <span class="kicker">User Satisfaction</span>
+      <h2>What we know, and what&rsquo;s still a hypothesis</h2>
+      <p>The frustration documented above is real, first-hand research &mdash; not an assumption. What I don&rsquo;t have yet is a second round of usability testing against this redesign, so I&rsquo;m not attaching a satisfaction score to something unvalidated.</p>
+      <div class="honest">
+        <span class="htag">Intellectual honesty</span>
+        <p>Every &ldquo;after&rdquo; state answers a friction point that more than one participant raised independently &mdash; a strong signal, not proof. The interactive prototype exists specifically to make that next round of testing possible: put it back in front of Jennifer and Maria, and see if the emotional arc actually flattens out.</p>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="outcome-h">
+      <span class="eyebrow">Result</span>
+      <h2 id="outcome-h">What shipped</h2>
+      <ul class="result-list">
+        <li><strong>An interactive, clickable prototype</strong> &mdash; the full journey from homepage &rarr; guided event creation &rarr; live session &rarr; voting &rarr; report, built to walk through end to end, not just view as static screens.</li>
+        <li><strong>A redesigned AI-trust model</strong> &mdash; one consistent label for every AI touchpoint, replacing a feature explanation that had appeared twice on the same screen.</li>
+        <li><strong>A facilitator toolbar</strong> that exists in every phase of a live session, closing the single most-repeated complaint in testing.</li>
+      </ul>
+    </section>
+
+    <section class="block">
+      <span class="kicker">Prototype</span>
+      <h2>Walk through it yourself</h2>
+      <p>Every screen above is clickable, not just illustrated &mdash; here&rsquo;s the full flow in motion.</p>
+      <div class="video">
+        <iframe src="https://www.youtube.com/embed/pLE4663xqXI"
+          title="Ideate Live redesigned prototype walkthrough"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+      <nav class="cs-nav" aria-label="Case study navigation">
+        <a class="cs-nav-link" href="index.html#work">&larr; Back to all work</a>
+        <a class="cs-nav-link cs-nav-next" href="finch-3d.html">Next project &rarr;<span class="cs-nav-title">Finch 3D</span></a>
+      </nav>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site">
+  <div class="container">
+    <div class="foot">
+      <p>&copy; 2026 Medya Asgharyan. All rights reserved.</p>
+      <div class="socials">
+        <a href="mailto:asgharyan.medya@gmail.com" aria-label="Email Medya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+        <a href="https://www.linkedin.com/in/asgharyan-medya/" aria-label="LinkedIn profile" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5.001A2.5 2.5 0 014.98 3.5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21h-4z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var toggle = document.getElementById('nav-toggle');
+    var menu   = document.getElementById('menu');
+    function close() { menu.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }
+    toggle.addEventListener('click', function () {
+      var isOpen = menu.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    document.addEventListener('click', function (e) {
+      if (!menu.contains(e.target) && !toggle.contains(e.target)) close();
+    });
+  }());
+</script>
+<script>
+  (function () {
+    var overlay = document.createElement('div');
+    overlay.id = 'lb-overlay';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-label', 'Image preview');
+    var closeBtn = document.createElement('button');
+    closeBtn.id = 'lb-close';
+    closeBtn.setAttribute('aria-label', 'Close preview');
+    closeBtn.textContent = '×';
+    var lbImg = document.createElement('img');
+    lbImg.id = 'lb-img';
+    lbImg.alt = '';
+    overlay.appendChild(closeBtn);
+    overlay.appendChild(lbImg);
+    document.body.appendChild(overlay);
+    var lastTrigger = null;
+    function openLb(src, alt, trigger) {
+      lastTrigger = trigger || null;
+      lbImg.src = src;
+      lbImg.alt = alt || '';
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus();
+    }
+    function closeLb() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+      if (lastTrigger) lastTrigger.focus();
+    }
+    document.querySelectorAll('main img').forEach(function (img) {
+      img.setAttribute('tabindex', '0');
+      img.setAttribute('role', 'button');
+      if (!img.getAttribute('aria-label')) {
+        img.setAttribute('aria-label', 'Expand image: ' + (img.alt || 'view larger'));
+      }
+      img.addEventListener('click', function () { openLb(img.src, img.alt, img); });
+      img.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openLb(img.src, img.alt, img);
+        }
+      });
+    });
+    closeBtn.addEventListener('click', closeLb);
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) closeLb(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('open')) closeLb(); });
+  }());
+</script>
+</body>
+</html>

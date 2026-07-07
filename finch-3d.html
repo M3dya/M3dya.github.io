@@ -1,517 +1,1553 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Finch 3D Case Study — Medya Asgharyan</title>
-<meta name="description" content="UX case study: diagnosing an onboarding failure in Finch 3D's AEC software and designing a guided flow that reduced first-time user confusion.">
-<meta property="og:title" content="Finch 3D Case Study — Medya Asgharyan">
-<meta property="og:description" content="Diagnosing an onboarding failure in AEC software and redesigning the experience from the ground up.">
-<meta property="og:image" content="images/finch/After__Cover.png">
-<meta property="og:type" content="website">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Karla:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #ffffff; --ink: #1f1f1f; --body: #5a5a5a; --line: #e8e8e8;
-    --pill-border: #d8d8d8; --footer: #1c1c1c;
-    --maxw: 1180px; --readw: 760px; --pad: clamp(1.25rem, 5vw, 4rem);
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; scroll-behavior: smooth; }
-  body { background: var(--bg); color: var(--body); font-family: 'Karla', system-ui, sans-serif; line-height: 1.65; overflow-x: hidden; }
-  a { color: inherit; }
-  h1, h2, h3, .logo, .eyebrow { font-family: 'Poppins', system-ui, sans-serif; }
-
-  .skip { position: absolute; left: -999px; top: 0; background: var(--ink); color: #fff; padding: .6rem 1rem; z-index: 30; text-decoration: none; border-radius: 4px; }
-  .skip:focus { left: 1rem; top: 1rem; }
-  :focus-visible { outline: 3px solid #1f1f1f; outline-offset: 3px; }
-  .container { max-width: var(--maxw); margin: 0 auto; padding-inline: var(--pad); }
-  .reader { max-width: var(--readw); margin: 0 auto; padding-inline: var(--pad); }
-
-  /* Nav */
-  header.site { border-bottom: 1px solid var(--line); position: sticky; top: 0; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 20; }
-  .nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 1.1rem; position: relative; }
-  .brand { display: flex; align-items: center; gap: .7rem; text-decoration: none; color: var(--ink); }
-  .brand .mark { width: 38px; height: 38px; background: var(--ink); color: #fff; border-radius: 7px; display: grid; place-items: center; font-family: 'Poppins'; font-weight: 600; font-size: .95rem; letter-spacing: -0.02em; flex-shrink: 0; }
-  .brand .logo { font-weight: 600; font-size: 1.15rem; color: var(--ink); }
-  .menu { list-style: none; display: flex; align-items: center; gap: clamp(1.1rem, 2.6vw, 2.2rem); }
-  .menu a { text-decoration: none; font-family: 'Poppins'; font-size: .98rem; color: #4a4a4a; padding-bottom: 3px; border-bottom: 2px solid transparent; transition: color .25s, border-color .25s; }
-  .menu a:hover, .menu a:focus-visible, .menu a[aria-current] { color: var(--ink); border-color: var(--ink); }
-  .menu .icon { display: grid; place-items: center; width: 22px; height: 22px; border-bottom: none !important; }
-  .menu .icon svg { width: 20px; height: 20px; }
-  .nav-toggle { display: none; background: none; border: 0; cursor: pointer; padding: .4rem; color: var(--ink); }
-  .nav-toggle svg { width: 26px; height: 26px; display: block; }
-
-  /* Hero */
-  .hero { padding-block: clamp(3rem, 8vw, 5rem) clamp(2rem, 5vw, 3rem); }
-  .eyebrow { font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; color: #9a9a9a; display: block; margin-bottom: .9rem; font-weight: 500; }
-  .hero h1 { font-weight: 700; color: var(--ink); font-size: clamp(2.4rem, 7vw, 4.6rem); line-height: 1.05; letter-spacing: -0.02em; }
-  .hero .tagline { font-size: clamp(1.05rem, 2.3vw, 1.25rem); color: var(--body); margin-top: .9rem; max-width: 54ch; }
-  .pills { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.4rem; }
-  .pill { font-family: 'Poppins'; font-weight: 500; font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; background: #f3f3f3; color: var(--ink); border: 1px solid var(--pill-border); border-radius: 6px; padding: .4rem .65rem; }
-  .meta-row { display: flex; flex-wrap: wrap; gap: 2rem; margin-top: 1.6rem; padding-top: 1.6rem; border-top: 1px solid var(--line); }
-  .meta-item strong { font-family: 'Poppins'; font-weight: 600; color: var(--ink); display: block; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .25rem; }
-  .meta-item span { font-size: .97rem; color: var(--body); }
-
-  /* At a glance */
-  .glance { background: #f6f6f4; border: 1px solid var(--line); border-radius: 14px; padding: clamp(1.4rem, 3vw, 2.2rem); margin-top: 2rem; }
-  .glance-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem; }
-  .glance-item .glance-label { font-family: 'Poppins'; font-weight: 600; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: #c9a84c; margin-bottom: .5rem; display: block; }
-  .glance-item p { font-size: .97rem; color: #333; margin: 0; line-height: 1.55; }
-  @media (max-width: 780px) {
-    .glance-grid { grid-template-columns: 1fr; }
-  }
-
-  /* Section jump nav */
-  .secnav { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; margin-top: 1.4rem; }
-  .secnav a { font-family: 'Poppins'; font-size: .82rem; color: #8a8a8a; text-decoration: none; padding-bottom: 2px; border-bottom: 1px solid transparent; transition: color .2s, border-color .2s; }
-  .secnav a:hover, .secnav a:focus-visible { color: #c9a84c; border-color: #c9a84c; }
-
-  /* Sections */
-  section.block { padding-block: clamp(2.2rem, 6vw, 3.5rem); border-top: 1px solid var(--line); }
-  section.block h2 { font-weight: 700; color: var(--ink); font-size: clamp(1.5rem, 3.5vw, 2.2rem); letter-spacing: -0.02em; margin-bottom: 1.1rem; }
-  section.block h3 { font-family: 'Poppins'; font-weight: 600; color: var(--ink); font-size: 1rem; margin: 1.6rem 0 .5rem; }
-  section.block p { margin-bottom: 1rem; font-size: clamp(1rem, 2vw, 1.08rem); }
-  section.block p:last-child { margin-bottom: 0; }
-
-  .problem-quote { background: #f6f6f4; border-left: 3px solid var(--ink); padding: 1.2rem 1.5rem; border-radius: 0 8px 8px 0; font-size: clamp(1.05rem, 2.2vw, 1.2rem); line-height: 1.6; margin: 1.2rem 0; color: var(--ink); }
-
-  /* Wide figure (breakout) — used for ecosystem + design system diagrams */
-  .wide-fig { margin: 1.6rem 0 0; width: min(100vw, 1180px); position: relative; left: 50%; transform: translateX(-50%); padding-inline: 2rem; box-sizing: border-box; }
-  .wide-fig .shot { max-width: 900px; margin: 0 auto; }
-  .wide-fig figcaption { font-size: .88rem; color: #9a9a9a; margin-top: .9rem; text-align: center; max-width: 60ch; margin-inline: auto; }
-  @media (max-width: 680px) {
-    .wide-fig { width: 100%; left: auto; transform: none; padding-inline: 0; }
-  }
-
-  /* Outcome stats */
-  .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1.4rem; }
-  .stat { border: 1px solid var(--line); border-radius: 12px; padding: 1.3rem 1.5rem; }
-  .stat .big { font-family: 'Poppins'; font-weight: 700; font-size: 1.9rem; color: var(--ink); }
-  .stat .lbl { font-size: .9rem; color: var(--body); margin-top: .3rem; }
-
-  .back { display: inline-block; margin-top: 2.5rem; font-family: 'Poppins'; font-size: .92rem; color: var(--body); text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 2px; transition: color .2s, border-color .2s; }
-  .back:hover { color: var(--ink); border-color: var(--ink); }
-
-  /* Footer */
-  footer.site { background: var(--footer); color: #cfcfcf; margin-top: clamp(2rem, 6vw, 4rem); }
-  .foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 2rem; flex-wrap: wrap; }
-  .foot p { font-size: .95rem; }
-  .foot .socials { display: flex; gap: 1.1rem; }
-  .foot .socials a { display: grid; place-items: center; color: #cfcfcf; transition: color .25s; }
-  .foot .socials a:hover { color: #fff; }
-  .foot .socials svg { width: 20px; height: 20px; }
-
-  /* ---- Cover image ---- */
-  .coverimg { margin: 1.4rem 0 2rem; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: #f6f6f4; }
-  .coverimg img { display: block; width: 100%; height: auto; }
-
-  /* ---- Kicker label ---- */
-  .kicker { font-family: 'Poppins'; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: #9a9a9a; margin-bottom: 14px; display: block; }
-
-  /* ---- 2-col card grid ---- */
-  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; }
-  .card { border: 1px solid var(--line); border-radius: 12px; padding: 20px 22px; background: #fff; }
-  .card .ic { width: 26px; height: 26px; color: #c9a84c; }
-  .card .ic svg { width: 100%; height: 100%; }
-  .card h4 { font-family: 'Poppins'; font-size: 15px; font-weight: 600; margin: 8px 0 6px; color: var(--ink); }
-  .card p { font-size: 14px; color: #454545; margin: 0; }
-
-  /* ---- Numbered steps ---- */
-  .steps { counter-reset: s; margin-top: 18px; }
-  .step { display: flex; gap: 18px; padding: 18px 0; border-top: 1px solid var(--line); }
-  .step:first-child { border-top: none; }
-  .step .n { counter-increment: s; font-family: 'Poppins'; font-weight: 700; font-size: 13px; min-width: 34px; height: 34px; border-radius: 50%; background: var(--ink); color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .step .n::before { content: counter(s, decimal-leading-zero); }
-  .step h4 { font-family: 'Poppins'; font-size: 16px; font-weight: 600; margin-bottom: 4px; color: var(--ink); }
-  .step p { font-size: .97rem; color: #3a3a3a; margin: 0; }
-
-  /* ---- Principles ---- */
-  .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 18px; }
-  .principle { background: #f6f6f4; border-radius: 12px; padding: 22px; }
-  .principle .num { font-family: 'Poppins'; font-size: 28px; color: #c9c7bd; font-weight: 700; }
-  .principle p { font-size: .95rem; margin-top: 8px; color: #333; }
-
-  /* ---- Image gallery ---- */
-  .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 18px; width: min(100vw, 1440px); position: relative; left: 50%; transform: translateX(-50%); padding-inline: 2rem; box-sizing: border-box; }
-  figure.g { margin: 0; }
-  figure.g figcaption { font-size: .8rem; color: #9a9a9a; margin-top: 8px; text-align: center; }
-  .shot { border-radius: 12px; overflow: hidden; background: #f6f6f4; box-shadow: 0 8px 30px rgba(0,0,0,.12); }
-  .shot img { display: block; width: 100%; height: auto; }
-
-  /* ---- Before / After ---- */
-  .ba { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 22px; width: min(100vw, 1280px); position: relative; left: 50%; transform: translateX(-50%); padding-inline: 2rem; box-sizing: border-box; }
-  .ba-col { display: flex; flex-direction: column; }
-  .ba-label { font-family: 'Poppins'; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; padding: 5px 12px; border-radius: 6px; align-self: flex-start; margin-bottom: 10px; }
-  .ba-before { background: #fbeaea; color: #a32d2d; }
-  .ba-after { background: #e7f3ea; color: #1f6b3a; }
-  .cap { font-size: .9rem; color: #555; margin-top: 10px; }
-
-  /* ---- Pull quote ---- */
-  .pull { font-style: italic; font-size: 1.1rem; line-height: 1.55; color: var(--ink); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 28px 0; margin: 30px 0; }
-  .pull .pull-attr { display: block; font-style: normal; font-size: .82rem; color: #9a9a9a; margin-top: .7rem; letter-spacing: .03em; }
-  .cs-nav { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
-  .cs-nav-link { font-family: 'Poppins'; font-size: .92rem; color: var(--body); text-decoration: none; transition: color .2s; }
-  .cs-nav-link:hover, .cs-nav-link:focus-visible { color: #c9a84c; }
-  .cs-nav-next { text-align: right; color: #c9a84c; font-weight: 600; }
-  .cs-nav-next:hover, .cs-nav-next:focus-visible { color: #b8922e; }
-  .cs-nav-title { display: block; font-size: .8rem; font-weight: 400; color: var(--body); margin-top: .2rem; }
-
-  /* ---- Prototype video ---- */
-  .video { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; margin-top: 18px; background: #000; }
-  .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-
-  @media (max-width: 1000px) {
-    .ba { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 680px) {
-    .grid2, .principles, .gallery { grid-template-columns: 1fr; }
-    .ba, .gallery { width: 100%; left: auto; transform: none; padding-inline: 0; }
-  }
-
-  /* ---- Lightbox ---- */
-  main img { cursor: zoom-in; }
-  #lb-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.85); z-index: 200; align-items: center; justify-content: center; cursor: zoom-out; }
-  #lb-overlay.open { display: flex; }
-  #lb-img { max-width: 90vw; max-height: 90vh; border-radius: 12px; object-fit: contain; cursor: default; display: block; }
-  #lb-close { position: absolute; top: 1.2rem; right: 1.2rem; background: rgba(255,255,255,.15); border: none; color: #fff; font-size: 2rem; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; line-height: 1; }
-  #lb-close:hover, #lb-close:focus-visible { background: rgba(255,255,255,.3); outline: 2px solid rgba(255,255,255,.5); outline-offset: 2px; }
-
-  @media (max-width: 560px) {
-    .stats { grid-template-columns: 1fr; }
-    .menu li.navitem { display: none; }
-    .nav-toggle { display: inline-flex; align-items: center; }
-    .menu { position: absolute; top: 100%; right: 0; flex-direction: column; align-items: flex-end; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 1rem 1.2rem; gap: .9rem; box-shadow: 0 10px 30px rgba(0,0,0,.08); min-width: 180px; }
-    .menu:not(.open) { display: none; }
-    .menu.open { display: flex; }
-    .menu.open li.navitem { display: block; }
-  }
-</style>
-</head>
-<body>
-<a class="skip" href="#main">Skip to main content</a>
-
-<header class="site">
-  <div class="container">
-    <nav class="nav" aria-label="Primary navigation">
-      <a class="brand" href="index.html" aria-label="Medya Asgharyan — home">
-        <span class="mark" aria-hidden="true">MA</span>
-        <span class="logo">Medya Asgharyan</span>
-      </a>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
-      <ul class="menu" id="menu" role="list">
-        <li class="navitem"><a href="index.html">Home</a></li>
-        <li class="navitem"><a href="index.html#work">Portfolio</a></li>
-        <li class="navitem"><a href="about.html">About</a></li>
-        <li class="navitem"><a class="icon" href="https://www.linkedin.com/in/asgharyan-medya/" aria-label="LinkedIn profile" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5.001A2.5 2.5 0 014.98 3.5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21h-4z"/></svg></a></li>
-        <li class="navitem"><a class="icon" href="mailto:asgharyan.medya@gmail.com" aria-label="Send email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
-
-<main id="main">
-
-  <section class="hero container" aria-labelledby="cs-heading">
-    <span class="eyebrow">Case Study &middot; AEC Software</span>
-    <h1 id="cs-heading">Finch 3D</h1>
-    <p class="tagline">Before architects could explore massing options, they first had to complete a complex centerline workflow that many found difficult to understand. UX research uncovered this pain point, and I designed an intuitive, guided interface that reduced confusion and improved the overall experience.</p>
-    <div class="pills" aria-label="Tags">
-      <span class="pill">UX Research</span>
-      <span class="pill">Onboarding Design</span>
-      <span class="pill">Competitive Analysis</span>
-      <span class="pill">AEC Software</span>
-    </div>
-    <div class="meta-row">
-      <div class="meta-item"><strong>Role</strong><span>UX Researcher</span></div>
-      <div class="meta-item"><strong>Domain</strong><span>AEC Software</span></div>
-      <div class="meta-item"><strong>Focus</strong><span>Onboarding &amp; Error Recovery</span></div>
-    </div>
-
-    <div class="glance">
-      <div class="glance-grid">
-        <div class="glance-item">
-          <span class="glance-label">Problem</span>
-          <p>New users hit a hard stop on day one &mdash; the tool asked for a &ldquo;centerline&rdquo; with no explanation, and there was no way to continue.</p>
-        </div>
-        <div class="glance-item">
-          <span class="glance-label">Approach</span>
-          <p>I diagnosed the failure through the tool itself, competitor research, and architectural domain knowledge &mdash; no user interviews were possible.</p>
-        </div>
-        <div class="glance-item">
-          <span class="glance-label">Result</span>
-          <p>A guided 4-step flow that explains, shows, and validates the centerline input in real time &mdash; a projected ~20% reduction in onboarding time.</p>
-        </div>
-      </div>
-    </div>
-
-    <nav class="secnav" aria-label="Jump to section">
-      <a href="#problem-h">Problem</a>
-      <a href="#stuck-h">Why users got stuck</a>
-      <a href="#solution-h">The solution</a>
-      <a href="#outcome-h">Outcome</a>
-    </nav>
-  </section>
-
-  <div class="reader">
-
-    <div class="coverimg"><img src="images/finch/Before.png" alt="Original Finch 3D error state — the unguided moment users got stuck"></div>
-
-    <section class="block" aria-labelledby="problem-h">
-      <span class="eyebrow">Problem</span>
-      <h2 id="problem-h">A hard stop on day one</h2>
-      <div class="problem-quote">A user opens Finch 3D for the first time. The tool asks them to provide a &ldquo;center line.&rdquo; They have no idea what a centerline is. They cannot continue &mdash; the tool is unusable.</div>
-      <p>This wasn&rsquo;t a bug. It wasn&rsquo;t a missing feature. It was an onboarding failure &mdash; a domain-specific term presented to general users with no explanation, no guidance, and no way forward.</p>
-      <p>The tool&rsquo;s only response to the failure was a bare toast: <em>&ldquo;Couldn&rsquo;t find centerlines&hellip; Ensure that centerlines are set correctly.&rdquo;</em> No definition. No example. No next step. Every user who couldn&rsquo;t define one hit a complete wall &mdash; not friction, not confusion, but a hard stop. The onboarding failure <em>was</em> the product failure.</p>
-      <h3>Research constraints</h3>
-      <p>No direct user interviews were possible. I diagnosed the problem through the tool itself, competitive analysis of how AEC tools like Rhino, SketchUp, and Revit handle domain-specific onboarding, and architectural domain knowledge to reconstruct the user&rsquo;s mental model at the point of failure.</p>
-    </section>
-
-    <!-- Behavioural Challenges — moved up, right after Problem, for narrative flow -->
-    <section class="block" id="stuck-h">
-      <span class="kicker">Customer Behavioural Challenges</span>
-      <h2>Why users got stuck</h2>
-      <div class="grid2">
-        <div class="card">
-          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.29 3.86l-8.18 14.14A2 2 0 0 0 3.82 21h16.36a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg></div>
-          <h4>Domain jargon as a blocker</h4>
-          <p>&ldquo;Center line&rdquo; is an architectural term with a specific technical meaning. For non-specialists &mdash; or architects new to computational tools &mdash; it was meaningless, and the tool gave no definition.</p>
-        </div>
-        <div class="card">
-          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
-          <h4>No progressive guidance</h4>
-          <p>The tool presented a blank canvas and a requirement. No step-by-step onboarding, no example, no visual cue showing what &ldquo;selecting and connecting points&rdquo; looked like.</p>
-        </div>
-        <div class="card">
-          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
-          <h4>No direct user research available</h4>
-          <p>No user interviews were possible. The challenge required reading the problem from the tool itself, competitor analysis, and architectural domain knowledge.</p>
-        </div>
-        <div class="card">
-          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
-          <h4>Translating 3D thinking into a flat UI</h4>
-          <p>Helping users grasp spatial, structural concepts through a flat interface meant turning 3D architectural thinking into clear, sequential steps anyone could follow.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="block" aria-labelledby="system-h">
-      <span class="eyebrow">System</span>
-      <h2 id="system-h">The Finch 3D ecosystem</h2>
-      <p>Understanding why the failure happened meant first understanding what Finch 3D actually is &mdash; not just a design tool, but an AI-powered constraint engine embedded in an architectural workflow, connected to external inputs that users bring from other software.</p>
-      <figure class="wide-fig">
-        <div class="shot"><img src="images/finch/finch-01-ecosystem.png" alt="Radial diagram of the Finch 3D ecosystem — the AI layout generation core at the center, surrounded by its capabilities and the external design tools that feed it."></div>
-        <figcaption>The Finch 3D ecosystem: AI core, its capabilities, and the external tools feeding it.</figcaption>
-      </figure>
-    </section>
-
-    <section class="block" aria-labelledby="how-h">
-      <span class="eyebrow">How It Works</span>
-      <h2 id="how-h">A constraint engine, not an image generator</h2>
-      <p>Finch 3D&rsquo;s AI core is a graph-based constraint satisfaction engine. A building layout is represented as a graph &mdash; rooms as nodes, with edges encoding adjacency requirements, structural dependencies, and circulation constraints. When an architect inputs a floor plan, the engine traverses the space of valid configurations and returns optimised layout variations that satisfy all constraints simultaneously.</p>
-      <p>This distinction matters for onboarding design. Users encountering the &ldquo;center line&rdquo; prompt aren&rsquo;t being asked to draw something &mdash; they&rsquo;re being asked to define a structural axis that the constraint engine uses to anchor its spatial graph. The tool is asking for a precise geometric input that unlocks the entire computation. Without it, there is nothing to compute.</p>
-      <h3>Why the centerline is the critical input</h3>
-      <p>In architectural drawing, a centerline marks the structural axis of a wall &mdash; the reference from which dimensions, loads, and spatial relationships are measured. In Finch 3D&rsquo;s constraint model, it&rsquo;s the seed: the anchor from which the graph of spatial relationships is built outward. Asking a user to supply it with no context is equivalent to asking someone to provide a database primary key without telling them what a database is.</p>
-    </section>
-
-    <!-- Research Process -->
-    <section class="block">
-      <span class="kicker">Research Process &rarr; Solution Design</span>
-      <h2>From discovery to solution</h2>
-      <div class="steps">
-        <div class="step"><div class="n"></div><div>
-          <h4>Diagnose the tool</h4>
-          <p>Opened and used Finch 3D as a first-time user, documenting every moment of confusion. The undocumented centerline requirement emerged immediately as the critical failure point.</p>
-        </div></div>
-        <div class="step"><div class="n"></div><div>
-          <h4>Secondary research</h4>
-          <p>With no interviews available, studied architectural software documentation, forum discussions, and reviews to reconstruct the typical user&rsquo;s mental model when encountering &ldquo;centerline.&rdquo;</p>
-        </div></div>
-        <div class="step"><div class="n"></div><div>
-          <h4>Competitive analysis</h4>
-          <p>Analysed 5+ competing tools (Rhino, SketchUp, Revit) for how they handle domain-specific onboarding. The best tools showed examples <em>before</em> asking for input.</p>
-        </div></div>
-        <div class="step"><div class="n"></div><div>
-          <h4>Wireframing the solution</h4>
-          <p>Designed a step-by-step guided flow: define what a centerline is, show a visual example, prompt the user to click the first point, then connect points &mdash; with live validation at each step.</p>
-        </div></div>
-      </div>
-    </section>
-
-    <!-- The Solution -->
-    <section class="block" id="solution-h">
-      <span class="kicker">The Solution</span>
-      <h2>The guided flow I designed</h2>
-      <p>Finch 3D provided no onboarding for the centerline requirement &mdash; the blank error state was all users saw. The redesign explains the term, shows the destination, and validates each step in real time.</p>
-      <div class="ba">
-        <div class="ba-col">
-          <div class="ba-label ba-before">Before</div>
-          <div class="shot"><img src="images/finch/Before.png" alt="Original Finch 3D error — a bare toast message with no guidance"></div>
-          <p class="cap">A single dismissive toast: &ldquo;Couldn&rsquo;t find centerlines&hellip; Ensure that centerlines are set correctly.&rdquo; No explanation, no example, no way forward.</p>
-        </div>
-        <div class="ba-col">
-          <div class="ba-label ba-after">After</div>
-          <div class="shot"><img src="images/finch/After__Cover.png" alt="Redesigned panel showing incorrect vs correct centerlines with guided actions"></div>
-          <p class="cap">A guided panel that defines the term, contrasts incorrect vs correct, and offers a clear next action &mdash; &ldquo;Fix it for me&rdquo; or &ldquo;Show guide.&rdquo;</p>
-        </div>
-      </div>
-      <h3 style="margin-top:2rem;">Inside the guided experience</h3>
-      <div class="gallery">
-        <figure class="g">
-          <div class="shot"><img src="images/finch/Guidance_panel.png" alt="Centerline Guide modal explaining what centerlines are"></div>
-          <figcaption>Guidance panel &mdash; what is a centerline</figcaption>
-        </figure>
-        <figure class="g">
-          <div class="shot"><img src="images/finch/How_to_create_one.png" alt="How to create a centerline modal with touch points"></div>
-          <figcaption>How to create one &mdash; step by step</figcaption>
-        </figure>
-        <figure class="g">
-          <div class="shot"><img src="images/finch/_In-context_guidance.png" alt="In-canvas guidance contrasting incorrect and correct centerlines"></div>
-          <figcaption>In-context guidance &mdash; incorrect vs correct</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- CX Strategy -->
-    <section class="block">
-      <span class="kicker">CX Strategy</span>
-      <h2>Three principles that guided every decision</h2>
-      <div class="principles">
-        <div class="principle"><div class="num">01</div>
-          <p><strong>Explain domain terms before demanding them.</strong> Define domain-specific language the moment it&rsquo;s first encountered &mdash; in context, before the user needs to act on it.</p>
-        </div>
-        <div class="principle"><div class="num">02</div>
-          <p><strong>Show the destination before asking for the journey.</strong> Users can&rsquo;t give meaningful input until they see what the output looks like. Showing a completed center line first removed the biggest blocker.</p>
-        </div>
-        <div class="principle"><div class="num">03</div>
-          <p><strong>Validate in real time, not at submission.</strong> Each step gave immediate visual feedback &mdash; the centerline appeared as points connected. Errors were visible and correctable without losing progress.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Design System -->
-    <section class="block">
-      <span class="kicker">Design System</span>
-      <h2>Built to scale, not just to ship</h2>
-      <p>The guided flow was built on a reusable foundation &mdash; defined typography, a neutral colour system with accessibility validation, and component variants in Figma &mdash; so the solution could extend consistently across the product.</p>
-      <figure class="wide-fig">
-        <div class="shot"><img src="images/finch/Design_System.png" alt="Finch 3D design system — typography scale, neutral colour palette, and button components"></div>
-      </figure>
-    </section>
-
-    <!-- Prototype -->
-    <section class="block">
-      <span class="kicker">Prototype</span>
-      <h2>See the prototype in action</h2>
-      <div class="video">
-        <iframe src="https://www.youtube.com/embed/nKyYUDkzfvU"
-          title="Finch 3D guided onboarding prototype"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen></iframe>
-      </div>
-    </section>
-
-    <section class="block" aria-labelledby="outcome-h">
-      <span class="eyebrow">Outcome</span>
-      <h2 id="outcome-h">From blocked to guided in four steps</h2>
-      <p>I designed a guided onboarding flow built on three principles: explain domain terms before demanding them, show the destination before asking for the journey, and validate in real time rather than at submission.</p>
-      <p>The solution replaced the bare error toast with a panel that defines the term, contrasts an incorrect centerline with a correct one visually, and offers two recovery paths &mdash; &ldquo;Fix it for me&rdquo; or &ldquo;Show guide.&rdquo; The guide walks users through four steps with live canvas feedback at each stage: explain &rarr; show &rarr; place &rarr; connect.</p>
-      <div class="stats">
-        <div class="stat"><div class="big">~20%</div><div class="lbl">Projected reduction in onboarding time</div></div>
-        <div class="stat"><div class="big">4 steps</div><div class="lbl">Explain &rarr; show &rarr; place &rarr; connect</div></div>
-        <div class="stat"><div class="big">Zero</div><div class="lbl">Ambiguity remaining at the first required input</div></div>
-        <div class="stat"><div class="big">Reusable</div><div class="lbl">Figma component system with variants, built to scale</div></div>
-      </div>
-      <p class="pull">&ldquo;The centerline problem was never a technical problem &mdash; it was a communication problem. Once I named it as that, the solution was obvious.&rdquo;<cite class="pull-attr">&mdash; Medya Asgharyan, UX Researcher</cite></p>
-      <nav class="cs-nav" aria-label="Case study navigation">
-        <a class="cs-nav-link" href="index.html#work">&larr; Back to all work</a>
-        <a class="cs-nav-link cs-nav-next" href="daycare.html">Next project &rarr;<span class="cs-nav-title">Ontario Daycare Access</span></a>
-      </nav>
-    </section>
-
-  </div>
-</main>
-
-<footer class="site">
-  <div class="container">
-    <div class="foot">
-      <p>&copy; 2026 Medya Asgharyan. All rights reserved.</p>
-      <div class="socials">
-        <a href="mailto:asgharyan.medya@gmail.com" aria-label="Email Medya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
-        <a href="https://www.linkedin.com/in/asgharyan-medya/" aria-label="LinkedIn profile" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5.001A2.5 2.5 0 014.98 3.5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21h-4z"/></svg></a>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<script>
-  (function () {
-    var toggle = document.getElementById('nav-toggle');
-    var menu   = document.getElementById('menu');
-    function close() { menu.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }
-    toggle.addEventListener('click', function () {
-      var isOpen = menu.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', String(isOpen));
-    });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
-    document.addEventListener('click', function (e) {
-      if (!menu.contains(e.target) && !toggle.contains(e.target)) close();
-    });
-  }());
-</script>
-<script>
-  (function () {
-    var overlay = document.createElement('div');
-    overlay.id = 'lb-overlay';
-    overlay.setAttribute('role', 'dialog');
-    overlay.setAttribute('aria-modal', 'true');
-    overlay.setAttribute('aria-label', 'Image preview');
-    var closeBtn = document.createElement('button');
-    closeBtn.id = 'lb-close';
-    closeBtn.setAttribute('aria-label', 'Close preview');
-    closeBtn.textContent = '×';
-    var lbImg = document.createElement('img');
-    lbImg.id = 'lb-img';
-    lbImg.alt = '';
-    overlay.appendChild(closeBtn);
-    overlay.appendChild(lbImg);
-    document.body.appendChild(overlay);
-    var lastTrigger = null;
-    function openLb(src, alt, trigger) {
-      lastTrigger = trigger || null;
-      lbImg.src = src;
-      lbImg.alt = alt || '';
-      overlay.classList.add('open');
-      document.body.style.overflow = 'hidden';
-      closeBtn.focus();
-    }
-    function closeLb() {
-      overlay.classList.remove('open');
-      document.body.style.overflow = '';
-      if (lastTrigger) lastTrigger.focus();
-    }
-    document.querySelectorAll('main img').forEach(function (img) {
-      img.setAttribute('tabindex', '0');
-      img.setAttribute('role', 'button');
-      if (!img.getAttribute('aria-label')) {
-        img.setAttribute('aria-label', 'Expand image: ' + (img.alt || 'view larger'));
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Finch 3D Case Study — Medya Asgharyan</title>
+    <meta
+      name="description"
+      content="UX case study: diagnosing an onboarding failure in Finch 3D's AEC software and designing a guided flow that reduced first-time user confusion."
+    />
+    <meta property="og:title" content="Finch 3D Case Study — Medya Asgharyan" />
+    <meta
+      property="og:description"
+      content="Diagnosing an onboarding failure in AEC software and redesigning the experience from the ground up."
+    />
+    <meta property="og:image" content="images/finch/After__Cover.png" />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Karla:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #ffffff;
+        --ink: #1f1f1f;
+        --body: #5a5a5a;
+        --line: #e8e8e8;
+        --pill-border: #d8d8d8;
+        --footer: #1c1c1c;
+        --maxw: 1180px;
+        --readw: 760px;
+        --pad: clamp(1.25rem, 5vw, 4rem);
       }
-      img.addEventListener('click', function () { openLb(img.src, img.alt, img); });
-      img.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          openLb(img.src, img.alt, img);
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--bg);
+        color: var(--body);
+        font-family: "Karla", system-ui, sans-serif;
+        line-height: 1.65;
+        overflow-x: hidden;
+      }
+      a {
+        color: inherit;
+      }
+      h1,
+      h2,
+      h3,
+      .logo,
+      .eyebrow {
+        font-family: "Poppins", system-ui, sans-serif;
+      }
+
+      .skip {
+        position: absolute;
+        left: -999px;
+        top: 0;
+        background: var(--ink);
+        color: #fff;
+        padding: 0.6rem 1rem;
+        z-index: 30;
+        text-decoration: none;
+        border-radius: 4px;
+      }
+      .skip:focus {
+        left: 1rem;
+        top: 1rem;
+      }
+      :focus-visible {
+        outline: 3px solid #1f1f1f;
+        outline-offset: 3px;
+      }
+      .container {
+        max-width: var(--maxw);
+        margin: 0 auto;
+        padding-inline: var(--pad);
+      }
+      .reader {
+        max-width: var(--readw);
+        margin: 0 auto;
+        padding-inline: var(--pad);
+      }
+
+      /* Nav */
+      header.site {
+        border-bottom: 1px solid var(--line);
+        position: sticky;
+        top: 0;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        z-index: 20;
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding-block: 1.1rem;
+        position: relative;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        text-decoration: none;
+        color: var(--ink);
+      }
+      .brand .mark {
+        width: 38px;
+        height: 38px;
+        background: var(--ink);
+        color: #fff;
+        border-radius: 7px;
+        display: grid;
+        place-items: center;
+        font-family: "Poppins";
+        font-weight: 600;
+        font-size: 0.95rem;
+        letter-spacing: -0.02em;
+        flex-shrink: 0;
+      }
+      .brand .logo {
+        font-weight: 600;
+        font-size: 1.15rem;
+        color: var(--ink);
+      }
+      .menu {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: clamp(1.1rem, 2.6vw, 2.2rem);
+      }
+      .menu a {
+        text-decoration: none;
+        font-family: "Poppins";
+        font-size: 0.98rem;
+        color: #4a4a4a;
+        padding-bottom: 3px;
+        border-bottom: 2px solid transparent;
+        transition:
+          color 0.25s,
+          border-color 0.25s;
+      }
+      .menu a:hover,
+      .menu a:focus-visible,
+      .menu a[aria-current] {
+        color: var(--ink);
+        border-color: var(--ink);
+      }
+      .menu .icon {
+        display: grid;
+        place-items: center;
+        width: 22px;
+        height: 22px;
+        border-bottom: none !important;
+      }
+      .menu .icon svg {
+        width: 20px;
+        height: 20px;
+      }
+      .nav-toggle {
+        display: none;
+        background: none;
+        border: 0;
+        cursor: pointer;
+        padding: 0.4rem;
+        color: var(--ink);
+      }
+      .nav-toggle svg {
+        width: 26px;
+        height: 26px;
+        display: block;
+      }
+
+      /* Hero */
+      .hero {
+        padding-block: clamp(3rem, 8vw, 5rem) clamp(2rem, 5vw, 3rem);
+      }
+      .eyebrow {
+        font-size: 0.78rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #9a9a9a;
+        display: block;
+        margin-bottom: 0.9rem;
+        font-weight: 500;
+      }
+      .hero h1 {
+        font-weight: 700;
+        color: var(--ink);
+        font-size: clamp(2.4rem, 7vw, 4.6rem);
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+      }
+      .hero .tagline {
+        font-size: clamp(1.05rem, 2.3vw, 1.25rem);
+        color: var(--body);
+        margin-top: 0.9rem;
+        max-width: 54ch;
+      }
+      .pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1.4rem;
+      }
+      .pill {
+        font-family: "Poppins";
+        font-weight: 500;
+        font-size: 0.68rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        background: #f3f3f3;
+        color: var(--ink);
+        border: 1px solid var(--pill-border);
+        border-radius: 6px;
+        padding: 0.4rem 0.65rem;
+      }
+      .meta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin-top: 1.6rem;
+        padding-top: 1.6rem;
+        border-top: 1px solid var(--line);
+      }
+      .meta-item strong {
+        font-family: "Poppins";
+        font-weight: 600;
+        color: var(--ink);
+        display: block;
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 0.25rem;
+      }
+      .meta-item span {
+        font-size: 0.97rem;
+        color: var(--body);
+      }
+
+      /* At a glance */
+      .glance {
+        background: #f6f6f4;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: clamp(1.4rem, 3vw, 2.2rem);
+        margin-top: 2rem;
+      }
+      .glance-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.6rem;
+      }
+      .glance-item .glance-label {
+        font-family: "Poppins";
+        font-weight: 600;
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #c9a84c;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+      .glance-item p {
+        font-size: 0.97rem;
+        color: #333;
+        margin: 0;
+        line-height: 1.55;
+      }
+      @media (max-width: 780px) {
+        .glance-grid {
+          grid-template-columns: 1fr;
         }
-      });
-    });
-    closeBtn.addEventListener('click', closeLb);
-    overlay.addEventListener('click', function (e) { if (e.target === overlay) closeLb(); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('open')) closeLb(); });
-  }());
-</script>
-</body>
+      }
+
+      /* Section jump nav */
+      .secnav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 1.2rem;
+        margin-top: 1.4rem;
+      }
+      .secnav a {
+        font-family: "Poppins";
+        font-size: 0.82rem;
+        color: #8a8a8a;
+        text-decoration: none;
+        padding-bottom: 2px;
+        border-bottom: 1px solid transparent;
+        transition:
+          color 0.2s,
+          border-color 0.2s;
+      }
+      .secnav a:hover,
+      .secnav a:focus-visible {
+        color: #c9a84c;
+        border-color: #c9a84c;
+      }
+
+      /* Sections */
+      section.block {
+        padding-block: clamp(2.2rem, 6vw, 3.5rem);
+        border-top: 1px solid var(--line);
+      }
+      section.block h2 {
+        font-weight: 700;
+        color: var(--ink);
+        font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+        letter-spacing: -0.02em;
+        margin-bottom: 1.1rem;
+      }
+      section.block h3 {
+        font-family: "Poppins";
+        font-weight: 600;
+        color: var(--ink);
+        font-size: 1rem;
+        margin: 1.6rem 0 0.5rem;
+      }
+      section.block p {
+        margin-bottom: 1rem;
+        font-size: clamp(1rem, 2vw, 1.08rem);
+      }
+      section.block p:last-child {
+        margin-bottom: 0;
+      }
+
+      .problem-quote {
+        background: #f6f6f4;
+        border-left: 3px solid var(--ink);
+        padding: 1.2rem 1.5rem;
+        border-radius: 0 8px 8px 0;
+        font-size: clamp(1.05rem, 2.2vw, 1.2rem);
+        line-height: 1.6;
+        margin: 1.2rem 0;
+        color: var(--ink);
+      }
+
+      /* Wide figure (breakout) — used for ecosystem + design system diagrams */
+      .wide-fig {
+        margin: 1.6rem 0 0;
+        width: min(100vw, 1180px);
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        padding-inline: 2rem;
+        box-sizing: border-box;
+      }
+      .wide-fig .shot {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      .wide-fig figcaption {
+        font-size: 0.88rem;
+        color: #9a9a9a;
+        margin-top: 0.9rem;
+        text-align: center;
+        max-width: 60ch;
+        margin-inline: auto;
+      }
+      @media (max-width: 680px) {
+        .wide-fig {
+          width: 100%;
+          left: auto;
+          transform: none;
+          padding-inline: 0;
+        }
+      }
+
+      /* Outcome stats */
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-top: 1.4rem;
+      }
+      .stat {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 1.3rem 1.5rem;
+      }
+      .stat .big {
+        font-family: "Poppins";
+        font-weight: 700;
+        font-size: 1.9rem;
+        color: var(--ink);
+      }
+      .stat .lbl {
+        font-size: 0.9rem;
+        color: var(--body);
+        margin-top: 0.3rem;
+      }
+
+      .back {
+        display: inline-block;
+        margin-top: 2.5rem;
+        font-family: "Poppins";
+        font-size: 0.92rem;
+        color: var(--body);
+        text-decoration: none;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 2px;
+        transition:
+          color 0.2s,
+          border-color 0.2s;
+      }
+      .back:hover {
+        color: var(--ink);
+        border-color: var(--ink);
+      }
+
+      /* Footer */
+      footer.site {
+        background: var(--footer);
+        color: #cfcfcf;
+        margin-top: clamp(2rem, 6vw, 4rem);
+      }
+      .foot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding-block: 2rem;
+        flex-wrap: wrap;
+      }
+      .foot p {
+        font-size: 0.95rem;
+      }
+      .foot .socials {
+        display: flex;
+        gap: 1.1rem;
+      }
+      .foot .socials a {
+        display: grid;
+        place-items: center;
+        color: #cfcfcf;
+        transition: color 0.25s;
+      }
+      .foot .socials a:hover {
+        color: #fff;
+      }
+      .foot .socials svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      /* ---- Cover image ---- */
+      .coverimg {
+        margin: 1.4rem 0 2rem;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        background: #f6f6f4;
+      }
+      .coverimg img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      /* ---- Kicker label ---- */
+      .kicker {
+        font-family: "Poppins";
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #9a9a9a;
+        margin-bottom: 14px;
+        display: block;
+      }
+
+      /* ---- 2-col card grid ---- */
+      .grid2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+        margin-top: 18px;
+      }
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 20px 22px;
+        background: #fff;
+      }
+      .card .ic {
+        width: 26px;
+        height: 26px;
+        color: #c9a84c;
+      }
+      .card .ic svg {
+        width: 100%;
+        height: 100%;
+      }
+      .card h4 {
+        font-family: "Poppins";
+        font-size: 15px;
+        font-weight: 600;
+        margin: 8px 0 6px;
+        color: var(--ink);
+      }
+      .card p {
+        font-size: 14px;
+        color: #454545;
+        margin: 0;
+      }
+
+      /* ---- Numbered steps ---- */
+      .steps {
+        counter-reset: s;
+        margin-top: 18px;
+      }
+      .step {
+        display: flex;
+        gap: 18px;
+        padding: 18px 0;
+        border-top: 1px solid var(--line);
+      }
+      .step:first-child {
+        border-top: none;
+      }
+      .step .n {
+        counter-increment: s;
+        font-family: "Poppins";
+        font-weight: 700;
+        font-size: 13px;
+        min-width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: var(--ink);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .step .n::before {
+        content: counter(s, decimal-leading-zero);
+      }
+      .step h4 {
+        font-family: "Poppins";
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 4px;
+        color: var(--ink);
+      }
+      .step p {
+        font-size: 0.97rem;
+        color: #3a3a3a;
+        margin: 0;
+      }
+
+      /* ---- Principles ---- */
+      .principles {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: 18px;
+      }
+      .principle {
+        background: #f6f6f4;
+        border-radius: 12px;
+        padding: 22px;
+      }
+      .principle .num {
+        font-family: "Poppins";
+        font-size: 28px;
+        color: #c9c7bd;
+        font-weight: 700;
+      }
+      .principle p {
+        font-size: 0.95rem;
+        margin-top: 8px;
+        color: #333;
+      }
+
+      /* ---- Image gallery ---- */
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: 18px;
+        width: min(100vw, 1440px);
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        padding-inline: 2rem;
+        box-sizing: border-box;
+      }
+      figure.g {
+        margin: 0;
+      }
+      figure.g figcaption {
+        font-size: 0.8rem;
+        color: #9a9a9a;
+        margin-top: 8px;
+        text-align: center;
+      }
+      .shot {
+        border-radius: 12px;
+        overflow: hidden;
+        background: #f6f6f4;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+      }
+      .shot img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      /* ---- Before / After ---- */
+      .ba {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+        margin-top: 22px;
+        width: min(100vw, 1280px);
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        padding-inline: 2rem;
+        box-sizing: border-box;
+      }
+      .ba-col {
+        display: flex;
+        flex-direction: column;
+      }
+      .ba-label {
+        font-family: "Poppins";
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        font-weight: 600;
+        padding: 5px 12px;
+        border-radius: 6px;
+        align-self: flex-start;
+        margin-bottom: 10px;
+      }
+      .ba-before {
+        background: #fbeaea;
+        color: #a32d2d;
+      }
+      .ba-after {
+        background: #e7f3ea;
+        color: #1f6b3a;
+      }
+      .cap {
+        font-size: 0.9rem;
+        color: #555;
+        margin-top: 10px;
+      }
+
+      /* ---- Pull quote ---- */
+      .pull {
+        font-style: italic;
+        font-size: 1.1rem;
+        line-height: 1.55;
+        color: var(--ink);
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        padding: 28px 0;
+        margin: 30px 0;
+      }
+      .pull .pull-attr {
+        display: block;
+        font-style: normal;
+        font-size: 0.82rem;
+        color: #9a9a9a;
+        margin-top: 0.7rem;
+        letter-spacing: 0.03em;
+      }
+      .cs-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 2.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--line);
+      }
+      .cs-nav-link {
+        font-family: "Poppins";
+        font-size: 0.92rem;
+        color: var(--body);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .cs-nav-link:hover,
+      .cs-nav-link:focus-visible {
+        color: #c9a84c;
+      }
+      .cs-nav-next {
+        text-align: right;
+        color: #c9a84c;
+        font-weight: 600;
+      }
+      .cs-nav-next:hover,
+      .cs-nav-next:focus-visible {
+        color: #b8922e;
+      }
+      .cs-nav-title {
+        display: block;
+        font-size: 0.8rem;
+        font-weight: 400;
+        color: var(--body);
+        margin-top: 0.2rem;
+      }
+
+      /* ---- Prototype video ---- */
+      .video {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16/9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-top: 18px;
+        background: #000;
+      }
+      .video iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+
+      @media (max-width: 1000px) {
+        .ba {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 680px) {
+        .grid2,
+        .principles,
+        .gallery {
+          grid-template-columns: 1fr;
+        }
+        .ba,
+        .gallery {
+          width: 100%;
+          left: auto;
+          transform: none;
+          padding-inline: 0;
+        }
+      }
+
+      /* ---- Lightbox ---- */
+      main img {
+        cursor: zoom-in;
+      }
+      #lb-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: 200;
+        align-items: center;
+        justify-content: center;
+        cursor: zoom-out;
+      }
+      #lb-overlay.open {
+        display: flex;
+      }
+      #lb-img {
+        max-width: 90vw;
+        max-height: 90vh;
+        border-radius: 12px;
+        object-fit: contain;
+        cursor: default;
+        display: block;
+      }
+      #lb-close {
+        position: absolute;
+        top: 1.2rem;
+        right: 1.2rem;
+        background: rgba(255, 255, 255, 0.15);
+        border: none;
+        color: #fff;
+        font-size: 2rem;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+      }
+      #lb-close:hover,
+      #lb-close:focus-visible {
+        background: rgba(255, 255, 255, 0.3);
+        outline: 2px solid rgba(255, 255, 255, 0.5);
+        outline-offset: 2px;
+      }
+
+      @media (max-width: 560px) {
+        .stats {
+          grid-template-columns: 1fr;
+        }
+        .menu li.navitem {
+          display: none;
+        }
+        .nav-toggle {
+          display: inline-flex;
+          align-items: center;
+        }
+        .menu {
+          position: absolute;
+          top: 100%;
+          right: 0;
+          flex-direction: column;
+          align-items: flex-end;
+          background: #fff;
+          border: 1px solid var(--line);
+          border-radius: 10px;
+          padding: 1rem 1.2rem;
+          gap: 0.9rem;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+          min-width: 180px;
+        }
+        .menu:not(.open) {
+          display: none;
+        }
+        .menu.open {
+          display: flex;
+        }
+        .menu.open li.navitem {
+          display: block;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to main content</a>
+
+    <header class="site">
+      <div class="container">
+        <nav class="nav" aria-label="Primary navigation">
+          <a
+            class="brand"
+            href="index.html"
+            aria-label="Medya Asgharyan — home"
+          >
+            <span class="mark" aria-hidden="true">MA</span>
+            <span class="logo">Medya Asgharyan</span>
+          </a>
+          <button
+            class="nav-toggle"
+            id="nav-toggle"
+            aria-label="Toggle navigation menu"
+            aria-expanded="false"
+            aria-controls="menu"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+          <ul class="menu" id="menu" role="list">
+            <li class="navitem"><a href="index.html">Home</a></li>
+            <li class="navitem"><a href="index.html#work">Portfolio</a></li>
+            <li class="navitem"><a href="about.html">About</a></li>
+            <li class="navitem">
+              <a
+                class="icon"
+                href="https://www.linkedin.com/in/asgharyan-medya/"
+                aria-label="LinkedIn profile"
+                target="_blank"
+                rel="noopener noreferrer"
+                ><svg
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M4.98 3.5a2.5 2.5 0 11-.02 5.001A2.5 2.5 0 014.98 3.5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21h-4z"
+                  /></svg
+              ></a>
+            </li>
+            <li class="navitem">
+              <a
+                class="icon"
+                href="mailto:asgharyan.medya@gmail.com"
+                aria-label="Send email"
+                ><svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  aria-hidden="true"
+                >
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <path d="m3 7 9 6 9-6" /></svg
+              ></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero container" aria-labelledby="cs-heading">
+        <span class="eyebrow">Case Study &middot; AEC Software</span>
+        <h1 id="cs-heading">Finch 3D</h1>
+        <p class="tagline">
+          Before architects could explore massing options, they first had to
+          complete a complex centerline workflow that many found difficult to
+          understand. UX research uncovered this pain point, and I designed an
+          intuitive, guided interface that reduced confusion and improved the
+          overall experience.
+        </p>
+        <div class="pills" aria-label="Tags">
+          <span class="pill">UX Research</span>
+          <span class="pill">Onboarding Design</span>
+          <span class="pill">Competitive Analysis</span>
+          <span class="pill">AEC Software</span>
+        </div>
+        <div class="meta-row">
+          <div class="meta-item">
+            <strong>Role</strong><span>UX Researcher</span>
+          </div>
+          <div class="meta-item">
+            <strong>Domain</strong><span>AEC Software</span>
+          </div>
+          <div class="meta-item">
+            <strong>Focus</strong><span>Onboarding &amp; Error Recovery</span>
+          </div>
+        </div>
+
+        <div class="glance">
+          <div class="glance-grid">
+            <div class="glance-item">
+              <span class="glance-label">Problem</span>
+              <p>
+                New users hit a hard stop on day one &mdash; the tool asked for
+                a &ldquo;centerline&rdquo; with no explanation, and there was no
+                way to continue.
+              </p>
+            </div>
+            <div class="glance-item">
+              <span class="glance-label">Approach</span>
+              <p>
+                I diagnosed the failure through the tool itself, competitor
+                research, and architectural domain knowledge &mdash; no user
+                interviews were possible.
+              </p>
+            </div>
+            <div class="glance-item">
+              <span class="glance-label">Result</span>
+              <p>
+                A guided 4-step flow that explains, shows, and validates the
+                centerline input in real time &mdash; a projected ~20% reduction
+                in onboarding time.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <nav class="secnav" aria-label="Jump to section">
+          <a href="#problem-h">Problem</a>
+          <a href="#stuck-h">Why users got stuck</a>
+          <a href="#solution-h">The solution</a>
+          <a href="#outcome-h">Outcome</a>
+        </nav>
+      </section>
+
+      <div class="reader">
+        <div class="coverimg">
+          <img
+            src="images/finch/Before.png"
+            alt="Original Finch 3D error state — the unguided moment users got stuck"
+          />
+        </div>
+
+        <section class="block" aria-labelledby="problem-h">
+          <span class="eyebrow">Problem</span>
+          <h2 id="problem-h">A hard stop on day one</h2>
+          <div class="problem-quote">
+            A user opens Finch 3D for the first time. The tool asks them to
+            provide a &ldquo;center line.&rdquo; They have no idea what a
+            centerline is. They cannot continue &mdash; the tool is unusable.
+          </div>
+          <p>
+            This wasn&rsquo;t a bug. It wasn&rsquo;t a missing feature. It was
+            an onboarding failure &mdash; a domain-specific term presented to
+            general users with no explanation, no guidance, and no way forward.
+          </p>
+          <p>
+            The tool&rsquo;s only response to the failure was a bare toast:
+            <em
+              >&ldquo;Couldn&rsquo;t find centerlines&hellip; Ensure that
+              centerlines are set correctly.&rdquo;</em
+            >
+            No definition. No example. No next step. Every user who
+            couldn&rsquo;t define one hit a complete wall &mdash; not friction,
+            not confusion, but a hard stop. The onboarding failure
+            <em>was</em> the product failure.
+          </p>
+          <h3>Research constraints</h3>
+          <p>
+            No direct user interviews were possible. I diagnosed the problem
+            through the tool itself, competitive analysis of how AEC tools like
+            Rhino, SketchUp, and Revit handle domain-specific onboarding, and
+            architectural domain knowledge to reconstruct the user&rsquo;s
+            mental model at the point of failure.
+          </p>
+        </section>
+
+        <!-- Behavioural Challenges — moved up, right after Problem, for narrative flow -->
+        <section class="block" id="stuck-h">
+          <span class="kicker">Customer Behavioural Challenges</span>
+          <h2>Why users got stuck</h2>
+          <div class="grid2">
+            <div class="card">
+              <div class="ic" aria-hidden="true">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M12 9v4M12 17h.01M10.29 3.86l-8.18 14.14A2 2 0 0 0 3.82 21h16.36a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+                  />
+                </svg>
+              </div>
+              <h4>Domain jargon as a blocker</h4>
+              <p>
+                &ldquo;Center line&rdquo; is an architectural term with a
+                specific technical meaning. For non-specialists &mdash; or
+                architects new to computational tools &mdash; it was
+                meaningless, and the tool gave no definition.
+              </p>
+            </div>
+            <div class="card">
+              <div class="ic" aria-hidden="true">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 6v6l4 2" />
+                </svg>
+              </div>
+              <h4>No progressive guidance</h4>
+              <p>
+                The tool presented a blank canvas and a requirement. No
+                step-by-step onboarding, no example, no visual cue showing what
+                &ldquo;selecting and connecting points&rdquo; looked like.
+              </p>
+            </div>
+            <div class="card">
+              <div class="ic" aria-hidden="true">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="11" cy="11" r="7" />
+                  <path d="m21 21-4.3-4.3" />
+                </svg>
+              </div>
+              <h4>No direct user research available</h4>
+              <p>
+                No user interviews were possible. The challenge required reading
+                the problem from the tool itself, competitor analysis, and
+                architectural domain knowledge.
+              </p>
+            </div>
+            <div class="card">
+              <div class="ic" aria-hidden="true">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="3" y="3" width="7" height="7" rx="1" />
+                  <rect x="14" y="3" width="7" height="7" rx="1" />
+                  <rect x="3" y="14" width="7" height="7" rx="1" />
+                  <rect x="14" y="14" width="7" height="7" rx="1" />
+                </svg>
+              </div>
+              <h4>Translating 3D thinking into a flat UI</h4>
+              <p>
+                Helping users grasp spatial, structural concepts through a flat
+                interface meant turning 3D architectural thinking into clear,
+                sequential steps anyone could follow.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="block" aria-labelledby="system-h">
+          <span class="eyebrow">System</span>
+          <h2 id="system-h">The Finch 3D ecosystem</h2>
+          <p>
+            Understanding why the failure happened meant first understanding
+            what Finch 3D actually is &mdash; not just a design tool, but an
+            AI-powered constraint engine embedded in an architectural workflow,
+            connected to external inputs that users bring from other software.
+          </p>
+          <figure class="wide-fig">
+            <div class="shot">
+              <img
+                src="images/finch/finch-01-ecosystem.png"
+                alt="Radial diagram of the Finch 3D ecosystem — the AI layout generation core at the center, surrounded by its capabilities and the external design tools that feed it."
+              />
+            </div>
+            <figcaption>
+              The Finch 3D ecosystem: AI core, its capabilities, and the
+              external tools feeding it.
+            </figcaption>
+          </figure>
+        </section>
+
+        <section class="block" aria-labelledby="how-h">
+          <span class="eyebrow">How It Works</span>
+          <h2 id="how-h">A constraint engine, not an image generator</h2>
+          <p>
+            Finch 3D&rsquo;s AI core is a graph-based constraint satisfaction
+            engine. A building layout is represented as a graph &mdash; rooms as
+            nodes, with edges encoding adjacency requirements, structural
+            dependencies, and circulation constraints. When an architect inputs
+            a floor plan, the engine traverses the space of valid configurations
+            and returns optimised layout variations that satisfy all constraints
+            simultaneously.
+          </p>
+          <p>
+            This distinction matters for onboarding design. Users encountering
+            the &ldquo;center line&rdquo; prompt aren&rsquo;t being asked to
+            draw something &mdash; they&rsquo;re being asked to define a
+            structural axis that the constraint engine uses to anchor its
+            spatial graph. The tool is asking for a precise geometric input that
+            unlocks the entire computation. Without it, there is nothing to
+            compute.
+          </p>
+          <h3>Why the centerline is the critical input</h3>
+          <p>
+            In architectural drawing, a centerline marks the structural axis of
+            a wall &mdash; the reference from which dimensions, loads, and
+            spatial relationships are measured. In Finch 3D&rsquo;s constraint
+            model, it&rsquo;s the seed: the anchor from which the graph of
+            spatial relationships is built outward. Asking a user to supply it
+            with no context is equivalent to asking someone to provide a
+            database primary key without telling them what a database is.
+          </p>
+        </section>
+
+        <!-- Research Process -->
+        <section class="block">
+          <span class="kicker">Research Process &rarr; Solution Design</span>
+          <h2>From discovery to solution</h2>
+          <div class="steps">
+            <div class="step">
+              <div class="n"></div>
+              <div>
+                <h4>Diagnose the tool</h4>
+                <p>
+                  Opened and used Finch 3D as a first-time user, documenting
+                  every moment of confusion. The undocumented centerline
+                  requirement emerged immediately as the critical failure point.
+                </p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="n"></div>
+              <div>
+                <h4>Secondary research</h4>
+                <p>
+                  With no interviews available, studied architectural software
+                  documentation, forum discussions, and reviews to reconstruct
+                  the typical user&rsquo;s mental model when encountering
+                  &ldquo;centerline.&rdquo;
+                </p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="n"></div>
+              <div>
+                <h4>Competitive analysis</h4>
+                <p>
+                  Analysed 5+ competing tools (Rhino, SketchUp, Revit) for how
+                  they handle domain-specific onboarding. The best tools showed
+                  examples <em>before</em> asking for input.
+                </p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="n"></div>
+              <div>
+                <h4>Wireframing the solution</h4>
+                <p>
+                  Designed a step-by-step guided flow: define what a centerline
+                  is, show a visual example, prompt the user to click the first
+                  point, then connect points &mdash; with live validation at
+                  each step.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- The Solution -->
+        <section class="block" id="solution-h">
+          <span class="kicker">The Solution</span>
+          <h2>The guided flow I designed</h2>
+          <p>
+            Finch 3D provided no onboarding for the centerline requirement
+            &mdash; the blank error state was all users saw. The redesign
+            explains the term, shows the destination, and validates each step in
+            real time.
+          </p>
+          <div class="ba">
+            <div class="ba-col">
+              <div class="ba-label ba-before">Before</div>
+              <div class="shot">
+                <img
+                  src="images/finch/Before.png"
+                  alt="Original Finch 3D error — a bare toast message with no guidance"
+                />
+              </div>
+              <p class="cap">
+                A single dismissive toast: &ldquo;Couldn&rsquo;t find
+                centerlines&hellip; Ensure that centerlines are set
+                correctly.&rdquo; No explanation, no example, no way forward.
+              </p>
+            </div>
+            <div class="ba-col">
+              <div class="ba-label ba-after">After</div>
+              <div class="shot">
+                <img
+                  src="images/finch/After__Cover.png"
+                  alt="Redesigned panel showing incorrect vs correct centerlines with guided actions"
+                />
+              </div>
+              <p class="cap">
+                A guided panel that defines the term, contrasts incorrect vs
+                correct, and offers a clear next action &mdash; &ldquo;Fix it
+                for me&rdquo; or &ldquo;Show guide.&rdquo;
+              </p>
+            </div>
+          </div>
+          <h3 style="margin-top: 2rem">Inside the guided experience</h3>
+          <div class="gallery">
+            <figure class="g">
+              <div class="shot">
+                <img
+                  src="images/finch/Guidance_panel.png"
+                  alt="Centerline Guide modal explaining what centerlines are"
+                />
+              </div>
+              <figcaption>
+                Guidance panel &mdash; what is a centerline
+              </figcaption>
+            </figure>
+            <figure class="g">
+              <div class="shot">
+                <img
+                  src="images/finch/How_to_create_one.png"
+                  alt="How to create a centerline modal with touch points"
+                />
+              </div>
+              <figcaption>How to create one &mdash; step by step</figcaption>
+            </figure>
+            <figure class="g">
+              <div class="shot">
+                <img
+                  src="images/finch/In-context_guidance.png"
+                  alt="In-canvas guidance contrasting incorrect and correct centerlines"
+                />
+              </div>
+              <figcaption>
+                In-context guidance &mdash; incorrect vs correct
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <!-- CX Strategy -->
+        <section class="block">
+          <span class="kicker">CX Strategy</span>
+          <h2>Three principles that guided every decision</h2>
+          <div class="principles">
+            <div class="principle">
+              <div class="num">01</div>
+              <p>
+                <strong>Explain domain terms before demanding them.</strong>
+                Define domain-specific language the moment it&rsquo;s first
+                encountered &mdash; in context, before the user needs to act on
+                it.
+              </p>
+            </div>
+            <div class="principle">
+              <div class="num">02</div>
+              <p>
+                <strong
+                  >Show the destination before asking for the journey.</strong
+                >
+                Users can&rsquo;t give meaningful input until they see what the
+                output looks like. Showing a completed center line first removed
+                the biggest blocker.
+              </p>
+            </div>
+            <div class="principle">
+              <div class="num">03</div>
+              <p>
+                <strong>Validate in real time, not at submission.</strong> Each
+                step gave immediate visual feedback &mdash; the centerline
+                appeared as points connected. Errors were visible and
+                correctable without losing progress.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Design System -->
+        <section class="block">
+          <span class="kicker">Design System</span>
+          <h2>Built to scale, not just to ship</h2>
+          <p>
+            The guided flow was built on a reusable foundation &mdash; defined
+            typography, a neutral colour system with accessibility validation,
+            and component variants in Figma &mdash; so the solution could extend
+            consistently across the product.
+          </p>
+          <figure class="wide-fig">
+            <div class="shot">
+              <img
+                src="images/finch/Design_System.png"
+                alt="Finch 3D design system — typography scale, neutral colour palette, and button components"
+              />
+            </div>
+          </figure>
+        </section>
+
+        <!-- Prototype -->
+        <section class="block">
+          <span class="kicker">Prototype</span>
+          <h2>See the prototype in action</h2>
+          <div class="video">
+            <iframe
+              src="https://www.youtube.com/embed/nKyYUDkzfvU"
+              title="Finch 3D guided onboarding prototype"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+              "
+              allowfullscreen
+            ></iframe>
+          </div>
+        </section>
+
+        <section class="block" aria-labelledby="outcome-h">
+          <span class="eyebrow">Outcome</span>
+          <h2 id="outcome-h">From blocked to guided in four steps</h2>
+          <p>
+            I designed a guided onboarding flow built on three principles:
+            explain domain terms before demanding them, show the destination
+            before asking for the journey, and validate in real time rather than
+            at submission.
+          </p>
+          <p>
+            The solution replaced the bare error toast with a panel that defines
+            the term, contrasts an incorrect centerline with a correct one
+            visually, and offers two recovery paths &mdash; &ldquo;Fix it for
+            me&rdquo; or &ldquo;Show guide.&rdquo; The guide walks users through
+            four steps with live canvas feedback at each stage: explain &rarr;
+            show &rarr; place &rarr; connect.
+          </p>
+          <div class="stats">
+            <div class="stat">
+              <div class="big">~20%</div>
+              <div class="lbl">Projected reduction in onboarding time</div>
+            </div>
+            <div class="stat">
+              <div class="big">4 steps</div>
+              <div class="lbl">
+                Explain &rarr; show &rarr; place &rarr; connect
+              </div>
+            </div>
+            <div class="stat">
+              <div class="big">Zero</div>
+              <div class="lbl">
+                Ambiguity remaining at the first required input
+              </div>
+            </div>
+            <div class="stat">
+              <div class="big">Reusable</div>
+              <div class="lbl">
+                Figma component system with variants, built to scale
+              </div>
+            </div>
+          </div>
+          <p class="pull">
+            &ldquo;The centerline problem was never a technical problem &mdash;
+            it was a communication problem. Once I named it as that, the
+            solution was obvious.&rdquo;<cite class="pull-attr"
+              >&mdash; Medya Asgharyan, UX Researcher</cite
+            >
+          </p>
+          <nav class="cs-nav" aria-label="Case study navigation">
+            <a class="cs-nav-link" href="index.html#work"
+              >&larr; Back to all work</a
+            >
+            <a class="cs-nav-link cs-nav-next" href="daycare.html"
+              >Next project &rarr;<span class="cs-nav-title"
+                >Ontario Daycare Access</span
+              ></a
+            >
+          </nav>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site">
+      <div class="container">
+        <div class="foot">
+          <p>&copy; 2026 Medya Asgharyan. All rights reserved.</p>
+          <div class="socials">
+            <a href="mailto:asgharyan.medya@gmail.com" aria-label="Email Medya"
+              ><svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                aria-hidden="true"
+              >
+                <rect x="3" y="5" width="18" height="14" rx="2" />
+                <path d="m3 7 9 6 9-6" /></svg
+            ></a>
+            <a
+              href="https://www.linkedin.com/in/asgharyan-medya/"
+              aria-label="LinkedIn profile"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M4.98 3.5a2.5 2.5 0 11-.02 5.001A2.5 2.5 0 014.98 3.5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21h-4z"
+                /></svg
+            ></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        var toggle = document.getElementById("nav-toggle");
+        var menu = document.getElementById("menu");
+        function close() {
+          menu.classList.remove("open");
+          toggle.setAttribute("aria-expanded", "false");
+        }
+        toggle.addEventListener("click", function () {
+          var isOpen = menu.classList.toggle("open");
+          toggle.setAttribute("aria-expanded", String(isOpen));
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") close();
+        });
+        document.addEventListener("click", function (e) {
+          if (!menu.contains(e.target) && !toggle.contains(e.target)) close();
+        });
+      })();
+    </script>
+    <script>
+      (function () {
+        var overlay = document.createElement("div");
+        overlay.id = "lb-overlay";
+        overlay.setAttribute("role", "dialog");
+        overlay.setAttribute("aria-modal", "true");
+        overlay.setAttribute("aria-label", "Image preview");
+        var closeBtn = document.createElement("button");
+        closeBtn.id = "lb-close";
+        closeBtn.setAttribute("aria-label", "Close preview");
+        closeBtn.textContent = "×";
+        var lbImg = document.createElement("img");
+        lbImg.id = "lb-img";
+        lbImg.alt = "";
+        overlay.appendChild(closeBtn);
+        overlay.appendChild(lbImg);
+        document.body.appendChild(overlay);
+        var lastTrigger = null;
+        function openLb(src, alt, trigger) {
+          lastTrigger = trigger || null;
+          lbImg.src = src;
+          lbImg.alt = alt || "";
+          overlay.classList.add("open");
+          document.body.style.overflow = "hidden";
+          closeBtn.focus();
+        }
+        function closeLb() {
+          overlay.classList.remove("open");
+          document.body.style.overflow = "";
+          if (lastTrigger) lastTrigger.focus();
+        }
+        document.querySelectorAll("main img").forEach(function (img) {
+          img.setAttribute("tabindex", "0");
+          img.setAttribute("role", "button");
+          if (!img.getAttribute("aria-label")) {
+            img.setAttribute(
+              "aria-label",
+              "Expand image: " + (img.alt || "view larger"),
+            );
+          }
+          img.addEventListener("click", function () {
+            openLb(img.src, img.alt, img);
+          });
+          img.addEventListener("keydown", function (e) {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              openLb(img.src, img.alt, img);
+            }
+          });
+        });
+        closeBtn.addEventListener("click", closeLb);
+        overlay.addEventListener("click", function (e) {
+          if (e.target === overlay) closeLb();
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && overlay.classList.contains("open"))
+            closeLb();
+        });
+      })();
+    </script>
+  </body>
 </html>
