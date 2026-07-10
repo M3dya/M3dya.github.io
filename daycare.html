@@ -67,6 +67,11 @@
   .diagram-wrap { background: #faf9f7; border: 1px solid var(--line); border-radius: 16px; padding: clamp(1.5rem, 4vw, 2.5rem); margin: 1.6rem 0; }
   .diagram-wrap svg { width: 100%; height: auto; display: block; }
   .diagram-cap { text-align: center; font-size: .9rem; color: #9a9a9a; margin-top: 1rem; }
+  .wide-fig { margin: 1.6rem 0 0; width: min(100vw, 1180px); position: relative; left: 50%; transform: translateX(-50%); padding-inline: 2rem; box-sizing: border-box; }
+  .wide-fig .shot { border-radius: 12px; overflow: hidden; background: #faf9f7; border: 1px solid var(--line); }
+  .wide-fig .shot img { display: block; width: 100%; height: auto; }
+  .wide-fig figcaption { font-size: .9rem; color: #9a9a9a; margin-top: .9rem; text-align: center; max-width: 60ch; margin-inline: auto; }
+  @media (max-width: 680px) { .wide-fig { width: 100%; left: auto; transform: none; padding-inline: 0; } }
 
   .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 1.6rem 0; }
   .stat { border-left: 3px solid var(--accent); padding-left: 1rem; }
@@ -250,6 +255,13 @@
 </svg>
         <p class="diagram-cap">Current-state service blueprint. The waitlist is the critical failure point&mdash;stress hits 5/5 exactly where communication goes silent.</p>
       </div>
+
+      <figure class="wide-fig">
+        <div class="shot">
+          <img src="images/daycare/daycare-blueprint-detailed.png" alt="Detailed customer journey map for Persona 1: an Ontario parent's daycare search, from discovery through settling into care, showing phases, actions, quotes, touchpoints, technology, emotional experience curve, timeline, and design opportunities at each stage">
+        </div>
+        <figcaption>Full customer journey map &mdash; Persona 1. The complete research artifact behind the simplified blueprint above, detailing actions, quotes, touchpoints, and opportunities across all seven journey phases.</figcaption>
+      </figure>
     </section>
 
     <section class="block">
