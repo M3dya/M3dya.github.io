@@ -202,24 +202,6 @@
         flex-direction: column;
       }
 
-      .tags-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.55rem;
-        margin-bottom: 1rem;
-      }
-      .tags-row .pill {
-        font-family: "Poppins";
-        font-weight: 500;
-        font-size: 0.68rem;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        background: #f3f3f3;
-        color: var(--ink);
-        border: 1px solid var(--pill-border);
-        border-radius: 6px;
-        padding: 0.4rem 0.65rem;
-      }
       .cover {
         aspect-ratio: 16 / 11;
         border-radius: 14px;
@@ -229,18 +211,6 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        box-shadow: 0 10px 34px rgba(0, 0, 0, 0.14);
-      }
-      .cover.photo {
-        background: #d8d8d5;
-      }
-      .cover.photo::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        box-shadow: inset 0 0 60px 14px rgba(0, 0, 0, 0.28);
-        pointer-events: none;
-        z-index: 4;
       }
       .cover img {
         position: absolute;
@@ -248,132 +218,6 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        filter: grayscale(100%) contrast(1.15) brightness(0.97);
-      }
-      .cover-link {
-        position: absolute;
-        inset: 0;
-        display: block;
-        z-index: 0;
-      }
-      .cover .demo-gif {
-        opacity: 0;
-        transition: opacity 0.35s ease;
-        filter: none;
-        z-index: 1;
-      }
-      .cover.photo.playing .demo-gif {
-        opacity: 1;
-      }
-      .gif-toggle {
-        position: absolute;
-        bottom: 16px;
-        right: 16px;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        background: rgba(0, 0, 0, 0.78);
-        border: 2px solid #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        z-index: 3;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
-        transition: background 0.2s, transform 0.2s;
-      }
-      .gif-toggle:hover,
-      .gif-toggle:focus-visible {
-        background: #c9a84c;
-        border-color: #c9a84c;
-        transform: scale(1.08);
-      }
-      .gif-toggle svg {
-        width: 22px;
-        height: 22px;
-        fill: #fff;
-        margin-left: 3px;
-      }
-      .gif-expand {
-        position: absolute;
-        bottom: 16px;
-        left: 16px;
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
-        background: rgba(0, 0, 0, 0.6);
-        border: 1.5px solid rgba(255, 255, 255, 0.85);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        z-index: 3;
-        opacity: 0;
-        pointer-events: none;
-        transition: background 0.2s, transform 0.2s, opacity 0.2s;
-      }
-      .cover.photo.playing .gif-expand {
-        opacity: 1;
-        pointer-events: auto;
-      }
-      .gif-expand:hover,
-      .gif-expand:focus-visible {
-        background: #c9a84c;
-        border-color: #c9a84c;
-        transform: scale(1.08);
-      }
-      .gif-expand svg {
-        width: 16px;
-        height: 16px;
-        fill: none;
-        stroke: #fff;
-        stroke-width: 2;
-      }
-      #gif-lightbox {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.88);
-        z-index: 500;
-        align-items: center;
-        justify-content: center;
-        cursor: zoom-out;
-      }
-      #gif-lightbox.open {
-        display: flex;
-      }
-      #gif-lightbox img {
-        max-width: 92vw;
-        max-height: 88vh;
-        border-radius: 10px;
-        object-fit: contain;
-      }
-      #gif-lightbox-close {
-        position: absolute;
-        top: 1.4rem;
-        right: 1.4rem;
-        background: rgba(255, 255, 255, 0.15);
-        border: none;
-        color: #fff;
-        font-size: 2rem;
-        width: 46px;
-        height: 46px;
-        border-radius: 50%;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        line-height: 1;
-      }
-      #gif-lightbox-close:hover,
-      #gif-lightbox-close:focus-visible {
-        background: rgba(255, 255, 255, 0.3);
-      }
-      .cover.photo.playing .gif-toggle svg.icon-play {
-        display: none;
-      }
-      .cover.photo:not(.playing) .gif-toggle svg.icon-pause {
-        display: none;
       }
       .cover .scrim {
         position: absolute;
@@ -459,9 +303,6 @@
         letter-spacing: -0.01em;
         margin: 1.4rem 0 0;
       }
-      .card > h2:first-child {
-        margin: 0 0 0.9rem;
-      }
       .card h2 a {
         text-decoration: underline;
         text-decoration-thickness: 2px;
@@ -498,24 +339,6 @@
       .btn:focus-visible {
         background: var(--ink);
         transform: translateY(-2px);
-      }
-
-      .contact-note {
-        text-align: center;
-        padding-top: clamp(1rem, 3vw, 1.5rem);
-        font-size: 0.98rem;
-        color: var(--body);
-      }
-      .contact-note a {
-        color: var(--ink);
-        font-weight: 600;
-        text-decoration: underline;
-        text-decoration-color: var(--pill-border);
-        text-underline-offset: 3px;
-      }
-      .contact-note a:hover,
-      .contact-note a:focus-visible {
-        text-decoration-color: #c9a84c;
       }
 
       .viewmore-wrap {
@@ -737,28 +560,24 @@
         <div class="grid">
           <!-- 01 Finch 3D -->
           <article class="card">
-            <h2><a href="finch-3d.html">Finch 3D</a></h2>
-            <div class="tags-row">
-              <span class="pill">AI Design</span
-              ><span class="pill">AEC Tooling</span
-              ><span class="pill">UX</span>
-            </div>
-            <div class="cover photo">
-              <a class="cover-link"
+            <a
+              class="cover photo"
               href="finch-3d.html"
               aria-label="Finch 3D cover"
             >
-                <img src="images/finch/After__Cover.png" alt="" />
-              </a>
-              <img class="demo-gif" src="images/finch/finch-demo.gif" alt="" loading="lazy" />
-              <button class="gif-toggle" type="button" aria-label="Play project preview">
-                <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-                <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-              </button>
-              <button class="gif-expand" type="button" aria-label="View full screen">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
-              </button>
-            </div>
+              <img src="images/finch/After__Cover.png" alt="" />
+              <div class="scrim" aria-hidden="true"></div>
+              <div>
+                <div class="cover-title">Finch 3D</div>
+                <div class="cover-sub">Generative design for architecture.</div>
+              </div>
+              <div class="pills">
+                <span class="pill">Generative Design</span
+                ><span class="pill">AEC Tooling</span
+                ><span class="pill">UX</span>
+              </div>
+            </a>
+            <h2><a href="finch-3d.html">Finch 3D</a></h2>
             <p class="desc">
               Before architects could explore massing options, they first had to
               complete a complex centerline workflow that many found difficult
@@ -766,60 +585,53 @@
               designed an intuitive, guided interface that reduced confusion and
               improved the overall experience.
             </p>
+            <a class="btn" href="finch-3d.html">Read More</a>
           </article>
 
           <!-- 02 Ideate Live -->
           <article class="card">
+            <a class="cover photo" href="ideate-live.html" aria-label="Ideate Live cover">
+              <img src="images/ideate/after-homepage.png" alt="" />
+              <div class="scrim" aria-hidden="true"></div>
+              <div>
+                <div class="cover-title">Ideate Live</div>
+                <div class="cover-sub">Real-time collaborative design.</div>
+              </div>
+              <div class="pills">
+                <span class="pill">Service Design</span
+                ><span class="pill">Facilitation</span>
+              </div>
+            </a>
             <h2><a href="ideate-live.html">Ideate Live</a></h2>
-            <div class="tags-row">
-              <span class="pill">Service Design</span
-              ><span class="pill">Facilitation</span>
-            </div>
-            <div class="cover photo">
-              <a class="cover-link" href="ideate-live.html" aria-label="Ideate Live cover">
-                <img src="images/ideate/after-homepage.png" alt="" />
-              </a>
-              <img class="demo-gif" src="images/ideate/ideate-demo.gif" alt="" loading="lazy" />
-              <button class="gif-toggle" type="button" aria-label="Play project preview">
-                <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-                <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-              </button>
-              <button class="gif-expand" type="button" aria-label="View full screen">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
-              </button>
-            </div>
             <p class="desc">
               Remote design workshops lose energy and clarity fast. I designed a
               live, collaborative facilitation experience that keeps distributed
               teams aligned in real time&mdash;structuring ideation so every
               voice lands and decisions don&rsquo;t evaporate after the call.
             </p>
+            <a class="btn" href="ideate-live.html">Read More</a>
           </article>
 
           <!-- 03 Daycare -->
           <article class="card">
-            <h2><a href="daycare.html">Ontario Daycare Access</a></h2>
-            <div class="tags-row">
-              <span class="pill">UX Research</span
-              ><span class="pill">Public Service</span
-              ><span class="pill">Journey Mapping</span>
-            </div>
-            <div class="cover photo">
-              <a class="cover-link"
+            <a
+              class="cover photo"
               href="daycare.html"
               aria-label="Daycare Access cover"
             >
-                <img src="images/daycare/applydaycare-homepage.png" alt="" />
-              </a>
-              <img class="demo-gif" src="images/daycare/daycare-demo.gif" alt="" loading="lazy" />
-              <button class="gif-toggle" type="button" aria-label="Play project preview">
-                <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-                <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-              </button>
-              <button class="gif-expand" type="button" aria-label="View full screen">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
-              </button>
-            </div>
+              <img src="images/daycare/applydaycare-homepage.png" alt="" />
+              <div class="scrim" aria-hidden="true"></div>
+              <div>
+                <div class="cover-title">Daycare Access</div>
+                <div class="cover-sub">Untangling a public service.</div>
+              </div>
+              <div class="pills">
+                <span class="pill">UX Research</span
+                ><span class="pill">Public Service</span
+                ><span class="pill">Journey Mapping</span>
+              </div>
+            </a>
+            <h2><a href="daycare.html">Ontario Daycare Access</a></h2>
             <p class="desc">
               Finding licensed childcare in Ontario means navigating fragmented,
               confusing public systems. Through field research with parents and
@@ -827,28 +639,24 @@
               journey around their real moments of decision&mdash;surfacing the
               gaps a redesigned service would need to close.
             </p>
+            <a class="btn" href="daycare.html">Read More</a>
           </article>
 
           <!-- 04 Glocal -->
           <article class="card">
+            <a class="cover photo" href="glocal.html" aria-label="Glocal cover">
+              <img src="images/glocal/elections/figma-homepage.png" alt="" />
+              <div class="scrim" aria-hidden="true"></div>
+              <div>
+                <div class="cover-title">Glocal</div>
+                <div class="cover-sub">Website experience improvement.</div>
+              </div>
+              <div class="pills">
+                <span class="pill">Web UX</span
+                ><span class="pill">Redesign</span>
+              </div>
+            </a>
             <h2><a href="glocal.html">Glocal Website Improvement</a></h2>
-            <div class="tags-row">
-              <span class="pill">Web UX</span
-              ><span class="pill">Redesign</span>
-            </div>
-            <div class="cover photo">
-              <a class="cover-link" href="glocal.html" aria-label="Glocal cover">
-                <img src="images/glocal/cover.png" alt="" />
-              </a>
-              <img class="demo-gif" src="images/glocal/glocal-demo.gif" alt="" loading="lazy" />
-              <button class="gif-toggle" type="button" aria-label="Play project preview">
-                <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-                <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-              </button>
-              <button class="gif-expand" type="button" aria-label="View full screen">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
-              </button>
-            </div>
             <p class="desc">
               Glocal&rsquo;s site buried its value and lost visitors before they
               understood the offering. I audited the experience end to end,
@@ -856,23 +664,28 @@
               around clearer paths to action&mdash;turning a cluttered site into
               a focused, trustworthy first impression.
             </p>
+            <a class="btn" href="glocal.html">Read More</a>
           </article>
 
           <!-- 05 Autodesk -->
           <article class="card">
-            <h2><a href="autodesk-billing.html">Autodesk Billing &amp; Renewal</a></h2>
-            <div class="tags-row">
-              <span class="pill">UX Research</span
-              ><span class="pill">Service Design</span
-              ><span class="pill">Journey Mapping</span>
-            </div>
             <a
-              class="cover photo"
+              class="cover dark"
               href="autodesk-billing.html"
               aria-label="Autodesk Billing cover"
             >
-              <img src="images/autodesk/journey-map.png" alt="" />
+              <span class="ghost" aria-hidden="true">05</span>
+              <div>
+                <div class="cover-title">Autodesk</div>
+                <div class="cover-sub">Fixing licensing &amp; billing confusion.</div>
+              </div>
+              <div class="pills">
+                <span class="pill">UX Research</span
+                ><span class="pill">Service Design</span
+                ><span class="pill">Journey Mapping</span>
+              </div>
             </a>
+            <h2><a href="autodesk-billing.html">Autodesk Billing &amp; Renewal</a></h2>
             <p class="desc">
               Autodesk customers couldn&rsquo;t predict what they&rsquo;d be
               charged or fix a mistake before money moved. I traced the
@@ -880,14 +693,10 @@
               redesigned the renewal journey around it.
               <em>Self-initiated case study, no Autodesk affiliation.</em>
             </p>
+            <a class="btn" href="autodesk-billing.html">Read More</a>
           </article>
         </div>
       </section>
-
-      <p class="contact-note">
-        Some projects involve client confidentiality, so what's shown here is
-        a partial view. <a href="mailto:asgharyan.medya@gmail.com">Please contact me for the full project.</a>
-      </p>
 
       <div class="viewmore-wrap">
         <a class="viewmore" href="about.html">About Me</a>
@@ -939,65 +748,6 @@
           .querySelectorAll(".card")
           .forEach((c) => c.classList.add("in"));
       }
-    </script>
-    <div id="gif-lightbox" role="dialog" aria-modal="true" aria-label="Project preview, full screen">
-      <button id="gif-lightbox-close" aria-label="Close full screen preview">&times;</button>
-      <img id="gif-lightbox-img" src="" alt="" />
-    </div>
-
-    <script>
-      document.querySelectorAll(".gif-toggle").forEach(function (btn) {
-        btn.addEventListener("click", function (e) {
-          e.preventDefault();
-          e.stopPropagation();
-          var cover = btn.closest(".cover");
-          cover.classList.toggle("playing");
-          btn.setAttribute(
-            "aria-label",
-            cover.classList.contains("playing")
-              ? "Pause project preview"
-              : "Play project preview"
-          );
-        });
-      });
-
-      (function () {
-        var lightbox = document.getElementById("gif-lightbox");
-        var lbImg = document.getElementById("gif-lightbox-img");
-        var lbClose = document.getElementById("gif-lightbox-close");
-        var lastTrigger = null;
-
-        function openLightbox(src, trigger) {
-          lastTrigger = trigger;
-          lbImg.src = src;
-          lightbox.classList.add("open");
-          document.body.style.overflow = "hidden";
-          lbClose.focus();
-        }
-        function closeLightbox() {
-          lightbox.classList.remove("open");
-          document.body.style.overflow = "";
-          if (lastTrigger) lastTrigger.focus();
-        }
-
-        document.querySelectorAll(".gif-expand").forEach(function (btn) {
-          btn.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            var cover = btn.closest(".cover");
-            var gif = cover.querySelector(".demo-gif");
-            if (gif) openLightbox(gif.src, btn);
-          });
-        });
-
-        lbClose.addEventListener("click", closeLightbox);
-        lightbox.addEventListener("click", function (e) {
-          if (e.target === lightbox) closeLightbox();
-        });
-        document.addEventListener("keydown", function (e) {
-          if (e.key === "Escape" && lightbox.classList.contains("open")) closeLightbox();
-        });
-      })();
     </script>
   </body>
 </html>
