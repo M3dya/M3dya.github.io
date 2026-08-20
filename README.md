@@ -1,4 +1,4 @@
-# Medya Asgharian — UX Research & Service Design Portfolio
+# Medya Asgharian — UX DESIGN & Service Design Portfolio
 
 Personal portfolio of Medya Asgharian, a UX Researcher and Service Designer specialising in data-driven workflows, platform experiences, and civic service design. This repo is the source for a static HTML/CSS site hosted on GitHub Pages.
 
