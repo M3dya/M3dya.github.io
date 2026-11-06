@@ -1,778 +1,1151 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DaycareConnect Ontario</title>
-<!-- Official Ontario Design System compiled theme + fonts (real components) -->
-<link rel="stylesheet" href="https://unpkg.com/@ongov/ontario-design-system-global-styles@latest/dist/styles/css/compiled/ontario-theme.css">
-<link rel="stylesheet" href="https://unpkg.com/@ongov/ontario-design-system-global-styles@latest/dist/misc/ontario-design-system-fonts.css">
-<style>
-  :root{
-    --ods-black:#1A1A1A; --ods-grey-5:#F2F2F2; --ods-grey-20:#CCCCCC; --ods-grey-60:#666666; --ods-grey-70:#4D4D4D;
-    --ods-link:#0066CC; --ods-link-hover:#00478F; --ods-focus:#009ADB;
-    --ods-alert:#CD0000; --ods-success:#118847; --ods-success-light:#E5F0E9; --ods-warning:#FFD440; --ods-info:#1080A6;
-    --ods-purple:#5A3E85; --ods-purple-light:#EEE8F5;
-  }
-  body{margin:0;}
-  .page{max-width:1140px;margin:0 auto;padding:0 24px;}
-  .screen{display:none;} .screen.on{display:block;}
-  .ods-skip{position:absolute;left:-999px;top:0;background:var(--ods-black);color:#fff;padding:12px 18px;z-index:400;font-weight:600;font-family:"Open Sans",sans-serif;}
-  .ods-skip:focus{left:8px;top:8px;}
-  .on-ribbon{background:var(--ods-black);color:#fff;font-family:"Raleway",sans-serif;font-weight:700;font-size:1.125rem;letter-spacing:.01em;padding:10px 0;}
-  .on-ribbon .page{display:flex;align-items:center;gap:10px;}
-  .app-head{border-bottom:2px solid var(--ods-grey-20);}
-  .app-head .page{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:16px;padding-bottom:16px;}
-  .app-head .brand{font-family:"Raleway",sans-serif;font-weight:700;font-size:1.375rem;line-height:1.2;}
-  .app-head .brand small{display:block;font-family:"Open Sans",sans-serif;font-weight:400;font-size:.875rem;color:var(--ods-grey-60);}
-  nav.app-tabs{display:flex;gap:4px;flex-wrap:wrap;}
-  nav.app-tabs button{font-family:"Open Sans",sans-serif;font-size:1rem;font-weight:600;background:none;border:none;color:var(--ods-link);padding:10px 16px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;border-radius:4px;}
-  nav.app-tabs button:hover{color:var(--ods-link-hover);background:#E0F0FF;}
-  nav.app-tabs button[aria-current="page"]{color:var(--ods-black);text-decoration:none;border-bottom:4px solid var(--ods-link);border-radius:0;}
-  nav.app-tabs button:focus-visible{box-shadow:0 0 0 4px var(--ods-focus);outline:4px solid transparent;}
-  main{padding:36px 0 90px;}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medya Asgharyan — UX/Service Design</title>
+    <meta name="description" content="Portfolio of Medya Asgharyan, UX researcher and service designer: Finch 3D, Ideate Live, Ontario Daycare Access, Glocal and an Autodesk billing case study." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Karla:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #ffffff;
+        --ink: #1f1f1f;
+        --body: #5a5a5a;
+        --line: #e8e8e8;
+        --pill-bg: #ffffff;
+        --pill-border: #d8d8d8;
+        --btn: #5c5c5c;
+        --btn-ink: #ffffff;
+        --footer: #1c1c1c;
+        --maxw: 1180px;
+        --pad: clamp(1.25rem, 5vw, 4rem);
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--bg);
+        color: var(--body);
+        font-family: "Karla", system-ui, sans-serif;
+        line-height: 1.6;
+      }
+      a {
+        color: inherit;
+      }
+      h1,
+      h2,
+      h3,
+      .logo,
+      .btn,
+      .tag {
+        font-family: "Poppins", system-ui, sans-serif;
+      }
 
-  .chips{display:flex;flex-wrap:wrap;gap:10px;list-style:none;padding:0;margin:0;}
-  .chip{position:relative;}
-  .chip input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer;}
-  .chip span{display:inline-block;border:2px solid #767676;border-radius:6px;padding:9px 16px;font-size:1rem;background:#fff;cursor:pointer;}
-  .chip input:checked + span{background:var(--ods-black);color:#fff;border-color:var(--ods-black);}
-  .chip input:focus-visible + span{box-shadow:0 0 0 4px var(--ods-focus);}
-  .filter-legend{font-family:'Raleway',sans-serif;font-weight:600;font-size:1rem;margin-bottom:12px;}
-  .filter-block{border:none;padding:0;margin:0 0 22px;}
+      .skip {
+        position: absolute;
+        left: -999px;
+        top: 0;
+        background: var(--ink);
+        color: #fff;
+        padding: 0.6rem 1rem;
+        z-index: 30;
+        text-decoration: none;
+        border-radius: 4px;
+      }
+      .skip:focus {
+        left: 1rem;
+        top: 1rem;
+      }
 
-  .view-toggle{display:inline-flex;border:2px solid var(--ods-black);border-radius:6px;overflow:hidden;margin-bottom:24px;}
-  .view-toggle button{font-family:"Open Sans",sans-serif;font-size:.9375rem;font-weight:600;background:#fff;color:var(--ods-black);border:none;padding:9px 18px;cursor:pointer;}
-  .view-toggle button[aria-pressed="true"]{background:var(--ods-black);color:#fff;}
-  .view-toggle button:focus-visible{box-shadow:inset 0 0 0 4px var(--ods-focus);}
+      .container {
+        max-width: var(--maxw);
+        margin: 0 auto;
+        padding-inline: var(--pad);
+      }
 
-  .stack{display:flex;flex-direction:column;gap:18px;}
-  .ods-card{border:1px solid var(--ods-grey-20);border-radius:8px;padding:22px 24px;background:#fff;}
-  .ods-card h2{margin:0;font-size:1.25rem;}
-  .card-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;}
-  .dist{font-size:.875rem;color:var(--ods-grey-60);white-space:nowrap;font-variant-numeric:tabular-nums;}
-  .type{font-size:.875rem;color:var(--ods-grey-60);margin:4px 0 10px;}
+      /* ---------- Header / Nav ---------- */
+      header.site {
+        border-bottom: 1px solid var(--line);
+        position: sticky;
+        top: 0;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(8px);
+        z-index: 20;
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding-block: 1.1rem;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        text-decoration: none;
+        color: var(--ink);
+      }
+      .brand .mark {
+        width: 38px;
+        height: 38px;
+        background: var(--ink);
+        color: #fff;
+        border-radius: 7px;
+        display: grid;
+        place-items: center;
+        font-family: "Poppins";
+        font-weight: 600;
+        font-size: 0.95rem;
+        letter-spacing: -0.02em;
+      }
+      .brand .logo {
+        font-weight: 600;
+        font-size: 1.15rem;
+        color: var(--ink);
+      }
+      .menu {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: clamp(1.1rem, 2.6vw, 2.2rem);
+      }
+      .menu a {
+        text-decoration: none;
+        font-family: "Poppins";
+        font-weight: 400;
+        font-size: 0.98rem;
+        color: #4a4a4a;
+        padding-bottom: 3px;
+        border-bottom: 2px solid transparent;
+        transition:
+          color 0.25s,
+          border-color 0.25s;
+      }
+      .menu a:hover,
+      .menu a:focus-visible,
+      .menu a[aria-current] {
+        color: var(--ink);
+        border-color: var(--ink);
+      }
+      .menu .icon {
+        display: grid;
+        place-items: center;
+        width: 22px;
+        height: 22px;
+        border-bottom: none;
+      }
+      .menu .icon svg {
+        width: 20px;
+        height: 20px;
+      }
+      .nav-toggle {
+        display: none;
+        background: none;
+        border: 0;
+        cursor: pointer;
+        padding: 0.4rem;
+      }
+      .nav-toggle svg {
+        width: 26px;
+        height: 26px;
+      }
 
-  .rating-row{display:flex;align-items:center;gap:8px;font-size:.875rem;color:var(--ods-grey-70);margin:0 0 12px;flex-wrap:wrap;}
-  .stars{color:#B8860B;letter-spacing:1px;font-size:1rem;}
-  .photo-strip{display:flex;gap:8px;margin:0 0 6px;}
-  .photo-strip img{width:64px;height:48px;border-radius:6px;object-fit:cover;flex:none;background:var(--ods-grey-5);}
-  .photo-caption{font-size:.75rem;color:var(--ods-grey-60);margin:0 0 14px;}
+      /* ---------- Hero ---------- */
+      .hero {
+        text-align: center;
+        padding-block: clamp(3.5rem, 10vw, 7rem) clamp(2.5rem, 7vw, 4.5rem);
+      }
+      .hero h1 {
+        font-weight: 700;
+        color: var(--ink);
+        font-size: clamp(2.4rem, 7vw, 5.2rem);
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+      }
+      .hero .subtitle {
+        font-family: "Poppins";
+        font-weight: 600;
+        color: var(--ink);
+        font-size: clamp(1.05rem, 2.6vw, 1.6rem);
+        margin-top: 1.1rem;
+      }
+      .hero .blurb {
+        max-width: 60ch;
+        margin: 1.3rem auto 0;
+        font-size: clamp(1rem, 2.2vw, 1.25rem);
+        color: var(--body);
+      }
 
-  .ontario-callout, .ontario-aside{border-left:4px solid var(--ods-info);background:#E2F0F4;padding:14px 16px;border-radius:0 4px 4px 0;margin:0 0 14px;}
-  .ontario-callout--success{border-left-color:var(--ods-success);background:var(--ods-success-light);}
-  .ontario-callout--warning{border-left-color:var(--ods-warning);background:#FEF6DC;}
-  .ontario-callout--alert{border-left-color:var(--ods-alert);background:#FCEFF0;}
-  .ontario-callout--purple{border-left-color:var(--ods-purple);background:var(--ods-purple-light);}
-  .ontario-callout p{margin:0;}
-  .callout-note{display:block;font-size:.875rem;color:var(--ods-grey-70);margin-top:4px;}
+      /* ---------- Project grid ---------- */
+      .work {
+        padding-bottom: clamp(3rem, 8vw, 5rem);
+      }
+      .grid {
+        --grid-gap: clamp(1.5rem, 4vw, 3rem);
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: clamp(2rem, 5vw, 3.5rem) var(--grid-gap);
+        align-items: stretch;
+      }
+      .card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+      .grid > .card:last-child {
+        grid-column: 1 / -1;
+        width: calc((100% - var(--grid-gap)) / 2);
+        margin-inline: auto;
+      }
 
-  .avail{font-size:1rem;display:flex;align-items:center;gap:9px;margin:0 0 6px;font-weight:600;}
-  .status-dot{width:10px;height:10px;border-radius:50%;flex:none;}
-  .status-dot.open{background:var(--ods-alert);} .status-dot.wait{background:var(--ods-success);}
-  .price{font-size:.9375rem;color:var(--ods-grey-70);margin:0 0 14px;}
-  .tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:0 0 14px;}
-  .tag{font-size:.8125rem;background:var(--ods-grey-5);padding:5px 11px;border-radius:4px;}
-  .tag--cwelcc{background:var(--ods-success-light);color:var(--ods-success);font-weight:700;border:1px solid var(--ods-success);}
-  .tag--licensed{background:#E2F0F4;color:var(--ods-info);font-weight:700;border:1px solid var(--ods-info);}
-  .tag--verified{background:var(--ods-purple-light);color:var(--ods-purple);font-weight:700;border:1px solid var(--ods-purple);}
-  .tag--tour{background:#FEF6DC;color:#7A5B00;font-weight:600;border:1px solid var(--ods-warning);}
+      .tags-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        gap: 0.55rem;
+        margin-bottom: 1rem;
+        min-height: 4.4rem;
+      }
+      .tags-row .pill {
+        font-family: "Poppins";
+        font-weight: 500;
+        font-size: 0.68rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        background: #f3f3f3;
+        color: var(--ink);
+        border: 1px solid var(--pill-border);
+        border-radius: 6px;
+        padding: 0.4rem 0.65rem;
+      }
+      .cover {
+        aspect-ratio: 16 / 11;
+        border-radius: 14px;
+        overflow: hidden;
+        position: relative;
+        padding: clamp(1.4rem, 3vw, 2rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 0 10px 34px rgba(0, 0, 0, 0.14);
+      }
+      .cover.photo {
+        background: #d8d8d5;
+      }
+      .cover.photo::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        box-shadow: inset 0 0 60px 14px rgba(0, 0, 0, 0.28);
+        pointer-events: none;
+        z-index: 4;
+      }
+      .cover img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(100%) contrast(1.15) brightness(0.97);
+      }
+      .cover-link {
+        position: absolute;
+        inset: 0;
+        display: block;
+        z-index: 0;
+      }
+      .cover .demo-gif {
+        opacity: 0;
+        transition: opacity 0.35s ease;
+        filter: none;
+        z-index: 1;
+      }
+      .cover.photo.playing .demo-gif {
+        opacity: 1;
+      }
+      .gif-toggle {
+        position: absolute;
+        bottom: 16px;
+        right: 16px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.78);
+        border: 2px solid #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 3;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+        transition: background 0.2s, transform 0.2s;
+      }
+      .gif-toggle:hover,
+      .gif-toggle:focus-visible {
+        background: #c9a84c;
+        border-color: #c9a84c;
+        transform: scale(1.08);
+      }
+      .gif-toggle svg {
+        width: 22px;
+        height: 22px;
+        fill: #fff;
+        margin-left: 3px;
+      }
+      .gif-expand {
+        position: absolute;
+        bottom: 16px;
+        left: 16px;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.6);
+        border: 1.5px solid rgba(255, 255, 255, 0.85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 3;
+        opacity: 0;
+        pointer-events: none;
+        transition: background 0.2s, transform 0.2s, opacity 0.2s;
+      }
+      .cover.photo.playing .gif-expand {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .gif-expand:hover,
+      .gif-expand:focus-visible {
+        background: #c9a84c;
+        border-color: #c9a84c;
+        transform: scale(1.08);
+      }
+      .gif-expand svg {
+        width: 16px;
+        height: 16px;
+        fill: none;
+        stroke: #fff;
+        stroke-width: 2;
+      }
+      #gif-lightbox {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.88);
+        z-index: 500;
+        align-items: center;
+        justify-content: center;
+        cursor: zoom-out;
+      }
+      #gif-lightbox.open {
+        display: flex;
+      }
+      #gif-lightbox img {
+        max-width: 92vw;
+        max-height: 88vh;
+        border-radius: 10px;
+        object-fit: contain;
+      }
+      #gif-lightbox-close {
+        position: absolute;
+        top: 1.4rem;
+        right: 1.4rem;
+        background: rgba(255, 255, 255, 0.15);
+        border: none;
+        color: #fff;
+        font-size: 2rem;
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+      }
+      #gif-lightbox-close:hover,
+      #gif-lightbox-close:focus-visible {
+        background: rgba(255, 255, 255, 0.3);
+      }
+      .cover.photo.playing .gif-toggle svg.icon-play {
+        display: none;
+      }
+      .cover.photo:not(.playing) .gif-toggle svg.icon-pause {
+        display: none;
+      }
+      .cover .scrim {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.62) 100%);
+      }
+      .cover .cover-title {
+        font-family: "Poppins";
+        font-weight: 700;
+        font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+        line-height: 1.05;
+        letter-spacing: -0.01em;
+        position: relative;
+        z-index: 1;
+      }
+      .cover .cover-sub {
+        font-family: "Karla";
+        font-size: 0.95rem;
+        margin-top: 0.5rem;
+        position: relative;
+        z-index: 1;
+        opacity: 0.85;
+      }
+      .cover .pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+        position: relative;
+        z-index: 1;
+      }
+      .cover .pill {
+        font-family: "Poppins";
+        font-weight: 500;
+        font-size: 0.68rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        background: var(--pill-bg);
+        color: var(--ink);
+        border: 1px solid var(--pill-border);
+        border-radius: 6px;
+        padding: 0.4rem 0.65rem;
+      }
 
-  .card-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px;}
-  .site-link{font-size:.9375rem;}
-  .site-link svg{vertical-align:-2px;margin-left:3px;}
-  .btn-plain{font:inherit;background:none;border:2px solid var(--ods-grey-20);color:var(--ods-black);border-radius:6px;padding:8px 14px;font-size:.9375rem;font-weight:600;cursor:pointer;}
-  .btn-plain:hover{border-color:var(--ods-black);}
-  .btn-plain[aria-expanded="true"]{background:var(--ods-black);color:#fff;border-color:var(--ods-black);}
-  .btn-plain:focus-visible, .ontario-button:focus-visible{box-shadow:0 0 0 4px var(--ods-focus);outline:4px solid transparent;}
+      /* dark + light cover variants (used when no photo is present) */
+      .cover.dark {
+        background: linear-gradient(150deg, #1a1a1a, #2c2c2c);
+        color: #fff;
+      }
+      .cover.dark .pill {
+        background: #fff;
+        color: #1a1a1a;
+        border-color: #fff;
+      }
+      .cover.light {
+        background: linear-gradient(150deg, #c7cdd9, #dfe3ea);
+        color: #2a2f3a;
+      }
+      .cover.photo {
+        color: #fff;
+      }
+      .cover.photo .pill {
+        background: rgba(255, 255, 255, 0.92);
+        color: #1a1a1a;
+        border-color: #fff;
+      }
+      .cover .ghost {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        font-family: "Poppins";
+        font-weight: 700;
+        font-size: clamp(4rem, 14vw, 9rem);
+        opacity: 0.08;
+        z-index: 0;
+      }
 
-  /* Quick preview (inline, no navigation) */
-  .quick-preview{display:none;margin-top:16px;padding-top:16px;border-top:1px dashed var(--ods-grey-20);}
-  .quick-preview.on{display:block;}
-  .qp-photos{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
-  .qp-photos img{width:120px;height:88px;border-radius:8px;object-fit:cover;background:var(--ods-grey-5);}
-  .qp-reviews{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;}
-  .qp-review{font-size:.875rem;border:1px solid var(--ods-grey-20);border-radius:8px;padding:10px 12px;}
-  .qp-review .rname{font-weight:700;font-size:.8125rem;}
-  .qp-review .rstars{color:#B8860B;font-size:.8125rem;}
-  .qp-review .rtext{margin-top:3px;}
+      .card h2 {
+        font-weight: 700;
+        color: var(--ink);
+        font-size: clamp(1.35rem, 3vw, 1.9rem);
+        line-height: 1.15;
+        letter-spacing: -0.01em;
+        margin: 1.4rem 0 0;
+        min-height: 2.3em;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .card > h2:first-child {
+        margin: 0 0 0.9rem;
+      }
+      .card h2 a {
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 4px;
+        text-decoration-color: var(--ink);
+        transition: opacity 0.25s;
+      }
+      .card h2 a:hover,
+      .card h2 a:focus-visible {
+        opacity: 0.6;
+      }
+      .card .desc {
+        margin-top: 1rem;
+        font-size: clamp(1rem, 2vw, 1.1rem);
+        color: var(--body);
+        max-width: 52ch;
+        min-height: 4.8em;
+      }
 
-  .barlabel{font-size:.8125rem;font-weight:700;color:var(--ods-grey-70);text-transform:uppercase;letter-spacing:.03em;margin:0 0 8px;}
-  .bartrack{height:10px;border-radius:6px;background:var(--ods-grey-5);border:1px solid var(--ods-grey-20);overflow:hidden;}
-  .barfill{height:100%;background:var(--ods-success);}
-  .barends{display:flex;justify-content:space-between;font-size:.8125rem;color:var(--ods-grey-60);margin-top:7px;}
-  .acthead{font-size:.8125rem;font-weight:700;color:var(--ods-grey-70);text-transform:uppercase;letter-spacing:.03em;margin:18px 0 10px;}
-  .activity{list-style:none;padding:0;margin:0;}
-  .activity li{display:flex;gap:16px;font-size:.9375rem;padding:5px 0;}
-  .activity .date{font-weight:700;min-width:62px;color:var(--ods-grey-70);font-variant-numeric:tabular-nums;}
-  .confirmrow{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;}
-  .confirmrow p{margin:0;}
-  .ontario-button{margin:0;min-width:auto;}
-  .ontario-button--sm{padding:8px 14px;font-size:.9375rem;}
-  .docsok{font-size:1rem;color:var(--ods-success);font-weight:600;margin:8px 0;}
+      .btn {
+        align-self: flex-start;
+        margin-top: 1.5rem;
+        background: var(--btn);
+        color: var(--btn-ink);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.95rem;
+        padding: 0.7rem 1.6rem;
+        border-radius: 30px;
+        transition:
+          background 0.25s,
+          transform 0.25s;
+      }
+      .btn:hover,
+      .btn:focus-visible {
+        background: var(--ink);
+        transform: translateY(-2px);
+      }
 
-  dl.ontario-summary{border-top:1px solid var(--ods-grey-20);margin:0 0 30px;}
-  dl.ontario-summary .row{display:flex;justify-content:space-between;gap:16px;padding:14px 2px;border-bottom:1px solid var(--ods-grey-20);}
-  dl.ontario-summary dt{color:var(--ods-grey-70);margin:0;}
-  dl.ontario-summary dd{font-weight:600;text-align:right;margin:0;}
-  .sect{font-family:"Raleway",sans-serif;font-weight:600;font-size:1.125rem;margin:30px 0 6px;}
-  .sect-row{display:flex;justify-content:space-between;align-items:center;gap:16px;margin:30px 0 6px;flex-wrap:wrap;}
-  .sect-row .sect{margin:0;}
+      .contact-note {
+        text-align: center;
+        padding-top: clamp(1rem, 3vw, 1.5rem);
+        font-size: 0.98rem;
+        color: var(--body);
+      }
+      .contact-note a {
+        color: var(--ink);
+        font-weight: 600;
+        text-decoration: underline;
+        text-decoration-color: var(--pill-border);
+        text-underline-offset: 3px;
+      }
+      .contact-note a:hover,
+      .contact-note a:focus-visible {
+        text-decoration-color: #c9a84c;
+      }
 
-  .ontario-badge{font-size:.8125rem;font-weight:700;padding:4px 11px;border-radius:4px;white-space:nowrap;}
-  .ontario-badge--error{background:#FCEFF0;color:var(--ods-alert);border:1px solid var(--ods-alert);}
-  .ontario-badge--success{background:var(--ods-success-light);color:var(--ods-success);border:1px solid var(--ods-success);}
-  .ontario-badge--neutral{background:var(--ods-grey-5);color:var(--ods-grey-70);border:1px solid var(--ods-grey-20);}
-  .footnote{font-size:.9375rem;color:var(--ods-grey-70);max-width:60ch;}
+      .viewmore-wrap {
+        text-align: center;
+        padding-block: clamp(2.5rem, 7vw, 4.5rem);
+      }
+      .viewmore {
+        display: inline-block;
+        text-decoration: none;
+        font-family: "Poppins";
+        font-size: 0.98rem;
+        color: var(--ink);
+        border: 1px solid var(--pill-border);
+        border-radius: 8px;
+        padding: 0.85rem 2rem;
+        transition:
+          background 0.25s,
+          color 0.25s;
+      }
+      .viewmore:hover,
+      .viewmore:focus-visible {
+        background: var(--ink);
+        color: #fff;
+        border-color: var(--ink);
+      }
 
-  .layout{display:grid;grid-template-columns:320px 1fr;gap:28px;align-items:start;}
-  .layout.list-only{grid-template-columns:1fr;}
-  .layout.list-only .map{display:none;}
-  .map{position:sticky;top:20px;}
-  .map-canvas{position:relative;height:240px;border:2px solid var(--ods-grey-20);border-radius:8px;overflow:hidden;background:linear-gradient(var(--ods-grey-5) 1px,transparent 1px) 0 0/100% 40px,linear-gradient(90deg,var(--ods-grey-5) 1px,transparent 1px) 0 0/48px 100%,#fafafa;}
-  .park{position:absolute;right:12px;bottom:30px;width:110px;height:64px;background:var(--ods-success-light);border:1px solid var(--ods-success);border-radius:6px;}
-  .park span{position:absolute;bottom:5px;left:7px;font-size:.6875rem;color:var(--ods-success);}
-  .pin{position:absolute;min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6875rem;font-weight:700;color:#fff;transform:translate(-50%,-50%);border:2px solid #fff;}
-  .pin.open{background:var(--ods-alert);} .pin.wait{background:var(--ods-success);} .pin.home{background:var(--ods-black);width:13px;height:13px;min-width:0;}
-  .legend{list-style:none;margin:14px 0 0;padding:0;font-size:.875rem;color:var(--ods-grey-70);}
-  .legend li{margin-bottom:5px;}
-  .legend i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:7px;vertical-align:middle;border:1px solid #fff;}
-  .map-note{font-size:.75rem;color:var(--ods-grey-60);margin-top:10px;}
+      /* ---------- Footer ---------- */
+      footer.site {
+        background: var(--footer);
+        color: #cfcfcf;
+      }
+      .foot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding-block: 2rem;
+        flex-wrap: wrap;
+      }
+      .foot p {
+        font-size: 0.95rem;
+      }
+      .foot .socials {
+        display: flex;
+        gap: 1.1rem;
+      }
+      .foot .socials a {
+        display: grid;
+        place-items: center;
+        color: #cfcfcf;
+        transition: color 0.25s;
+      }
+      .foot .socials a:hover,
+      .foot .socials a:focus-visible {
+        color: #fff;
+      }
+      .foot .socials svg {
+        width: 20px;
+        height: 20px;
+      }
 
-  .ontario-lead{font-size:1.25rem;color:var(--ods-grey-70);max-width:60ch;}
+      /* ---------- Motion (restored from the animated homepage) ---------- */
+      html.lenis, html.lenis body { height: auto; }
+      .lenis.lenis-smooth { scroll-behavior: auto !important; }
+      .cursor-dot, .cursor-ring { position: fixed; top: 0; left: 0; border-radius: 50%; pointer-events: none; z-index: 600; mix-blend-mode: difference; }
+      .cursor-dot { width: 7px; height: 7px; background: #fff; transform: translate(-50%, -50%); }
+      .cursor-ring { width: 34px; height: 34px; border: 1px solid #fff; transform: translate(-50%, -50%); transition: width .3s, height .3s, background .3s; }
+      .cursor-ring.grow { width: 60px; height: 60px; background: rgba(255,255,255,.1); }
+      @media (hover: none) { .cursor-dot, .cursor-ring { display: none; } }
+      .progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: #c9a84c; z-index: 90; }
 
-  /* Custom modal: fixed overlay (more reliable across embedded/sandboxed viewers than <dialog>) */
-  .modal-overlay{position:fixed;inset:0;background:rgba(26,26,26,.55);display:none;align-items:center;justify-content:center;z-index:500;padding:20px;}
-  .modal-overlay.on{display:flex;}
-  .ods-modal{background:#fff;border-radius:10px;padding:0;width:min(480px,94vw);max-height:88vh;overflow:auto;box-shadow:0 12px 40px rgba(0,0,0,.3);position:relative;}
-  .modal-inner{padding:26px 26px 24px;}
-  .modal-inner h2{margin:0 0 6px;font-size:1.375rem;}
-  .modal-inner p.sub{color:var(--ods-grey-70);margin:0 0 20px;font-size:.9375rem;}
-  .field{margin-bottom:16px;}
-  .field label{display:block;font-weight:600;font-size:.9375rem;margin-bottom:6px;}
-  .field input{width:100%;font:inherit;font-size:1rem;padding:10px 12px;border:2px solid #767676;border-radius:6px;box-sizing:border-box;}
-  .field input:focus{outline:4px solid transparent;box-shadow:0 0 0 4px var(--ods-focus);}
-  .modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px;flex-wrap:wrap;}
-  .modal-close{position:absolute;top:14px;right:14px;background:none;border:none;font-size:1.5rem;line-height:1;cursor:pointer;color:var(--ods-grey-70);padding:4px 10px;border-radius:4px;}
-  .modal-close:hover{background:var(--ods-grey-5);}
-  .modal-close:focus-visible{box-shadow:0 0 0 4px var(--ods-focus);}
-  .step-progress{font-size:.8125rem;color:var(--ods-grey-60);font-weight:600;margin-bottom:4px;text-transform:uppercase;letter-spacing:.03em;}
-  .modal-step{display:none;} .modal-step.on{display:block;}
+      #intro { position: fixed; inset: 0; z-index: 400; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+      #intro .blob { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .45; z-index: 0; }
+      #intro .b1 { width: 42vw; height: 42vw; background: #e8d9a8; top: -10vw; right: -8vw; animation: drift1 12s ease-in-out infinite; }
+      #intro .b2 { width: 36vw; height: 36vw; background: #d9c4d6; bottom: -12vw; left: -6vw; animation: drift2 14s ease-in-out infinite; }
+      #intro .b3 { width: 28vw; height: 28vw; background: #cfe0d8; top: 30%; left: 8%; animation: drift1 16s ease-in-out infinite reverse; }
+      @keyframes drift1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-3vw,4vw); } }
+      @keyframes drift2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(4vw,-3vw); } }
+      #intro .introtext { text-align: center; padding: 0 1.5rem; position: relative; z-index: 1; }
+      #intro .eyebrow { font-family: "Poppins"; font-size: clamp(.7rem,2vw,.9rem); letter-spacing: .3em; text-transform: uppercase; color: #9a9a9a; margin-bottom: 1.4rem; overflow: hidden; }
+      #intro .eyebrow span { display: inline-block; transform: translateY(110%); }
+      #intro h1 { font-family: "Poppins"; font-weight: 900; color: var(--ink); font-size: clamp(2.8rem,12vw,7.5rem); line-height: .95; letter-spacing: -.04em; }
+      #intro .ln, .hero h1 .ln { overflow: hidden; display: block; }
+      .ch { display: inline-block; transform: translateY(110%); will-change: transform; }
+      .gold { color: #c9a84c; }
+      .counter { position: absolute; bottom: 2rem; left: 2rem; font-family: "Poppins"; font-weight: 600; font-size: clamp(2rem,6vw,4rem); color: var(--ink); opacity: .12; }
+      .skipbtn { position: absolute; bottom: 2rem; right: 2rem; font-family: "Poppins"; font-size: .85rem; color: #9a9a9a; background: none; border: 1px solid var(--line); border-radius: 30px; padding: .5rem 1.2rem; cursor: pointer; transition: .25s; }
+      .skipbtn:hover { color: var(--ink); border-color: var(--ink); }
+      #page { opacity: 0; }
+      .hero { position: relative; overflow: hidden; }
+      .hero .heroblob { position: absolute; border-radius: 50%; filter: blur(90px); opacity: .22; z-index: 0; width: 420px; height: 420px; background: #c9a84c; top: -140px; left: 50%; transform: translateX(-50%); }
+      .hero .inner { position: relative; z-index: 1; }
+      .hero h1 { font-weight: 800; }
+      .hero h1 .ln { padding-bottom: .08em; }
+      .marquee { border-block: 1px solid var(--line); padding-block: 1.1rem; overflow: hidden; white-space: nowrap; margin-bottom: clamp(2rem, 5vw, 3.5rem); }
+      .marquee .track { display: inline-block; will-change: transform; }
+      .marquee span { font-family: "Poppins"; font-weight: 700; font-size: clamp(1.1rem,2.6vw,1.6rem); color: var(--ink); letter-spacing: -.01em; padding-inline: 1.5rem; }
+      .marquee .dot { color: #c9a84c; }
+      .reveal-up { opacity: 0; transform: translateY(50px); }
+      .cover { clip-path: inset(0 0 100% 0); }
+      @media (prefers-reduced-motion: reduce) {
+        #intro { display: none !important; }
+        #page { opacity: 1 !important; }
+        .reveal-up { opacity: 1 !important; transform: none !important; }
+        .cover { clip-path: none !important; }
+        .ch { transform: none !important; }
+        #intro .blob { animation: none !important; }
+      }
 
-  /* Detail (full profile) page */
-  .back-link{background:none;border:none;color:var(--ods-link);font-size:.9375rem;font-weight:600;cursor:pointer;padding:6px 0 20px;text-decoration:underline;display:inline-block;}
-  .back-link:focus-visible{box-shadow:0 0 0 4px var(--ods-focus);outline:4px solid transparent;}
-  .detail-hero{width:100%;max-height:340px;object-fit:cover;border-radius:10px;margin-bottom:22px;background:var(--ods-grey-5);}
-  .detail-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0 28px;}
-  .detail-gallery img{width:100%;height:112px;object-fit:cover;border-radius:8px;background:var(--ods-grey-5);}
-  .detail-reviews{display:flex;flex-direction:column;gap:14px;margin:14px 0 28px;}
-  .detail-review{border:1px solid var(--ods-grey-20);border-radius:8px;padding:14px 16px;}
-  .detail-review .rname{font-weight:700;}
-  .detail-review .rmeta{font-size:.8125rem;color:var(--ods-grey-60);margin-bottom:6px;}
-  .detail-review .rstars{color:#B8860B;}
+      /* ---------- Responsive ---------- */
+      @media (max-width: 760px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .grid > .card:last-child {
+          grid-column: auto;
+          width: 100%;
+          margin-inline: 0;
+        }
+        .menu {
+          gap: 1.1rem;
+        }
+      }
+      @media (max-width: 560px) {
+        .menu li.navitem {
+          display: none;
+        }
+        .menu.open li.navitem {
+          display: block;
+        }
+        .nav-toggle {
+          display: inline-flex;
+        }
+        .menu {
+          position: absolute;
+          top: 100%;
+          right: var(--pad);
+          flex-direction: column;
+          align-items: flex-end;
+          background: #fff;
+          border: 1px solid var(--line);
+          border-radius: 10px;
+          padding: 1rem 1.2rem;
+          gap: 0.9rem;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        .menu:not(.open) {
+          display: none;
+        }
+        .menu.open {
+          display: flex;
+        }
+        .nav {
+          position: relative;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip" href="#work">Skip to projects</a>
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <div class="cursor-ring" aria-hidden="true"></div>
+    <div class="progress" id="progress" aria-hidden="true"></div>
 
-  /* Provider dashboard */
-  .kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:20px 0 30px;}
-  .kpi{border:1px solid var(--ods-grey-20);border-radius:8px;padding:16px 18px;}
-  .kpi .num{font-family:"Raleway",sans-serif;font-weight:700;font-size:1.75rem;line-height:1;}
-  .kpi .lbl{font-size:.8125rem;color:var(--ods-grey-60);margin-top:6px;}
-  table.ods-table{width:100%;border-collapse:collapse;margin-bottom:8px;}
-  table.ods-table caption{text-align:left;font-weight:700;font-family:"Raleway",sans-serif;font-size:1.0625rem;margin-bottom:10px;}
-  table.ods-table th, table.ods-table td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--ods-grey-20);font-size:.9375rem;vertical-align:top;}
-  table.ods-table th{font-size:.8125rem;text-transform:uppercase;letter-spacing:.03em;color:var(--ods-grey-70);border-bottom:2px solid var(--ods-black);}
-  .priority-tag{display:inline-block;font-size:.75rem;font-weight:700;padding:3px 9px;border-radius:4px;margin:2px 4px 2px 0;}
-  .priority-tag.sibling{background:var(--ods-success-light);color:var(--ods-success);}
-  .priority-tag.subsidy{background:#E2F0F4;color:var(--ods-info);}
-  .priority-tag.medical{background:#FCEFF0;color:var(--ods-alert);}
-  .priority-tag.staff{background:var(--ods-purple-light);color:var(--ods-purple);}
-  .radio-row{display:flex;flex-direction:column;gap:10px;margin:10px 0 4px;}
-  .radio-opt{display:flex;align-items:flex-start;gap:10px;border:2px solid var(--ods-grey-20);border-radius:8px;padding:12px 14px;}
-  .radio-opt input{margin-top:4px;}
-  .radio-opt strong{display:block;font-size:.9375rem;}
-  .radio-opt span.d{font-size:.8125rem;color:var(--ods-grey-60);}
-  .thread{border:1px solid var(--ods-grey-20);border-radius:8px;padding:16px;margin-top:10px;}
-  .msg{font-size:.9375rem;margin-bottom:10px;}
-  .msg .who{font-weight:700;font-size:.8125rem;color:var(--ods-grey-60);}
-  .verify-row{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:13px 0;border-bottom:1px solid var(--ods-grey-20);}
-
-  @media(max-width:760px){
-    .layout{grid-template-columns:1fr;}
-    .map{position:static;}
-    .app-head .page{flex-direction:column;align-items:flex-start;}
-  }
-  @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;}}
-</style>
-</head>
-<body>
-<a class="ods-skip" href="#main">Skip to main content</a>
-<div class="on-ribbon"><div class="page"><span>Ontario</span></div></div>
-
-<header class="app-head">
-  <div class="page">
-    <div class="brand">DaycareConnect Ontario<small>Find and apply for licensed childcare</small></div>
-    <nav class="app-tabs" aria-label="Main">
-      <button data-go="find" aria-current="page">Find care</button>
-      <button data-go="apps">My applications</button>
-      <button data-go="profile">My profile</button>
-      <button data-go="provider">For providers</button>
-    </nav>
-  </div>
-</header>
-
-<main id="main" tabindex="-1">
-<div class="page">
-
-<!-- ============ FIND CARE ============ -->
-<section class="screen on" id="find" aria-labelledby="find-h">
-  <h1 id="find-h" class="ontario-h1">Every daycare near you. One application.</h1>
-  <p class="ontario-lead">Licensed centres, licensed home daycares, and agency-verified home care — all in one place, with real openings, honest waitlist numbers, and reviews and photos from Google.</p>
-
-  <fieldset class="filter-block">
-    <legend class="filter-legend">What matters most to you?</legend>
-    <ul class="chips">
-      <li class="chip"><input type="checkbox" id="f1" checked><span>Infant (under 18 mo)</span></li>
-      <li class="chip"><input type="checkbox" id="f2" checked><span>CWELCC fees ($22/day)</span></li>
-      <li class="chip"><input type="checkbox" id="f3"><span>Daily outdoor time</span></li>
-      <li class="chip"><input type="checkbox" id="f5"><span>French / bilingual</span></li>
-    </ul>
-  </fieldset>
-
-  <fieldset class="filter-block">
-    <legend class="filter-legend">Type of care</legend>
-    <ul class="chips">
-      <li class="chip"><input type="checkbox" id="t1" checked><span>Licensed child care centre</span></li>
-      <li class="chip"><input type="checkbox" id="t2" checked><span>Licensed home child care</span></li>
-      <li class="chip"><input type="checkbox" id="t3"><span>Home daycare (agency-verified)</span></li>
-      <li class="chip"><input type="checkbox" id="t4"><span>CWELCC / low-cost only</span></li>
-    </ul>
-  </fieldset>
-
-  <div class="ontario-callout" style="max-width:70ch;">
-    <p><strong>About "Home daycare (agency-verified)":</strong> these are unlicensed home providers checked in on every month by a licensed Home Child Care Agency — not by the Ontario government directly. We only list one once an agency has verified it, and we show when it was last checked.<span class="callout-note">Licensed centres and licensed home daycares below are pulled from Ontario's official child care facilities registry (May 31, 2026 snapshot).</span></p>
-  </div>
-
-  <div role="group" aria-label="Choose how to view results" class="view-toggle">
-    <button type="button" id="viewList" aria-pressed="true">List view</button>
-    <button type="button" id="viewMap" aria-pressed="false">Map view</button>
-  </div>
-
-  <div class="layout" id="findLayout">
-    <div class="map">
-      <div class="map-canvas" role="img" aria-label="Schematic map of nearby daycares. Amber pins are open now, green pins are waitlist, black dot is your home.">
-        <div class="park"><span>Riverside Park</span></div>
-        <div class="pin wait" style="left:18%;top:36%">6</div>
-        <div class="pin wait" style="left:33%;top:30%">1</div>
-        <div class="pin wait" style="left:60%;top:24%">4</div>
-        <div class="pin open" style="left:50%;top:48%">2</div>
-        <div class="pin wait" style="left:25%;top:60%">3</div>
-        <div class="pin home" style="left:42%;top:50%"></div>
+    <div id="intro" aria-hidden="true">
+      <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+      <div class="counter" id="counter">0</div>
+      <button class="skipbtn" type="button" onclick="window.__skipIntro && window.__skipIntro()">Skip intro</button>
+      <div class="introtext">
+        <div class="eyebrow"><span>UX/Service Design</span></div>
+        <h1><span class="ln" data-split>Medya</span><span class="ln gold" data-split>Asgharyan</span></h1>
       </div>
-      <ul class="legend">
-        <li><i style="background:var(--ods-alert)"></i>Spot open now</li>
-        <li><i style="background:var(--ods-success)"></i>Waitlist</li>
-        <li><i style="background:var(--ods-black)"></i>Your home</li>
-      </ul>
-      <p class="map-note">Pin positions are illustrative. The May 2026 registry gives addresses, not map coordinates — real pins will need each address geocoded before launch.</p>
     </div>
 
-    <div class="stack" id="resultsStack"><!-- cards injected by JS from FACILITIES data --></div>
-  </div>
-</section>
-
-<!-- ============ FACILITY DETAIL (full profile) ============ -->
-<section class="screen" id="detail" aria-labelledby="detail-h">
-  <button class="back-link" id="backToResults" type="button">&larr; Back to results</button>
-  <img class="detail-hero" id="dHero" src="" alt="">
-  <h1 id="detail-h" class="ontario-h1" style="margin-bottom:4px;"></h1>
-  <p class="type" id="dType" style="font-size:1rem;margin-bottom:14px;"></p>
-  <p class="rating-row"><span class="stars" aria-hidden="true" id="dStars"></span><span id="dRatingText"></span></p>
-  <ul class="tags" id="dTags"></ul>
-  <div id="dCallout"></div>
-  <p class="avail" id="dAvail"></p>
-  <p class="price" id="dPrice"></p>
-  <div class="card-actions" style="margin-bottom:10px;">
-    <button class="ontario-button ontario-button--primary ontario-button--sm" id="dJoinBtn" type="button">Join waitlist</button>
-    <a class="site-link" id="dSiteLink" href="#" target="_blank" rel="noopener">Visit website<svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="#0066CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="ontario-show-for-sr"> (opens in new tab)</span></a>
-  </div>
-
-  <h2 class="sect">Photos</h2>
-  <div class="detail-gallery" id="dGallery"></div>
-
-  <h2 class="sect" id="dReviewHead">Reviews</h2>
-  <div class="detail-reviews" id="dReviews"></div>
-</section>
-
-<!-- ============ MY APPLICATIONS ============ -->
-<section class="screen" id="apps" aria-labelledby="apps-h">
-  <h1 id="apps-h" class="ontario-h1">Your applications</h1>
-  <p class="ontario-lead">Honest numbers, real movement. We show group-level standing instead of a fake queue position, because the rules differ at every centre.</p>
-
-  <div class="stack" style="margin-top:24px">
-    <article class="ods-card">
-      <h2>Maple Grove Children's Centre</h2>
-      <p class="type">Applied for Nika · Mar 4, 2026</p>
-      <div class="ontario-callout ontario-callout--success"><p><strong>Where you stand:</strong> You're in the first third of families for the infant room.<span class="callout-note">3 infant spots opening Sept 2026 · 18 families in range</span></p></div>
-      <p class="barlabel">Estimated standing (range, not a promise)</p>
-      <div class="bartrack"><div class="barfill" style="width:30%"></div></div>
-      <div class="barends"><span>Next offers</span><span>Later intake</span></div>
-      <div class="ontario-callout" style="margin-top:16px"><p><strong>Tour policy:</strong> Maple Grove offers tours after a spot is offered, not before. You'll be invited to visit as part of accepting an offer.</p></div>
-      <div class="ontario-callout ontario-callout--alert"><p><strong>Missing document:</strong> Infant feeding plan. Upload it once — it applies everywhere.</p></div>
-      <p class="acthead">Recent activity at this centre</p>
-      <ul class="activity">
-        <li><span class="date">Jun 8</span><span>Spot offered to a family on this list</span></li>
-        <li><span class="date">May 26</span><span>List reviewed by centre director</span></li>
-        <li><span class="date">May 12</span><span>New family added for this age group</span></li>
-      </ul>
-      <div class="ontario-callout ontario-callout--warning" style="margin-top:16px">
-        <div class="confirmrow"><p>Maple Grove asks: still interested in a Sept 2026 infant spot?</p><button class="ontario-button ontario-button--primary ontario-button--sm">Yes, keep my spot</button></div>
+    <div id="page">
+    <header class="site">
+      <div class="container">
+        <nav class="nav" aria-label="Primary">
+          <a class="brand" href="index.html">
+            <span class="mark" aria-hidden="true">MA</span>
+            <span class="logo">Medya Asgharyan</span>
+          </a>
+          <button
+            class="nav-toggle"
+            aria-label="Toggle menu"
+            aria-expanded="false"
+            onclick="
+              var m = document.getElementById('menu');
+              var o = m.classList.toggle('open');
+              this.setAttribute('aria-expanded', o);
+            "
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+          <ul class="menu" id="menu">
+            <li class="navitem">
+              <a href="index.html" aria-current="page">Home</a>
+            </li>
+            <li class="navitem"><a href="index.html#work">Portfolio</a></li>
+            <li class="navitem"><a href="about.html">About</a></li>
+            <li class="navitem">
+              <a class="icon" href="https://www.linkedin.com/in/asgharyan-medya/" target="_blank" rel="noopener" aria-label="LinkedIn"
+                ><svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M4.98 3.5a2.5 2.5 0 11-.02 5.001A2.5 2.5 0 014.98 3.5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21h-4z"
+                /></svg
+              ></a>
+            </li>
+            <li class="navitem">
+              <a
+                class="icon"
+                href="mailto:asgharyan.medya@gmail.com"
+                aria-label="Email"
+                ><svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <path d="m3 7 9 6 9-6" /></svg
+              ></a>
+            </li>
+          </ul>
+        </nav>
       </div>
-    </article>
+    </header>
 
-    <article class="ods-card">
-      <h2>Petits Pas Bilingue</h2>
-      <p class="type">Applied for Nika · Mar 4, 2026</p>
-      <div class="ontario-callout ontario-callout--success"><p><strong>Where you stand:</strong> 31 families in range for toddler spots. Movement is slow until January. Next opening likely Jan 2027</p></div>
-      <p class="barlabel">Estimated standing (range, not a promise)</p>
-      <div class="bartrack"><div class="barfill" style="width:72%"></div></div>
-      <div class="barends"><span>Next offers</span><span>Later intake</span></div>
-      <div class="ontario-callout" style="margin-top:16px"><p><strong>Tour policy:</strong> Petits Pas asks families to visit before applying. You already completed your visit on Feb 20, 2026.</p></div>
-      <p class="docsok">✓ All 3 required documents on file</p>
-      <p class="acthead">Recent activity at this centre</p>
-      <ul class="activity">
-        <li><span class="date">Jun 2</span><span>List updated</span></li>
-        <li><span class="date">Apr 19</span><span>Two families confirmed they're still interested</span></li>
-      </ul>
-    </article>
-  </div>
-</section>
+    <main>
+      <section class="hero container">
+        <span class="heroblob" aria-hidden="true"></span>
+        <div class="inner">
+          <h1>
+            <span class="ln" data-split>Hey there,</span
+            ><span class="ln" data-split>I&rsquo;m <em class="gold" style="font-style: normal">Medya</em></span>
+          </h1>
+          <p class="subtitle" data-hero>UX/Service Design</p>
+        </div>
+      </section>
 
-<!-- ============ MY PROFILE ============ -->
-<section class="screen" id="profile" aria-labelledby="profile-h">
-  <h1 id="profile-h" class="ontario-h1">One profile, every application</h1>
-  <p class="ontario-lead">Enter your information once. Join a waitlist for any centre in one click — your answers are already saved. When anything changes, every live application updates automatically.</p>
-
-  <div class="sect-row">
-    <h2 class="sect" style="margin:0;">Children</h2>
-    <button class="ontario-button ontario-button--secondary ontario-button--sm" type="button">+ Add another child</button>
-  </div>
-  <dl class="ontario-summary">
-    <div class="row"><dt>Nika</dt><dd>5 months · care needed from Sept 2026</dd></div>
-    <div class="row"><dt>Add a second child</dt><dd><span class="ontario-badge ontario-badge--neutral">Not added yet</span></dd></div>
-  </dl>
-
-  <h2 class="sect">Family details</h2>
-  <dl class="ontario-summary">
-    <div class="row"><dt>Home address</dt><dd>114 Birchmount Ave, Toronto</dd></div>
-    <div class="row"><dt>Languages at home</dt><dd>Farsi, English</dd></div>
-  </dl>
-
-  <h2 class="sect">Account</h2>
-  <dl class="ontario-summary">
-    <div class="row"><dt>Mobile number</dt><dd>(416) •••‑••23 <span class="ontario-badge ontario-badge--success">Verified</span></dd></div>
-    <div class="row"><dt>Password</dt><dd><a href="#" class="site-link">Change password</a></dd></div>
-  </dl>
-  <p class="footnote">We only ask for a one-time SMS code the first time you sign up. After that, your saved password signs you in everywhere — including when you join a new waitlist in one click.</p>
-
-  <h2 class="sect">Documents on file</h2>
-  <dl class="ontario-summary">
-    <div class="row"><dt>Immunization record</dt><dd><span class="ontario-badge ontario-badge--error">Renew by Aug 2026</span></dd></div>
-    <div class="row"><dt>Proof of Ontario address</dt><dd><span class="ontario-badge ontario-badge--success">Up to date</span></dd></div>
-    <div class="row"><dt>Infant feeding plan</dt><dd><span class="ontario-badge ontario-badge--error">Not uploaded</span></dd></div>
-  </dl>
-  <p class="footnote">We warn you before a document expires — so an out-of-date file never quietly stalls an application.</p>
-</section>
-
-<!-- ============ PROVIDER DASHBOARD ============ -->
-<section class="screen" id="provider" aria-labelledby="provider-h">
-  <h1 id="provider-h" class="ontario-h1">Provider dashboard</h1>
-  <p class="ontario-lead">Willow World Children's Centre — manage your waitlist, tour policy, and family communication in one place.</p>
-
-  <div class="kpi-row">
-    <div class="kpi"><div class="num">27</div><div class="lbl">Families on your waitlist</div></div>
-    <div class="kpi"><div class="num">3</div><div class="lbl">Infant spots opening Sept 2026</div></div>
-    <div class="kpi"><div class="num">6</div><div class="lbl">New applications this week</div></div>
-    <div class="kpi"><div class="num">2</div><div class="lbl">Unread family messages</div></div>
-  </div>
-
-  <h2 class="sect">Infant waitlist (auto-sorted by application date)</h2>
-  <p class="footnote" style="margin-bottom:14px;">Children are added to this list automatically based on the birthdate on their profile — you don't need to sort families by age.</p>
-  <table class="ods-table">
-    <caption class="ontario-show-for-sr">Infant waitlist</caption>
-    <thead><tr><th scope="col">Family</th><th scope="col">Child age</th><th scope="col">Applied</th><th scope="col">Priority</th></tr></thead>
-    <tbody>
-      <tr><td>R. Osei</td><td>4 months</td><td>Feb 2, 2026</td><td><span class="priority-tag sibling">Sibling enrolled</span></td></tr>
-      <tr><td>M. Asgharian</td><td>5 months</td><td>Mar 4, 2026</td><td>—</td></tr>
-      <tr><td>T. Nguyen</td><td>6 months</td><td>Mar 19, 2026</td><td><span class="priority-tag subsidy">Subsidy priority</span></td></tr>
-      <tr><td>J. Campbell</td><td>7 months</td><td>Apr 8, 2026</td><td><span class="priority-tag staff">Staff child</span></td></tr>
-      <tr><td>F. Haidari</td><td>8 months</td><td>Apr 22, 2026</td><td><span class="priority-tag medical">Medical / circumstantial need</span></td></tr>
-    </tbody>
-  </table>
-
-  <div class="ontario-callout ontario-callout--purple">
-    <p><strong>Why priority is published, not purchased:</strong> Ontario families told us the biggest source of mistrust is not knowing why one child gets a spot over another. So priority on DaycareConnect can only come from a fixed, visible list of reasons — a sibling already enrolled, CWELCC subsidy eligibility, a documented medical or circumstantial need, or a staff child — the same categories used in Quebec's provincial system. You can apply a tag to a family with a short reason, but the categories can't be created or sold, and every family can see the rules that apply to everyone.</p>
-  </div>
-
-  <h2 class="sect">Tour policy</h2>
-  <p class="footnote" style="margin-bottom:10px;">This setting shows directly on your centre's public listing, so families know what to expect before they apply.</p>
-  <div class="radio-row" role="radiogroup" aria-label="When do families visit your centre?">
-    <label class="radio-opt">
-      <input type="radio" name="tourpolicy" checked>
-      <span><strong>Tour after we offer a spot</strong><span class="d">Families apply and join the waitlist first; a visit is scheduled once a spot is offered.</span></span>
-    </label>
-    <label class="radio-opt">
-      <input type="radio" name="tourpolicy">
-      <span><strong>Tour required before applying</strong><span class="d">Families must book and complete a visit before they can join your waitlist.</span></span>
-    </label>
-  </div>
-
-  <h2 class="sect">Family messages</h2>
-  <div class="thread">
-    <div class="msg"><span class="who">M. Asgharian · Jun 20, 2026</span><br>Hi — just checking in, is there any update on the infant room for September?</div>
-    <div class="msg"><span class="who">You (Willow World) · Jun 20, 2026</span><br>Thanks for checking in! You're still in the first third of the list — no change needed on your end right now.</div>
-  </div>
-  <div class="field" style="margin-top:14px;">
-    <label for="replyMsg" class="ontario-show-for-sr">Reply to family</label>
-    <input type="text" id="replyMsg" placeholder="Write a reply...">
-  </div>
-  <button class="ontario-button ontario-button--primary ontario-button--sm" type="button">Send reply</button>
-
-  <h2 class="sect">Home daycare agency verification</h2>
-  <p class="footnote" style="margin-bottom:6px;">If you're a Home Child Care Agency, use this to confirm the monthly check-ins that keep your home providers listed.</p>
-  <div class="verify-row"><span>Auntie Sara's Family Home Care — last checked June 3, 2026</span><button class="ontario-button ontario-button--secondary ontario-button--sm" type="button">Confirm July check-in</button></div>
-  <div class="verify-row"><span>Daisy Flower Childcare — last checked May 29, 2026</span><button class="ontario-button ontario-button--secondary ontario-button--sm" type="button">Confirm June check-in</button></div>
-  <p class="footnote" style="margin-top:14px;">A home daycare's listing is automatically hidden from parent search if a monthly check-in is more than 45 days overdue.</p>
-</section>
-
-</div>
-</main>
-
-<!-- ============ JOIN WAITLIST MODAL (custom overlay, not <dialog>) ============ -->
-<div class="modal-overlay" id="joinOverlay">
-  <div class="ods-modal" role="dialog" aria-modal="true" aria-labelledby="joinTitle" id="joinModal">
-    <div class="modal-inner">
-      <button class="modal-close" id="modalClose" aria-label="Close dialog">×</button>
-
-      <div class="modal-step on" id="stepOneClick">
-        <h2 id="joinTitle">Add Nika to <span class="centreName">this centre's</span> waitlist?</h2>
-        <p class="sub">We'll use the profile and documents you already saved — no need to re-enter anything.</p>
-        <div class="modal-actions">
-          <button class="ontario-button ontario-button--secondary" id="cancelOneClick" type="button">Cancel</button>
-          <button class="ontario-button ontario-button--primary" id="confirmOneClick" type="button">Yes, join this waitlist</button>
+      <div class="marquee" aria-hidden="true">
+        <div class="track" id="mtrack">
+          <span>Service Design</span><span class="dot">&bull;</span><span>UX Research</span><span class="dot">&bull;</span><span>Usability Testing</span><span class="dot">&bull;</span><span>Journey Mapping</span><span class="dot">&bull;</span><span>Service Blueprints</span><span class="dot">&bull;</span>
+          <span>Service Design</span><span class="dot">&bull;</span><span>UX Research</span><span class="dot">&bull;</span><span>Usability Testing</span><span class="dot">&bull;</span><span>Journey Mapping</span><span class="dot">&bull;</span><span>Service Blueprints</span><span class="dot">&bull;</span>
         </div>
       </div>
 
-      <div class="modal-step" id="stepChild">
-        <p class="step-progress">Step 1 of 3</p>
-        <h2>Tell us about your child</h2>
-        <p class="sub">This creates your DaycareConnect profile. You'll only enter this once — for every future waitlist, it's one click.</p>
-        <div class="field"><label for="childName">Child's first name</label><input type="text" id="childName" placeholder="e.g. Nika"></div>
-        <div class="field"><label for="childDob">Date of birth</label><input type="date" id="childDob"></div>
-        <p class="footnote">We'll automatically place your child in the right age group waitlist at <strong class="centreName">this centre</strong>.</p>
-        <div class="modal-actions">
-          <button class="ontario-button ontario-button--secondary" type="button" data-close>Cancel</button>
-          <button class="ontario-button ontario-button--primary" type="button" data-next="stepAccount">Continue</button>
+      <section class="work container" id="work" aria-label="Selected projects">
+        <div class="grid">
+          <!-- 01 Finch 3D -->
+          <article class="card reveal-up">
+            <h2><a href="finch-3d.html">Finch 3D</a></h2>
+            <div class="tags-row">
+              <span class="pill">AI Design</span
+              ><span class="pill">AEC Tooling</span
+              ><span class="pill">UX Design</span>
+            </div>
+            <div class="cover photo">
+              <a class="cover-link"
+              href="finch-3d.html"
+              aria-label="Finch 3D cover"
+            >
+                <img src="images/finch/After__Cover.png" alt="" />
+              </a>
+              <img class="demo-gif" src="images/finch/finch-demo.gif" alt="" loading="lazy" />
+              <button class="gif-toggle" type="button" aria-label="Play project preview">
+                <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+              </button>
+              <button class="gif-expand" type="button" aria-label="View full screen">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+              </button>
+            </div>
+            <p class="desc">
+              Architects hit a hard stop at the centerline step on day one. I
+              found the problem through research and designed a guided flow
+              for it. In a 12-person usability test, unassisted success rose
+              from 3 to 10 of 12 participants.
+            </p>
+          </article>
+
+          <!-- 02 Ideate Live -->
+          <article class="card reveal-up">
+            <h2><a href="ideate-live.html">Ideate Live</a></h2>
+            <div class="tags-row">
+              <span class="pill">Service Design</span
+              ><span class="pill">Facilitation</span>
+            </div>
+            <div class="cover photo">
+              <a class="cover-link" href="ideate-live.html" aria-label="Ideate Live cover">
+                <img src="images/ideate/after-homepage.png" alt="" />
+              </a>
+              <img class="demo-gif" src="images/ideate/ideate-demo.gif" alt="" loading="lazy" />
+              <button class="gif-toggle" type="button" aria-label="Play project preview">
+                <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+              </button>
+              <button class="gif-expand" type="button" aria-label="View full screen">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+              </button>
+            </div>
+            <p class="desc">
+              Remote design workshops lose energy and clarity fast. I designed a
+              live, collaborative facilitation experience that keeps distributed
+              teams aligned in real time&mdash;structuring ideation so every
+              voice lands and decisions don&rsquo;t evaporate after the call.
+            </p>
+          </article>
+
+          <!-- 03 Daycare -->
+          <article class="card reveal-up">
+            <h2><a href="daycare.html">Ontario Daycare Access</a></h2>
+            <div class="tags-row">
+              <span class="pill">UX Research</span
+              ><span class="pill">UX Design</span
+              ><span class="pill">Public Service</span
+              ><span class="pill">Journey Mapping</span>
+            </div>
+            <div class="cover photo">
+              <a class="cover-link"
+              href="daycare.html"
+              aria-label="Daycare Access cover"
+            >
+                <img src="images/daycare/applydaycare-homepage.png" alt="" />
+              </a>
+              <img class="demo-gif" src="images/daycare/daycare-demo.gif" alt="" loading="lazy" />
+              <button class="gif-toggle" type="button" aria-label="Play project preview">
+                <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+              </button>
+              <button class="gif-expand" type="button" aria-label="View full screen">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+              </button>
+            </div>
+            <p class="desc">
+              Finding licensed childcare in Ontario means navigating fragmented,
+              confusing public systems. Through field research with parents and
+              providers, I mapped where families get stuck and reframed the
+              journey around their real moments of decision&mdash;surfacing the
+              gaps a redesigned service would need to close.
+            </p>
+          </article>
+
+          <!-- 04 Glocal -->
+          <article class="card reveal-up">
+            <h2><a href="glocal.html">Glocal Website Improvement</a></h2>
+            <div class="tags-row">
+              <span class="pill">Web UX</span
+              ><span class="pill">UX Design</span
+              ><span class="pill">Redesign</span>
+            </div>
+            <div class="cover photo">
+              <a class="cover-link" href="glocal.html" aria-label="Glocal cover">
+                <img src="images/Glocal/Cover.png" alt="" />
+              </a>
+              <img class="demo-gif" src="images/Glocal/glocal-demo.gif" alt="" loading="lazy" />
+              <button class="gif-toggle" type="button" aria-label="Play project preview">
+                <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+              </button>
+              <button class="gif-expand" type="button" aria-label="View full screen">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+              </button>
+            </div>
+            <p class="desc">
+              Glocal&rsquo;s site buried its value and lost visitors before they
+              understood the offering. I audited the experience end to end,
+              restructured the information architecture, and rebuilt key pages
+              around clearer paths to action&mdash;turning a cluttered site into
+              a focused, trustworthy first impression.
+            </p>
+          </article>
+
+          <!-- 05 Autodesk -->
+          <article class="card reveal-up">
+            <h2><a href="autodesk-billing.html">Autodesk Billing &amp; Renewal</a></h2>
+            <div class="tags-row">
+              <span class="pill">UX Research</span
+              ><span class="pill">Service Design</span
+              ><span class="pill">Journey Mapping</span>
+            </div>
+            <a
+              class="cover photo"
+              href="autodesk-billing.html"
+              aria-label="Autodesk Billing cover"
+            >
+              <img src="images/autodesk/journey-map.png" alt="" />
+            </a>
+            <p class="desc">
+              Autodesk customers couldn&rsquo;t predict what they&rsquo;d be
+              charged or fix a mistake before money moved. I traced the
+              failure to its root&mdash;a split account-role model&mdash;and
+              redesigned the renewal journey around it.
+              <em>Self-initiated case study, no Autodesk affiliation.</em>
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <p class="contact-note">
+        Some projects involve client confidentiality, so what's shown here is
+        a partial view. <a href="mailto:asgharyan.medya@gmail.com">Please contact me for the full project.</a>
+      </p>
+
+      <div class="viewmore-wrap">
+        <a class="viewmore" href="about.html">About Me</a>
+      </div>
+    </main>
+
+    <footer class="site">
+      <div class="container">
+        <div class="foot">
+          <p>&copy; 2026 Medya Asgharyan. All rights reserved.</p>
+          <div class="socials">
+            <a href="mailto:asgharyan.medya@gmail.com" aria-label="Email"
+              ><svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="3" y="5" width="18" height="14" rx="2" />
+                <path d="m3 7 9 6 9-6" /></svg
+            ></a>
+            <a href="https://www.linkedin.com/in/asgharyan-medya/" target="_blank" rel="noopener" aria-label="LinkedIn"
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M4.98 3.5a2.5 2.5 0 11-.02 5.001A2.5 2.5 0 014.98 3.5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21h-4z"
+                /></svg
+            ></a>
+          </div>
         </div>
       </div>
-
-      <div class="modal-step" id="stepAccount">
-        <p class="step-progress">Step 2 of 3</p>
-        <h2>Create your account</h2>
-        <p class="sub">You'll use this to sign in and manage every application in one place.</p>
-        <div class="field"><label for="mobileNum">Mobile number</label><input type="tel" id="mobileNum" placeholder="(416) 555-0123"></div>
-        <div class="field"><label for="pw">Password</label><input type="password" id="pw"></div>
-        <p class="footnote">We'll text a one-time code to verify your number now. After that, your password is all you need — even on a new device.</p>
-        <div class="modal-actions">
-          <button class="ontario-button ontario-button--secondary" type="button" data-next="stepChild">Back</button>
-          <button class="ontario-button ontario-button--primary" type="button" data-next="stepSms">Send verification code</button>
-        </div>
-      </div>
-
-      <div class="modal-step" id="stepSms">
-        <p class="step-progress">Step 3 of 3</p>
-        <h2>Enter the code we texted you</h2>
-        <p class="sub">Sent to the number you entered. This confirmation only happens the first time you sign up.</p>
-        <div class="field"><label for="smsCode">6-digit code</label><input type="text" id="smsCode" inputmode="numeric" placeholder="000000"></div>
-        <div class="modal-actions">
-          <button class="ontario-button ontario-button--secondary" type="button" data-next="stepAccount">Back</button>
-          <button class="ontario-button ontario-button--primary" type="button" data-next="stepDone">Verify and join waitlist</button>
-        </div>
-      </div>
-
-      <div class="modal-step" id="stepDone">
-        <h2>You're on the list</h2>
-        <div class="ontario-callout ontario-callout--success"><p>Nika has been added to <strong class="centreName">this centre's</strong> waitlist, sorted into the right age group automatically. Your profile is saved — joining another waitlist is now one click.</p></div>
-        <div class="modal-actions"><button class="ontario-button ontario-button--primary" type="button" data-close>Done</button></div>
-      </div>
+    </footer>
     </div>
-  </div>
-</div>
 
-<script>
-/* ===================== FACILITY DATA ===================== */
-/* Addresses drawn from the May 2026 Ontario child care facilities open data file.
-   Photos are placeholder stock images (Lorem Picsum) standing in for each facility's
-   Google Business Profile photos until this is wired up to the real Google Places API.
-   Reviews are placeholder sample text for the same reason. */
-const FACILITIES = {
-  "Willow World": {
-    type: "Licensed child care centre",
-    address: "288 Cummer Avenue, Toronto, ON M2M 2E7",
-    ageRange: "ages 6 mo – 4 yr",
-    dist: "450 m",
-    ageband: "infant",
-    rating: 4.3, reviewCount: 61,
-    licensed: true, cwelcc: true, verified: false,
-    tour: "Tour after offer",
-    avail: "3 infant spots opening Sept 2026",
-    availClass: "open",
-    price: "$22/day (CWELCC) · 18 families in range for this age group",
-    match: "Infant (under 18 mo) · CWELCC fees ($22/day)",
-    tagsExtra: ["2 hrs daily outdoor", "10 infants (licensed max 10)"],
-    website: "https://example.com",
-    photos: ["https://picsum.photos/seed/willow1/500/340","https://picsum.photos/seed/willow2/500/340","https://picsum.photos/seed/willow3/500/340","https://picsum.photos/seed/willow4/500/340"],
-    reviews: [
-      {name:"Priya S.", stars:5, date:"3 weeks ago", text:"Warm, attentive staff and the infant room is always spotless. Our daughter has thrived here."},
-      {name:"Daniel K.", stars:4, date:"2 months ago", text:"Great outdoor program and clear daily updates. Wish drop-off parking was easier."},
-      {name:"Aisha M.", stars:4, date:"4 months ago", text:"Responsive director, and the CWELCC billing has been straightforward every month."}
-    ]
-  },
-  "Bright Minds Care": {
-    type: "Licensed home child care",
-    address: "895 Don Mills Road, Toronto, ON",
-    ageRange: "ages 12 mo – 5 yr",
-    dist: "700 m",
-    ageband: "toddler",
-    rating: 4.8, reviewCount: 19,
-    licensed: true, cwelcc: true, verified: false,
-    tour: "Tour before offer",
-    avail: "1 toddler spot open now",
-    availClass: "open",
-    price: "$22/day (CWELCC) · 4 families in range for this age group",
-    match: "CWELCC fees ($22/day) — doesn't offer Infant (under 18 mo)",
-    tagsExtra: ["Backyard + daily park walk", "5 children (licensed max 6)"],
-    website: "https://example.com",
-    photos: ["https://picsum.photos/seed/bright1/500/340","https://picsum.photos/seed/bright2/500/340","https://picsum.photos/seed/bright3/500/340"],
-    reviews: [
-      {name:"Karen L.", stars:5, date:"1 month ago", text:"Feels like family. Small group size means our son gets real one-on-one attention every day."},
-      {name:"Sam O.", stars:5, date:"5 months ago", text:"Best decision we made — flexible pickup times and genuinely caring provider."}
-    ]
-  },
-  "Auntie Sara's Family Home Care": {
-    type: "Home daycare · not licensed by Ontario",
-    address: "Exact address shared once you're in contact — general area: Danforth & Broadview, Toronto",
-    ageRange: "ages 12 mo – 6 yr",
-    dist: "900 m",
-    ageband: "toddler",
-    rating: 4.1, reviewCount: 8,
-    licensed: false, cwelcc: false, verified: true,
-    verifiedBy: "Family Day Care Services (licensed Home Child Care Agency)",
-    verifiedDate: "June 3, 2026", nextCheck: "July 3, 2026",
-    tour: "Tour before offer",
-    avail: "Waitlist — 2 families ahead",
-    availClass: "wait",
-    price: "$58/day (private — not CWELCC-eligible) · 2 families in range for this age group",
-    match: null,
-    tagsExtra: [],
-    website: null,
-    photos: ["https://picsum.photos/seed/auntiesara1/500/340","https://picsum.photos/seed/auntiesara2/500/340"],
-    reviews: [
-      {name:"Fatima H.", stars:4, date:"2 months ago", text:"Cozy home setting, kids get lots of outside time. Communication could be a bit more frequent."},
-      {name:"Marco T.", stars:5, date:"6 months ago", text:"Our son loves going every day. Feels like a second grandmother, honestly."}
-    ]
-  },
-  "Kids Connect Daycare": {
-    type: "Licensed child care centre",
-    address: "138 Main Street, Toronto, ON",
-    ageRange: "ages 18 mo – 5 yr",
-    dist: "1.1 km",
-    ageband: "preschool",
-    rating: 4.4, reviewCount: 37,
-    licensed: true, cwelcc: true, verified: false,
-    tour: "Tour after offer",
-    avail: "Next opening likely Jan 2027",
-    availClass: "wait",
-    price: "$22/day (CWELCC) · 31 families in range for this age group",
-    match: "CWELCC fees ($22/day) — doesn't offer Infant (under 18 mo)",
-    tagsExtra: ["90 min daily outdoor", "13 toddlers (licensed max 15)"],
-    website: "https://example.com",
-    photos: ["https://picsum.photos/seed/kidsconnect1/500/340","https://picsum.photos/seed/kidsconnect2/500/340","https://picsum.photos/seed/kidsconnect3/500/340","https://picsum.photos/seed/kidsconnect4/500/340"],
-    reviews: [
-      {name:"Grace W.", stars:5, date:"1 month ago", text:"Structured but playful program. Teachers know every child by name, including in the yard."},
-      {name:"Ben R.", stars:4, date:"3 months ago", text:"Long waitlist as expected, but worth it — great communication while we waited."},
-      {name:"Noor A.", stars:4, date:"7 months ago", text:"Clean, well-run centre. CWELCC paperwork was handled entirely by their office."}
-    ]
-  }
-};
-
-function stars(n){ const full='★'.repeat(Math.round(n)); const empty='☆'.repeat(5-Math.round(n)); return full+empty; }
-
-function buildCard(name, f, idx){
-  const tagBits = [];
-  if(f.licensed) tagBits.push('<li class="tag tag--licensed">Licensed · verified by Ontario</li>');
-  if(f.verified) tagBits.push('<li class="tag tag--verified">Agency-verified</li>');
-  if(f.cwelcc) tagBits.push('<li class="tag tag--cwelcc">CWELCC ✓</li>');
-  tagBits.push('<li class="tag tag--tour">'+f.tour+'</li>');
-  f.tagsExtra.forEach(t=>tagBits.push('<li class="tag">'+t+'</li>'));
-
-  const matchHtml = f.match
-    ? '<div class="ontario-callout ontario-callout--success"><p><strong>Matches what matters to you:</strong> '+f.match+'</p></div>'
-    : (f.verified
-        ? '<div class="ontario-callout ontario-callout--purple"><p><strong>Verified by '+f.verifiedBy+'</strong> · last checked '+f.verifiedDate+' · next check-in '+f.nextCheck+'<span class="callout-note">This provider is not government-licensed. The agency visits monthly to confirm ratios, safety, and conditions before we keep this listing live.</span></p></div>'
-        : '');
-
-  const siteLink = f.website
-    ? '<a class="site-link" href="'+f.website+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">Visit website<svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="#0066CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="ontario-show-for-sr"> (opens in new tab)</span></a>'
-    : '';
-
-  const photoThumbs = f.photos.slice(0,3).map(p=>'<img src="'+p+'" alt="Photo at '+name+'">').join('');
-  const qpPhotos = f.photos.slice(0,4).map(p=>'<img src="'+p+'" alt="Photo at '+name+'">').join('');
-  const qpReviews = f.reviews.slice(0,3).map(r=>
-    '<div class="qp-review"><span class="rname">'+r.name+'</span> <span class="rstars" aria-hidden="true">'+stars(r.stars)+'</span><div class="rtext">"'+r.text+'"</div></div>'
-  ).join('');
-
-  return `
-  <article class="ods-card" data-facility="${name}">
-    <div class="card-top"><h2>${idx+1}. ${name}</h2><span class="dist">${f.dist}</span></div>
-    <p class="type">${f.type} · ${f.address} · ${f.ageRange}</p>
-    <p class="rating-row"><span class="stars" aria-hidden="true">${stars(f.rating)}</span><span>${f.rating.toFixed(1)} · ${f.reviewCount} Google reviews</span></p>
-    <div class="photo-strip">${photoThumbs}</div>
-    <p class="photo-caption">Photos and rating are sample placeholders standing in for this provider's Google Business Profile.</p>
-    ${matchHtml}
-    <p class="avail"><span class="status-dot ${f.availClass}"></span>${f.avail}</p>
-    <p class="price">${f.price}</p>
-    <ul class="tags">${tagBits.join('')}</ul>
-    <div class="card-actions">
-      <button class="ontario-button ontario-button--primary ontario-button--sm" data-join="${name}" data-agerange="${f.ageband}">Join waitlist</button>
-      <button class="btn-plain" data-quicklook="${name}" aria-expanded="false" aria-controls="qp-${idx}">Quick look: photos &amp; reviews</button>
-      ${siteLink}
+    <script>
+      if (false) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add("in");
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.12 },
+        );
+        document.querySelectorAll(".card").forEach((c) => io.observe(c));
+      } else {
+        document
+          .querySelectorAll(".card")
+          .forEach((c) => c.classList.add("in"));
+      }
+    </script>
+    <div id="gif-lightbox" role="dialog" aria-modal="true" aria-label="Project preview, full screen">
+      <button id="gif-lightbox-close" aria-label="Close full screen preview">&times;</button>
+      <img id="gif-lightbox-img" src="" alt="" />
     </div>
-    <div class="quick-preview" id="qp-${idx}">
-      <div class="qp-photos">${qpPhotos}</div>
-      <div class="qp-reviews">${qpReviews}</div>
-      <button class="ontario-button ontario-button--secondary ontario-button--sm" data-detail="${name}">See full profile &amp; all reviews</button>
-    </div>
-  </article>`;
-}
 
-const resultsStack = document.getElementById('resultsStack');
-resultsStack.innerHTML = Object.keys(FACILITIES).map((name,i)=>buildCard(name, FACILITIES[name], i)).join('');
+    <script>
+      document.querySelectorAll(".gif-toggle").forEach(function (btn) {
+        btn.addEventListener("click", function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          var cover = btn.closest(".cover");
+          cover.classList.toggle("playing");
+          btn.setAttribute(
+            "aria-label",
+            cover.classList.contains("playing")
+              ? "Pause project preview"
+              : "Play project preview"
+          );
+        });
+      });
 
-/* ---- Quick look: expand/collapse in place, no navigation ---- */
-resultsStack.addEventListener('click', function(e){
-  const qlBtn = e.target.closest('[data-quicklook]');
-  if(qlBtn){
-    const panel = qlBtn.closest('.ods-card').querySelector('.quick-preview');
-    const isOpen = panel.classList.toggle('on');
-    qlBtn.setAttribute('aria-expanded', isOpen);
-    qlBtn.textContent = isOpen ? 'Hide photos & reviews' : 'Quick look: photos & reviews';
-    return;
-  }
-  const dBtn = e.target.closest('[data-detail]');
-  if(dBtn){ openDetail(dBtn.dataset.detail); return; }
-  const jBtn = e.target.closest('[data-join]');
-  if(jBtn){ openJoinModal(jBtn.dataset.join); return; }
-});
+      (function () {
+        var lightbox = document.getElementById("gif-lightbox");
+        var lbImg = document.getElementById("gif-lightbox-img");
+        var lbClose = document.getElementById("gif-lightbox-close");
+        var lastTrigger = null;
 
-/* ---- Full profile page ---- */
-function openDetail(name){
-  const f = FACILITIES[name];
-  document.getElementById('detail-h').textContent = name;
-  document.getElementById('dHero').src = f.photos[0];
-  document.getElementById('dHero').alt = 'Photo at ' + name;
-  document.getElementById('dType').textContent = f.type + ' · ' + f.address + ' · ' + f.ageRange;
-  document.getElementById('dStars').textContent = stars(f.rating);
-  document.getElementById('dRatingText').textContent = f.rating.toFixed(1) + ' · ' + f.reviewCount + ' Google reviews (sample placeholder data)';
+        function openLightbox(src, trigger) {
+          lastTrigger = trigger;
+          lbImg.src = src;
+          lightbox.classList.add("open");
+          document.body.style.overflow = "hidden";
+          lbClose.focus();
+        }
+        function closeLightbox() {
+          lightbox.classList.remove("open");
+          document.body.style.overflow = "";
+          if (lastTrigger) lastTrigger.focus();
+        }
 
-  const tagBits = [];
-  if(f.licensed) tagBits.push('<li class="tag tag--licensed">Licensed · verified by Ontario</li>');
-  if(f.verified) tagBits.push('<li class="tag tag--verified">Agency-verified</li>');
-  if(f.cwelcc) tagBits.push('<li class="tag tag--cwelcc">CWELCC ✓</li>');
-  tagBits.push('<li class="tag tag--tour">'+f.tour+'</li>');
-  f.tagsExtra.forEach(t=>tagBits.push('<li class="tag">'+t+'</li>'));
-  document.getElementById('dTags').innerHTML = tagBits.join('');
+        document.querySelectorAll(".gif-expand").forEach(function (btn) {
+          btn.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var cover = btn.closest(".cover");
+            var gif = cover.querySelector(".demo-gif");
+            if (gif) openLightbox(gif.src, btn);
+          });
+        });
 
-  document.getElementById('dCallout').innerHTML = f.verified
-    ? '<div class="ontario-callout ontario-callout--purple"><p><strong>Verified by '+f.verifiedBy+'</strong> · last checked '+f.verifiedDate+' · next check-in '+f.nextCheck+'</p></div>'
-    : (f.match ? '<div class="ontario-callout ontario-callout--success"><p><strong>Matches what matters to you:</strong> '+f.match+'</p></div>' : '');
+        lbClose.addEventListener("click", closeLightbox);
+        lightbox.addEventListener("click", function (e) {
+          if (e.target === lightbox) closeLightbox();
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && lightbox.classList.contains("open")) closeLightbox();
+        });
+      })();
+    </script>
 
-  document.getElementById('dAvail').innerHTML = '<span class="status-dot '+f.availClass+'"></span>'+f.avail;
-  document.getElementById('dPrice').textContent = f.price;
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+    <script>
+      (function () {
+        var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var hasGSAP = typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined";
 
-  const siteLinkEl = document.getElementById('dSiteLink');
-  if(f.website){ siteLinkEl.style.display=''; siteLinkEl.href = f.website; } else { siteLinkEl.style.display='none'; }
+        function showAll() {
+          var i = document.getElementById("intro");
+          if (i) i.style.display = "none";
+          document.getElementById("page").style.opacity = 1;
+          document.querySelectorAll(".reveal-up").forEach(function (e) { e.style.opacity = 1; e.style.transform = "none"; });
+          document.querySelectorAll(".cover").forEach(function (e) { e.style.clipPath = "none"; });
+          document.querySelectorAll(".ch").forEach(function (e) { e.style.transform = "none"; });
+        }
+        if (reduced || !hasGSAP) { showAll(); return; }
 
-  document.getElementById('dGallery').innerHTML = f.photos.map(p=>'<img src="'+p+'" alt="Photo at '+name+'">').join('');
-  document.getElementById('dReviewHead').textContent = 'Reviews (' + f.reviewCount + ')';
-  document.getElementById('dReviews').innerHTML = f.reviews.map(r=>
-    '<div class="detail-review"><div class="rname">'+r.name+'</div><div class="rmeta"><span class="rstars" aria-hidden="true">'+stars(r.stars)+'</span> · '+r.date+'</div><div>"'+r.text+'"</div></div>'
-  ).join('');
+        function splitLetters(el) {
+          if (el.querySelector("em")) return;
+          var txt = el.textContent;
+          el.textContent = "";
+          txt.split("").forEach(function (c) {
+            var s = document.createElement("span");
+            s.className = "ch";
+            s.textContent = c === " " ? "\u00A0" : c;
+            el.appendChild(s);
+          });
+        }
+        // safety net: never leave the page hidden
+        setTimeout(function () { if (document.getElementById("page").style.opacity === "0" || getComputedStyle(document.getElementById("page")).opacity === "0") showAll(); }, 9000);
 
-  document.getElementById('dJoinBtn').onclick = ()=>openJoinModal(name);
+        gsap.registerPlugin(ScrollTrigger);
+        if (typeof Lenis !== "undefined") {
+          var lenis = new Lenis({ duration: 1.1, easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); } });
+          lenis.on("scroll", ScrollTrigger.update);
+          gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+          gsap.ticker.lagSmoothing(0);
+        }
+        document.querySelectorAll("[data-split]").forEach(splitLetters);
+        var EASE = "power3.out";
 
-  showScreen('detail');
-}
-document.getElementById('backToResults').addEventListener('click', ()=>showScreen('find'));
+        function revealPage() {
+          gsap.to("#page", { opacity: 1, duration: 0.5 });
+          gsap.to(".hero .ch", { y: 0, duration: 1, ease: EASE, stagger: 0.03 });
+          gsap.from("[data-hero]", { y: 30, opacity: 0, duration: 0.9, ease: EASE, delay: 0.4 });
+          gsap.utils.toArray(".reveal-up").forEach(function (el) {
+            gsap.to(el, { opacity: 1, y: 0, duration: 1, ease: EASE, scrollTrigger: { trigger: el, start: "top 90%" } });
+          });
+          gsap.utils.toArray(".cover").forEach(function (el) {
+            gsap.to(el, { clipPath: "inset(0 0 0% 0)", duration: 1.1, ease: EASE, scrollTrigger: { trigger: el, start: "top 90%" } });
+          });
+          gsap.to(".heroblob", { yPercent: 40, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+          gsap.to("#mtrack", { xPercent: -50, ease: "none", scrollTrigger: { trigger: ".marquee", start: "top bottom", end: "bottom top", scrub: 1 } });
+          gsap.to("#progress", { width: "100%", ease: "none", scrollTrigger: { trigger: "#page", start: "top top", end: "bottom bottom", scrub: true } });
+        }
+        function dismissIntro() {
+          var intro = document.getElementById("intro");
+          gsap.to(intro, { yPercent: -100, duration: 0.9, ease: "power3.inOut", onComplete: function () { intro.style.display = "none"; } });
+        }
+        var done = false;
+        function finish() { if (done) return; done = true; dismissIntro(); revealPage(); }
+        window.__skipIntro = function () { tl.kill(); finish(); };
 
-/* ===================== Screen / tab navigation ===================== */
-const navButtons=document.querySelectorAll('nav.app-tabs button');
-const screens=document.querySelectorAll('.screen');
-function showScreen(id){
-  screens.forEach(s=>s.classList.toggle('on', s.id===id));
-  navButtons.forEach(b=>{
-    if(b.dataset.go===id) b.setAttribute('aria-current','page');
-    else b.removeAttribute('aria-current');
-  });
-  document.getElementById('main').focus();
-  window.scrollTo({top:0});
-}
-navButtons.forEach(b=>b.addEventListener('click', ()=>showScreen(b.dataset.go)));
+        var counter = { v: 0 };
+        var tl = gsap.timeline({ onComplete: finish });
+        tl.to("#intro .eyebrow span", { y: 0, duration: 0.7, ease: EASE })
+          .to("#intro .ch", { y: 0, duration: 0.9, ease: EASE, stagger: 0.04 }, "-=0.3")
+          .to(counter, { v: 100, duration: 1.4, ease: "power1.inOut", onUpdate: function () { document.getElementById("counter").textContent = Math.round(counter.v); } }, 0)
+          .to({}, { duration: 0.4 });
 
-/* ===================== List / Map view toggle ===================== */
-const viewList=document.getElementById('viewList');
-const viewMap=document.getElementById('viewMap');
-const findLayout=document.getElementById('findLayout');
-function setView(mode){
-  viewList.setAttribute('aria-pressed', mode==='list');
-  viewMap.setAttribute('aria-pressed', mode==='map');
-  findLayout.classList.toggle('list-only', mode==='list');
-}
-viewList.addEventListener('click',()=>setView('list'));
-viewMap.addEventListener('click',()=>setView('map'));
-setView('list');
-
-/* ===================== Join waitlist modal (custom overlay) ===================== */
-const joinOverlay=document.getElementById('joinOverlay');
-const HAS_PROFILE = false; // demo flag: set true to preview the returning-user one-click path
-let lastFocusedEl = null;
-
-function openJoinModal(centreName){
-  lastFocusedEl = document.activeElement;
-  document.querySelectorAll('.centreName').forEach(el=>el.textContent=centreName);
-  document.querySelectorAll('.modal-step').forEach(s=>s.classList.remove('on'));
-  document.getElementById(HAS_PROFILE ? 'stepOneClick' : 'stepChild').classList.add('on');
-  joinOverlay.classList.add('on');
-  document.getElementById('modalClose').focus();
-}
-function closeJoinModal(){
-  joinOverlay.classList.remove('on');
-  if(lastFocusedEl) lastFocusedEl.focus();
-}
-
-document.querySelectorAll('[data-next]').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.modal-step').forEach(s=>s.classList.remove('on'));
-    document.getElementById(btn.dataset.next).classList.add('on');
-  });
-});
-document.querySelectorAll('[data-close]').forEach(btn=>btn.addEventListener('click', closeJoinModal));
-document.getElementById('modalClose').addEventListener('click', closeJoinModal);
-document.getElementById('cancelOneClick').addEventListener('click', closeJoinModal);
-document.getElementById('confirmOneClick').addEventListener('click',()=>{
-  document.querySelectorAll('.modal-step').forEach(s=>s.classList.remove('on'));
-  document.getElementById('stepDone').classList.add('on');
-});
-joinOverlay.addEventListener('click', e=>{ if(e.target===joinOverlay) closeJoinModal(); });
-document.addEventListener('keydown', e=>{ if(e.key==='Escape' && joinOverlay.classList.contains('on')) closeJoinModal(); });
-</script>
-</body>
+        // custom cursor + magnetic buttons
+        var dot = document.querySelector(".cursor-dot"), ring = document.querySelector(".cursor-ring");
+        var rx = 0, ry = 0, dx = 0, dy = 0;
+        window.addEventListener("mousemove", function (e) { dx = e.clientX; dy = e.clientY; gsap.set(dot, { x: dx, y: dy }); });
+        gsap.ticker.add(function () { rx += (dx - rx) * 0.15; ry += (dy - ry) * 0.15; gsap.set(ring, { x: rx, y: ry }); });
+        document.querySelectorAll("a,button").forEach(function (el) {
+          el.addEventListener("mouseenter", function () { ring.classList.add("grow"); });
+          el.addEventListener("mouseleave", function () { ring.classList.remove("grow"); });
+        });
+        document.querySelectorAll(".brand,.viewmore").forEach(function (el) {
+          el.addEventListener("mousemove", function (e) {
+            var r = el.getBoundingClientRect();
+            gsap.to(el, { x: (e.clientX - (r.left + r.width / 2)) * 0.3, y: (e.clientY - (r.top + r.height / 2)) * 0.3, duration: 0.4, ease: "power2.out" });
+          });
+          el.addEventListener("mouseleave", function () { gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1,0.4)" }); });
+        });
+      })();
+    </script>
+  </body>
 </html>
