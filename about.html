@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About — Medya Asgharian</title>
+    <title>About — Medya Asgharyan</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -78,10 +78,11 @@
         padding-inline: var(--pad);
       }
       .reader {
-        max-width: var(--readw);
+        max-width: var(--maxw);
         margin: 0 auto;
         padding-inline: var(--pad);
       }
+      section.block > h2, section.block > p, section.block > .eyebrow, section.block > .skill-grid, section.block > .quotes, section.block > .lang-list, section.block > .accolade, section.block > .timeline { max-width: 900px; }
 
       header.site {
         border-bottom: 1px solid var(--line);
@@ -175,7 +176,7 @@
       }
 
       .hero {
-        text-align: center;
+        text-align: left;
         padding-block: clamp(3rem, 8vw, 5.5rem) clamp(2rem, 5vw, 3rem);
       }
       .hero h1 {
@@ -187,7 +188,7 @@
       }
       .hero .lede {
         max-width: 58ch;
-        margin: 1.3rem auto 0;
+        margin: 1.3rem 0 0;
         font-size: clamp(1.05rem, 2.3vw, 1.3rem);
         color: var(--body);
       }
@@ -518,10 +519,10 @@
           <a
             class="brand"
             href="index.html"
-            aria-label="Medya Asgharian — home"
+            aria-label="Medya Asgharyan — home"
           >
             <span class="mark" aria-hidden="true">MA</span>
-            <span class="logo">Medya Asgharian</span>
+            <span class="logo">Medya Asgharyan</span>
           </a>
           <button
             class="nav-toggle"
@@ -590,8 +591,7 @@
       <section class="hero container" aria-labelledby="about-heading">
         <h1 id="about-heading">About Medya</h1>
         <p class="lede">
-          Service Designer and UX Researcher with 5+ years of design
-          experience. I help organizations understand how their services
+          Service Designer and UX Researcher with 7+ years of design experience. I help organizations understand how their services
           really work for people, then turn those insights into clear designs
           and better business decisions&mdash;across civic platforms, a
           childcare enrolment service for Ontario families, a B2B AI product,
@@ -601,7 +601,7 @@
 
       <div class="reader">
         <!-- Experience -->
-        <section class="block" aria-labelledby="exp-h" id="main">
+        <section class="block" aria-labelledby="exp-h">
           <span class="eyebrow">Experience</span>
           <h2 id="exp-h">Where I&rsquo;ve Worked</h2>
           <p>
@@ -618,25 +618,6 @@
           >
 
           <div class="timeline">
-            <div class="row">
-              <span class="when">Oct 2026 &ndash; Present</span>
-              <div class="what">
-                <strong>Service Designer &mdash; Marketing &amp; Customer Experience</strong>
-                <span class="company">Forgexmedia &middot; Toronto, ON (Remote)</span>
-                <ul class="bullets">
-                  <li>
-                    Lead field research across guest, frontline-team, and business perspectives to understand how services actually perform in real-world environments.
-                  </li>
-                  <li>
-                    Turn research insights into clear opportunities that improve customer and employee experience and inform marketing and business decisions.
-                  </li>
-                  <li>
-                    Own the end-to-end service design journey, from identifying customer and employee needs to designing and testing service improvements that are meaningful for people and valuable for the business.
-                  </li>
-                </ul>
-              </div>
-            </div>
-
             <div class="row">
               <span class="when">Nov 2025 &ndash; Oct 2026</span>
               <div class="what">
@@ -841,7 +822,7 @@
           <h2 id="ref-h">References</h2>
           <div class="quotes">
             <blockquote>
-              <p>[Reference quote]</p>
+              
 
               <strong style="font-size: 1.1em"
                 ><a
@@ -855,7 +836,7 @@
               Autodesk.
             </blockquote>
             <blockquote>
-              <p>[Reference quote]</p>
+              
 
               <strong style="font-size: 1.1em"
                 ><a

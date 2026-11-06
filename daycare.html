@@ -76,9 +76,10 @@
         padding-inline: var(--pad);
       }
       .reader {
-        max-width: var(--readw);
+        max-width: var(--maxw);
         margin: 0 auto;
       }
+      section.block > h2, section.block > p, section.block > .eyebrow, section.block > .pull, section.block > .quote, section.block > .principles, section.block > .stats, section.block > .diagram-wrap { max-width: var(--readw); }
 
       header.site {
         border-bottom: 1px solid var(--line);
@@ -316,19 +317,15 @@
         display: block;
       }
       .diagram-cap {
-        text-align: center;
+        text-align: left;
         font-size: 0.9rem;
         color: #9a9a9a;
         margin-top: 1rem;
       }
       .wide-fig {
         margin: 1.6rem 0 0;
-        width: min(100vw, 1180px);
-        position: relative;
-        left: 50%;
-        transform: translateX(-50%);
-        padding-inline: 2rem;
-        box-sizing: border-box;
+        width: 100%;
+        max-width: 1040px;
       }
       .wide-fig .shot {
         border-radius: 12px;
@@ -345,9 +342,8 @@
         font-size: 0.9rem;
         color: #9a9a9a;
         margin-top: 0.9rem;
-        text-align: center;
-        max-width: 60ch;
-        margin-inline: auto;
+        text-align: left;
+        max-width: 70ch;
       }
       @media (max-width: 680px) {
         .wide-fig {
@@ -610,20 +606,24 @@
         <div class="pills">
           <span class="pill">Service Design</span
           ><span class="pill">UX Research</span><span class="pill">Civic</span
-          ><span class="pill">Pro Bono</span>
+          
         </div>
         <div class="meta-row">
           <div class="meta-item">
             <div class="label">Role</div>
-            <div class="val">UX Researcher &amp; Service Designer</div>
+            <div class="val">Service Designer &amp; UX/QA Lead</div>
           </div>
           <div class="meta-item">
             <div class="label">Duration</div>
-            <div class="val">8 Months</div>
+            <div class="val">Nov 2025 &ndash; Oct 2026</div>
           </div>
           <div class="meta-item">
             <div class="label">Focus</div>
             <div class="val">Ontario childcare access</div>
+          </div>
+          <div class="meta-item">
+            <div class="label">Research</div>
+            <div class="val">45 structured parent interviews</div>
           </div>
         </div>
       </section>
@@ -632,6 +632,7 @@
         <section class="block">
           <span class="eyebrow">The human stakes</span>
           <h2>Meet Uma</h2>
+          <p style="font-size:.92rem;color:#7a766e;margin-bottom:1.1rem;"><em>Uma is a composite persona built from patterns across 45 structured parent interviews. The quotes on this page come from real interview and survey participants, labelled R1 and R2.</em></p>
           <p>
             Uma is 33, an immigrant parent in Toronto. This year she went back
             to work with no childcare secured&mdash;driven by financial
@@ -646,13 +647,12 @@
               &ldquo;Even after applying 1.5 years back, still nothing. Still
               waiting.&rdquo;
             </p>
-            <cite>&mdash; Uma, parent (R1)</cite>
+            <cite>&mdash; R1, parent</cite>
           </div>
           <p>
             The easy read is that Uma was unlucky, or started too late. She
             wasn&rsquo;t.
-            <strong>She is the system working exactly as designed.</strong> Once
-            I started talking to other parents, her story stopped looking like
+            <strong>She is the system working exactly as designed.</strong> Once I started talking to other parents &mdash; 45 structured interviews in all &mdash; her story stopped looking like
             an exception and started looking like the rule.
           </p>
         </section>
@@ -664,7 +664,7 @@
             Ontario&rsquo;s $10-a-day childcare program (CWELCC) was meant to
             help, and in one way it did: it fixed affordability. But it poured a
             wave of new demand into a system that was never built to handle
-            it&mdash;and it created <strong>zero new spots</strong>.
+            it&mdash;and it came without a matching increase in <strong>available spots</strong>.
           </p>
           <p>
             So more parents now compete for the same spaces, using the same
@@ -813,7 +813,7 @@
                 text-anchor="middle"
                 fill="#993c1d"
               >
-                3–15 months
+                3–18 months
               </text>
               <text
                 class="ts"
@@ -873,7 +873,7 @@
                 ask groups
               </text>
               <text class="ts" x="208" y="212" text-anchor="middle">
-                Call 10–20
+                Call 10–20+
               </text>
               <text class="ts" x="208" y="226" text-anchor="middle">
                 centers
@@ -1047,10 +1047,7 @@
               />
             </div>
             <figcaption>
-              Full customer journey map &mdash; Persona 1. The complete research
-              artifact behind the simplified blueprint above, detailing actions,
-              quotes, touchpoints, and opportunities across all seven journey
-              phases.
+              Full customer journey map for the Uma persona. The detailed research artifact behind the five-stage blueprint above, covering actions, quotes, touchpoints, and opportunities across seven journey phases.
             </figcaption>
           </figure>
         </section>
@@ -1060,8 +1057,7 @@
           <h2>Not bad luck&mdash;a broken system</h2>
           <p>
             If this were just Uma, it would be a sad story. It isn&rsquo;t.
-            Across the research, one pain point came up for
-            <strong>every single parent</strong>: not knowing where they stood.
+            Across the research, one pain point came up for <strong>every survey respondent</strong>: not knowing where they stood.
             Transparency wasn&rsquo;t the top complaint&mdash;it was the
             universal one.
           </p>
@@ -1177,13 +1173,11 @@
                 stroke-width="1"
               />
               <text class="ts" x="30" y="284">
-                Waitlist transparency was the only pain point every single
-                parent raised.
+                Waitlist transparency was the only pain point every respondent raised.
               </text>
             </svg>
             <p class="diagram-cap">
-              Pain points by how often parents raised them. Waitlist
-              transparency was the only one mentioned by everyone.
+              Pain points by how often parents raised them in the 8-response parent survey, alongside the 45 structured interviews. Waitlist transparency was the only one mentioned by every respondent.
             </p>
           </div>
           <p>
@@ -1218,8 +1212,7 @@
           <h2>Three layers of tools, one missing bridge</h2>
           <p>
             If parents are in pain and providers are drowning, why hasn&rsquo;t
-            a tool solved this? I ran a competitive analysis across everything
-            in the market. The answer: every tool covers <em>part</em> of the
+            a tool solved this? I ran a competitive analysis across the tools I could find. The answer: every tool covers <em>part</em> of the
             journey, and none of them bridge it.
           </p>
           <div class="diagram-wrap">
@@ -1364,8 +1357,7 @@
                 decision.
               </text>
               <text class="ts" x="30" y="364" fill="#993c1d">
-                Quebec's mandated portal is the only system in Canada that
-                bridges the gap — Ontario has no equivalent.
+                Quebec's mandated portal is the only system I found in Canada that bridges the gap.
               </text>
             </svg>
             <p class="diagram-cap">
@@ -1377,8 +1369,7 @@
             There&rsquo;s one exception in Canada. Quebec launched a
             centralized, government-mandated portal where every licensed
             provider must participate, parents apply once, and a monthly rank
-            indicator shows roughly where they stand. It&rsquo;s the only system
-            that closes the gap&mdash;and it took a mandate to do it. Ontario
+            indicator shows roughly where they stand. It&rsquo;s the only system I found that closes the gap&mdash;and it took a mandate to do it. Ontario
             has no equivalent.
           </p>
           <div class="diagram-wrap">
@@ -1564,17 +1555,14 @@
           <ul class="principles">
             <li>
               <strong>Transparency over completeness.</strong> Parents need to
-              know where they stand more than they need a perfect system. Even a
-              rough position reduces anxiety.
+              know where they stand more than they need a perfect system. A rough position should ease anxiety, though one parent said more information raised hers (see below).
             </li>
             <li>
               <strong>One action, many applications.</strong> The single most
               requested change&mdash;apply once, not to twenty centers.
             </li>
             <li>
-              <strong>Proactive over reactive.</strong> Providers who reach out
-              first transform the experience. Make that the default, not the
-              exception.
+              <strong>Proactive over reactive.</strong> Parents described silence as the hardest part, so proactive contact should be the default, not the exception.
             </li>
             <li>
               <strong>Make the rules visible.</strong> When parents understand
@@ -1582,8 +1570,7 @@
               isn&rsquo;t the one they wanted.
             </li>
             <li>
-              <strong>Mobile-first, low-friction.</strong> Parents search on
-              their phones while holding a baby. Every extra step loses someone.
+              <strong>Mobile-first, low-friction.</strong> Parents often search on their phones between other tasks. Every extra step risks losing someone.
             </li>
           </ul>
         </section>
@@ -1615,8 +1602,7 @@
               <div class="num">Who owns it?</div>
               <div class="desc">
                 Government, nonprofit, or private&mdash;this changes everything
-                about trust and adoption, especially after Quebec&rsquo;s 2021
-                data breach.
+                about trust and adoption, especially with families&rsquo; personal data involved.
               </div>
             </div>
           </div>
