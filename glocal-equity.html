@@ -26,7 +26,10 @@ h1, h2, h3, .logo, .eyebrow { font-family: 'Poppins', system-ui, sans-serif; }
 .skip:focus { left: 1rem; top: 1rem; }
 :focus-visible { outline: 3px solid #1f1f1f; outline-offset: 3px; }
 .container { max-width: var(--maxw); margin: 0 auto; padding-inline: var(--pad); }
-.reader { max-width: var(--readw); margin: 0 auto; padding-inline: var(--pad); }
+.reader { max-width: var(--maxw); margin: 0 auto; padding-inline: var(--pad); }
+/* One left edge: text capped to a readable measure, media/grids use the full column */
+section.block > h2, section.block > h3, section.block > p, section.block > .kicker, section.block > .eyebrow, section.block > .steps, section.block > .problem-quote, section.block > .pull, section.block > .honest, section.block > .cap { max-width: var(--readw); }
+
 header.site { border-bottom: 1px solid var(--line); position: sticky; top: 0; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 20; }
 .nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 1.1rem; position: relative; }
 .brand { display: flex; align-items: center; gap: .7rem; text-decoration: none; color: var(--ink); }
@@ -86,7 +89,7 @@ section.block p:last-child { margin-bottom: 0; }
 .coverimg img { display: block; width: 100%; height: auto; }
 .shot { border-radius: 12px; overflow: hidden; background: #f6f6f4; box-shadow: 0 8px 30px rgba(0,0,0,.12); }
 .shot img { display: block; width: 100%; height: auto; }
-.ba { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 22px; width: min(100vw, 1280px); position: relative; left: 50%; transform: translateX(-50%); padding-inline: 2rem; box-sizing: border-box; }
+.ba { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 22px; width: 100%; }
 .ba-col { display: flex; flex-direction: column; }
 .ba-label { font-family: 'Poppins'; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; padding: 5px 12px; border-radius: 6px; align-self: flex-start; margin-bottom: 10px; }
 .ba-before { background: #fbeaea; color: #a32d2d; }
