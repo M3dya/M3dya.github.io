@@ -140,6 +140,16 @@ main img { cursor: zoom-in; }
 .iter-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 1.4rem; }
 .iter-col .iter-label { font-family: 'Poppins'; font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: #9a9a9a; margin-bottom: .6rem; display: block; }
 @media (max-width: 780px) { .iter-row { grid-template-columns: 1fr; } }
+
+/* Unified media frames: equal boxes, one left edge, sensible size */
+.shot { border: 1px solid var(--line); box-shadow: 0 4px 18px rgba(0,0,0,.07); }
+.shot img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+.coverimg { aspect-ratio: 16 / 9; max-width: 960px; }
+.coverimg img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.cap, figcaption { text-align: left !important; }
+.iter-row { max-width: 900px; align-items: start; }
+.iter-row .shot { aspect-ratio: 5 / 4; }
+section.block > .shot { max-width: 640px; aspect-ratio: 1506 / 1859; }
 </style>
 </head>
 <body>
@@ -267,7 +277,7 @@ main img { cursor: zoom-in; }
 
       <h3 style="margin-top:2.4rem;">Analysis, structured around the finding</h3>
       <div class="shot"><img src="images/Glocal/elections/figma-analysis.png" alt="Figma design of the Analysis and Report page with chart placeholders beside findings"></div>
-      <p class="cap" style="text-align:center;">Each finding sits directly beside its supporting chart, rather than in a separate appendix</p>
+      <p class="cap">Each finding sits directly beside its supporting chart, rather than in a separate appendix</p>
       <p style="margin-top:1.4rem;">Sources and Visualizations followed the same underlying logic &mdash; every dataset traceable back to its origin, and a single-view / double-view toggle for exploring charts directly &mdash; without needing a screen each to make that point.</p>
     </section>
 
