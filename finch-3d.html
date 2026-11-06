@@ -49,7 +49,7 @@
 
   /* Hero */
   .hero { padding-block: clamp(3rem, 8vw, 5rem) clamp(2rem, 5vw, 3rem); }
-  .eyebrow { font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; color: #9a9a9a; display: block; margin-bottom: .9rem; font-weight: 500; }
+  .eyebrow { font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; color: #6b6b6b; display: block; margin-bottom: .9rem; font-weight: 500; }
   .hero h1 { font-weight: 700; color: var(--ink); max-width: 18ch; font-size: clamp(2rem, 5.2vw, 3.6rem); line-height: 1.05; letter-spacing: -0.02em; }
   .hero .tagline { font-size: clamp(1.05rem, 2.3vw, 1.25rem); color: var(--body); margin-top: .9rem; max-width: 54ch; }
   .pills { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.4rem; }
@@ -61,7 +61,7 @@
   /* At a glance */
   .glance { background: #f6f6f4; border: 1px solid var(--line); border-radius: 14px; padding: clamp(1.4rem, 3vw, 2.2rem); margin-top: 2rem; }
   .glance-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem; }
-  .glance-item .glance-label { font-family: 'Poppins'; font-weight: 600; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: #c9a84c; margin-bottom: .5rem; display: block; }
+  .glance-item .glance-label { font-family: 'Poppins'; font-weight: 600; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: #7a5c00; margin-bottom: .5rem; display: block; }
   .glance-item p { font-size: .97rem; color: #333; margin: 0; line-height: 1.55; }
   @media (max-width: 780px) {
     .glance-grid { grid-template-columns: 1fr; }
@@ -72,7 +72,7 @@
   .voices-label { font-family: 'Poppins'; font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #767676; display: block; margin-bottom: .6rem; }
   .voices blockquote { font-size: 1.15rem; font-style: italic; color: var(--ink); line-height: 1.5; margin: 0 0 .5rem; }
   .decision { margin-top: 1.8rem; background: #f6f6f4; border: 1px solid var(--line); border-radius: 12px; padding: 1.3rem 1.5rem; }
-  .decision-label { font-family: 'Poppins'; font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: #c9a84c; display: block; }
+  .decision-label { font-family: 'Poppins'; font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: #7a5c00; display: block; }
   section.block .decision h3 { margin: .3rem 0 .6rem; font-size: 1.15rem; }
   section.block .decision p { font-size: .98rem; color: #333; }
   .decision .trade { margin-top: .7rem; }
@@ -81,7 +81,7 @@
   .hero-proof { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.6rem; padding-block: 1.2rem; border-block: 1px solid var(--line); }
   .hero-proof > div { display: flex; flex-direction: column; gap: .35rem; }
   .hp-num { font-family: 'Poppins'; font-weight: 700; font-size: clamp(1.4rem, 3vw, 2rem); color: var(--ink); line-height: 1.1; white-space: nowrap; }
-  .hp-num s { color: #9a9a9a; font-weight: 500; text-decoration-thickness: 1px; }
+  .hp-num s { color: #6b6b6b; font-weight: 500; text-decoration-thickness: 1px; }
   .hp-num small { font-size: .8rem; font-weight: 500; color: var(--body); }
   .hp-lbl { font-size: .85rem; color: #767676; }
   @media (max-width: 560px) { .hero-proof { grid-template-columns: 1fr; gap: .9rem; } .hero-proof > div { flex-direction: row; align-items: baseline; justify-content: space-between; } }
@@ -91,8 +91,8 @@
 
   /* Section jump nav */
   .secnav { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; margin-top: 1.4rem; }
-  .secnav a { font-family: 'Poppins'; font-size: .82rem; color: #8a8a8a; text-decoration: none; padding-bottom: 2px; border-bottom: 1px solid transparent; transition: color .2s, border-color .2s; }
-  .secnav a:hover, .secnav a:focus-visible { color: #c9a84c; border-color: #c9a84c; }
+  .secnav a { font-family: 'Poppins'; font-size: .82rem; color: #6b6b6b; text-decoration: none; padding-bottom: 2px; border-bottom: 1px solid transparent; transition: color .2s, border-color .2s; }
+  .secnav a:hover, .secnav a:focus-visible { color: #7a5c00; border-color: #c9a84c; }
 
   /* Sections */
   section.block { padding-block: clamp(2.2rem, 6vw, 3.5rem); border-top: 1px solid var(--line); }
@@ -116,7 +116,7 @@
   .result { border: 1px solid var(--line); border-radius: 12px; padding: 1.3rem 1.4rem 1.4rem; display: flex; flex-direction: column; background: #fff; }
   .result .metric { font-family: 'Poppins'; font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #767676; min-height: 2.6em; }
   .result .delta { display: flex; align-items: baseline; gap: .5rem; margin-top: .6rem; height: 3rem; align-items: baseline; padding-top: .9rem; font-family: 'Poppins'; line-height: 1; white-space: nowrap; }
-  .result .from { font-size: 1.3rem; font-weight: 500; color: #9a9a9a; text-decoration: line-through; text-decoration-thickness: 1px; }
+  .result .from { font-size: 1.3rem; font-weight: 500; color: #6b6b6b; text-decoration: line-through; text-decoration-thickness: 1px; }
   .result .arrow { font-size: 1.1rem; color: var(--gold, #c9a84c); }
   .result .to { line-height: 1; font-size: 2.3rem; font-weight: 700; color: var(--ink); }
   .result .unit { font-size: .85rem; color: var(--body); font-weight: 500; }
@@ -143,12 +143,12 @@
   .coverimg img { display: block; width: 100%; height: auto; }
 
   /* ---- Kicker label ---- */
-  .kicker { font-family: 'Poppins'; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: #9a9a9a; margin-bottom: 14px; display: block; }
+  .kicker { font-family: 'Poppins'; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: #6b6b6b; margin-bottom: 14px; display: block; }
 
   /* ---- 2-col card grid ---- */
   .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; }
   .card { border: 1px solid var(--line); border-radius: 12px; padding: 20px 22px; background: #fff; }
-  .card .ic { width: 26px; height: 26px; color: #c9a84c; }
+  .card .ic { width: 26px; height: 26px; color: #7a5c00; }
   .card .ic svg { width: 100%; height: 100%; }
   .card h4 { font-family: 'Poppins'; font-size: 15px; font-weight: 600; margin: 8px 0 6px; color: var(--ink); }
   .card p { font-size: 14px; color: #454545; margin: 0; }
@@ -165,7 +165,7 @@
   /* ---- Principles ---- */
   .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 18px; }
   .principle { background: #f6f6f4; border-radius: 12px; padding: 22px; }
-  .principle .num { font-family: 'Poppins'; font-size: 28px; color: #c9c7bd; font-weight: 700; }
+  .principle .num { font-family: 'Poppins'; font-size: 28px; color: #8a7f55; font-weight: 700; }
   .principle p { font-size: .95rem; margin-top: 8px; color: #333; }
 
   /* ---- Image gallery ---- */
@@ -187,12 +187,12 @@
 
   /* ---- Pull quote ---- */
   .pull { font-style: italic; font-size: 1.1rem; line-height: 1.55; color: var(--ink); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 28px 0; margin: 30px 0; }
-  .pull .pull-attr { display: block; font-style: normal; font-size: .82rem; color: #9a9a9a; margin-top: .7rem; letter-spacing: .03em; }
+  .pull .pull-attr { display: block; font-style: normal; font-size: .82rem; color: #6b6b6b; margin-top: .7rem; letter-spacing: .03em; }
   .cs-nav { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
   .cs-nav-link { font-family: 'Poppins'; font-size: .92rem; color: var(--body); text-decoration: none; transition: color .2s; }
-  .cs-nav-link:hover, .cs-nav-link:focus-visible { color: #c9a84c; }
-  .cs-nav-next { text-align: right; color: #c9a84c; font-weight: 600; }
-  .cs-nav-next:hover, .cs-nav-next:focus-visible { color: #b8922e; }
+  .cs-nav-link:hover, .cs-nav-link:focus-visible { color: #7a5c00; }
+  .cs-nav-next { text-align: right; color: #7a5c00; font-weight: 600; }
+  .cs-nav-next:hover, .cs-nav-next:focus-visible { color: #5f4700; }
   .cs-nav-title { display: block; font-size: .8rem; font-weight: 400; color: var(--body); margin-top: .2rem; }
 
   /* ---- Prototype video ---- */
@@ -226,6 +226,9 @@
     .menu.open { display: flex; }
     .menu.open li.navitem { display: block; }
   }
+
+/* Accessibility: respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
 </style>
 </head>
 <body>
@@ -234,7 +237,7 @@
 <header class="site">
   <div class="container">
     <nav class="nav" aria-label="Primary navigation">
-      <a class="brand" href="index.html" aria-label="Medya Asgharyan — home">
+      <a class="brand" href="index.html">
         <span class="mark" aria-hidden="true">MA</span>
         <span class="logo">Medya Asgharyan</span>
       </a>
@@ -307,7 +310,7 @@
     <section class="block" aria-labelledby="problem-h">
       <span class="eyebrow">Problem</span>
       <h2 id="problem-h">A hard stop on day one</h2>
-      <div class="problem-quote">A user opens Finch 3D for the first time. The tool asks them to provide a &ldquo;center line.&rdquo; They have no idea what a centerline is. They cannot continue &mdash; the tool is unusable.</div>
+      <div class="problem-quote">A user opens Finch 3D for the first time. The tool asks them to provide a &ldquo;centerline.&rdquo; They have no idea what a centerline is. They cannot continue &mdash; the tool is unusable.</div>
       <p>This wasn&rsquo;t a bug. It wasn&rsquo;t a missing feature. It was an onboarding failure &mdash; a domain-specific term presented to general users with no explanation, no guidance, and no way forward.</p>
       <p>The tool&rsquo;s only response to the failure was a bare toast: <em>&ldquo;Couldn&rsquo;t find centerlines&hellip; Ensure that centerlines are set correctly.&rdquo;</em> No definition. No example. No next step. Users who couldn&rsquo;t define one hit a complete wall &mdash; not friction, not confusion, but a hard stop. The onboarding failure <em>was</em> the product failure.</p>
       <h3>Usability test</h3>
@@ -321,22 +324,22 @@
       <div class="grid2">
         <div class="card">
           <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.29 3.86l-8.18 14.14A2 2 0 0 0 3.82 21h16.36a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg></div>
-          <h4>Domain jargon as a blocker</h4>
+          <h4 role="heading" aria-level="3">Domain jargon as a blocker</h4>
           <p>&ldquo;Center line&rdquo; is an architectural term with a specific technical meaning. For non-specialists &mdash; or architects new to computational tools &mdash; it was meaningless, and the tool gave no definition.</p>
         </div>
         <div class="card">
           <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
-          <h4>No progressive guidance</h4>
+          <h4 role="heading" aria-level="3">No progressive guidance</h4>
           <p>The tool presented a blank canvas and a requirement. No step-by-step onboarding, no example, no visual cue showing what &ldquo;selecting and connecting points&rdquo; looked like.</p>
         </div>
         <div class="card">
           <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
-          <h4>Confirmed in testing</h4>
+          <h4 role="heading" aria-level="3">Confirmed in testing</h4>
           <p>With the original flow, only 3 of 12 participants completed the centerline step unassisted, and 7 of 12 asked for help.</p>
         </div>
         <div class="card">
           <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
-          <h4>Translating 3D thinking into a flat UI</h4>
+          <h4 role="heading" aria-level="3">Translating 3D thinking into a flat UI</h4>
           <p>Helping users grasp spatial, structural concepts through a flat interface meant turning 3D architectural thinking into clear, sequential steps anyone could follow.</p>
         </div>
       </div>
@@ -360,8 +363,8 @@
     <section class="block" aria-labelledby="how-h">
       <span class="eyebrow">How It Works</span>
       <h2 id="how-h">A constraint engine, not an image generator</h2>
-      <p>Finch 3D&rsquo;s AI core is a graph-based constraint satisfaction engine. A building layout is represented as a graph &mdash; rooms as nodes, with edges encoding adjacency requirements, structural dependencies, and circulation constraints. When an architect inputs a floor plan, the engine traverses the space of valid configurations and returns optimised layout variations that satisfy all constraints simultaneously.</p>
-      <p>This distinction matters for onboarding design. Users encountering the &ldquo;center line&rdquo; prompt aren&rsquo;t being asked to draw something &mdash; they&rsquo;re being asked to define a structural axis that the constraint engine uses to anchor its spatial graph. The tool is asking for a precise geometric input that unlocks the entire computation. Without it, there is nothing to compute.</p>
+      <p>As I read the product, Finch 3D&rsquo;s AI core works as a graph-based constraint engine. A building layout is represented as a graph &mdash; rooms as nodes, with edges encoding adjacency requirements, structural dependencies, and circulation constraints. When an architect inputs a floor plan, the engine traverses the space of valid configurations and returns optimised layout variations that satisfy all constraints simultaneously.</p>
+      <p>This distinction matters for onboarding design. Users encountering the &ldquo;centerline&rdquo; prompt aren&rsquo;t being asked to draw something &mdash; they&rsquo;re being asked to define a structural axis that the constraint engine uses to anchor its spatial graph. The tool is asking for a precise geometric input that unlocks the entire computation. Without it, there is nothing to compute.</p>
       <h3>Why the centerline is the critical input</h3>
       <p>In architectural drawing, a centerline marks the structural axis of a wall &mdash; the reference from which dimensions, loads, and spatial relationships are measured. In Finch 3D&rsquo;s constraint model, it&rsquo;s the seed: the anchor from which the graph of spatial relationships is built outward. Asking a user to supply it with no context is equivalent to asking someone to provide a database primary key without telling them what a database is.</p>
     </section>
@@ -372,23 +375,23 @@
       <h2>From discovery to solution</h2>
       <div class="steps">
         <div class="step"><div class="n"></div><div>
-          <h4>Diagnose the tool</h4>
+          <h4 role="heading" aria-level="3">Diagnose the tool</h4>
           <p>Opened and used Finch 3D as a first-time user, documenting every moment of confusion. The undocumented centerline requirement emerged immediately as the critical failure point.</p>
         </div></div>
         <div class="step"><div class="n"></div><div>
-          <h4>Secondary research</h4>
+          <h4 role="heading" aria-level="3">Secondary research</h4>
           <p>Studied architectural software documentation, forum discussions, and reviews to reconstruct the typical user&rsquo;s mental model when encountering &ldquo;centerline.&rdquo;</p>
         </div></div>
         <div class="step"><div class="n"></div><div>
-          <h4>Competitive analysis</h4>
-          <p>Analysed 5+ competing tools (Rhino, SketchUp, Revit) for how they handle domain-specific onboarding. The best tools showed examples <em>before</em> asking for input.</p>
+          <h4 role="heading" aria-level="3">Competitive analysis</h4>
+          <p>Looked at how Rhino, SketchUp and Revit handle first-time input. The pattern I carried into the redesign: show an example <em>before</em> asking for input.</p>
         </div></div>
         <div class="step"><div class="n"></div><div>
-          <h4>Wireframing the solution</h4>
+          <h4 role="heading" aria-level="3">Wireframing the solution</h4>
           <p>Designed a step-by-step guided flow: define what a centerline is, show a visual example, prompt the user to click the first point, then connect points &mdash; with live validation at each step.</p>
         </div></div>
         <div class="step"><div class="n"></div><div>
-          <h4>Usability test</h4>
+          <h4 role="heading" aria-level="3">Usability test</h4>
           <p>Tested the original and the redesigned flow with 12 participants, who used both versions. Measured unassisted success, time to first valid centerline, and requests for help.</p>
         </div></div>
       </div>
@@ -437,7 +440,7 @@
           <p><strong>Explain domain terms before demanding them.</strong> Define domain-specific language the moment it&rsquo;s first encountered &mdash; in context, before the user needs to act on it.</p>
         </div>
         <div class="principle"><div class="num">02</div>
-          <p><strong>Show the destination before asking for the journey.</strong> Users can&rsquo;t give meaningful input until they see what the output looks like. Showing a completed center line first addressed the most common point of failure.</p>
+          <p><strong>Show the destination before asking for the journey.</strong> Users can&rsquo;t give meaningful input until they see what the output looks like. Showing a completed centerline first addressed the most common point of failure.</p>
         </div>
         <div class="principle"><div class="num">03</div>
           <p><strong>Validate in real time, not at submission.</strong> Each step gave immediate visual feedback &mdash; the centerline appeared as points connected. Errors were visible and correctable without losing progress.</p>
@@ -455,7 +458,7 @@
     <section class="block">
       <span class="kicker">Design System</span>
       <h2>Built to scale, not just to ship</h2>
-      <p>The guided flow was built on a reusable foundation &mdash; defined typography, a neutral colour system with accessibility validation, and component variants in Figma &mdash; so the solution could extend consistently across the product.</p>
+      <p>The guided flow was built on a reusable foundation &mdash; defined typography, a neutral colour system, and component variants in Figma &mdash; so the solution could extend consistently across the product.</p>
       <figure class="wide-fig">
         <div class="shot"><img src="images/finch/Design_System.png" alt="Finch 3D design system — typography scale, neutral colour palette, and button components"></div>
       </figure>
@@ -480,17 +483,17 @@
       <p>I designed a guided onboarding flow built on three principles: explain domain terms before demanding them, show the destination before asking for the journey, and validate in real time rather than at submission.</p>
       <p>The solution replaced the bare error toast with a panel that defines the term, contrasts an incorrect centerline with a correct one visually, and offers two recovery paths &mdash; &ldquo;Fix it for me&rdquo; or &ldquo;Show guide.&rdquo; The guide walks users through four steps with live canvas feedback at each stage: explain &rarr; show &rarr; place &rarr; connect.</p>
       <div class="results" role="list" aria-label="Usability test results, original flow to redesigned flow">
-        <div class="result">
+        <div class="result" role="listitem">
           <div class="metric">Unassisted success</div>
           <div class="delta"><span class="from">3</span><span class="arrow" aria-hidden="true">&rarr;</span><span class="to">10</span><span class="unit">of 12</span></div>
           <div class="note">Finished the centerline step with no help</div>
         </div>
-        <div class="result">
+        <div class="result" role="listitem">
           <div class="metric">Median time to first valid centerline</div>
           <div class="delta"><span class="from">40 s</span><span class="arrow" aria-hidden="true">&rarr;</span><span class="to">7 s</span><span class="unit"></span></div>
           <div class="note">Original flow vs. redesigned flow</div>
         </div>
-        <div class="result">
+        <div class="result" role="listitem">
           <div class="metric">Asked for help</div>
           <div class="delta"><span class="from">7</span><span class="arrow" aria-hidden="true">&rarr;</span><span class="to">1</span><span class="unit">of 12</span></div>
           <div class="note">Participants who needed help</div>
@@ -583,6 +586,7 @@
         }
       });
     });
+    overlay.addEventListener('keydown', function (e) { if (e.key === 'Tab') { e.preventDefault(); closeBtn.focus(); } });
     closeBtn.addEventListener('click', closeLb);
     overlay.addEventListener('click', function (e) { if (e.target === overlay) closeLb(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('open')) closeLb(); });

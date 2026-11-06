@@ -42,7 +42,7 @@ section.block > h2, section.block > h3, section.block > p, section.block > .kick
   .nav-toggle { display: none; background: none; border: 0; cursor: pointer; padding: .4rem; color: var(--ink); }
   .nav-toggle svg { width: 26px; height: 26px; display: block; }
   .hero { padding-block: clamp(3rem, 8vw, 5rem) clamp(2rem, 5vw, 3rem); }
-  .eyebrow { font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; color: #9a9a9a; display: block; margin-bottom: .9rem; font-weight: 500; }
+  .eyebrow { font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; color: #6b6b6b; display: block; margin-bottom: .9rem; font-weight: 500; }
   .hero h1 { font-weight: 700; color: var(--ink); font-size: clamp(2.2rem, 6vw, 4rem); line-height: 1.08; letter-spacing: -0.02em; }
   .hero .tagline { font-size: clamp(1.05rem, 2.3vw, 1.25rem); color: var(--body); margin-top: .9rem; max-width: 58ch; }
   .pills { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.4rem; }
@@ -59,17 +59,17 @@ section.block > h2, section.block > h3, section.block > p, section.block > .kick
   section.block p { margin-bottom: 1rem; font-size: clamp(1rem, 2vw, 1.08rem); }
   section.block p:last-child { margin-bottom: 0; }
   .problem-quote { background: #f6f6f4; border-left: 3px solid var(--ink); padding: 1.2rem 1.5rem; border-radius: 0 8px 8px 0; font-size: clamp(1.05rem, 2.2vw, 1.2rem); line-height: 1.6; margin: 1.2rem 0; color: var(--ink); }
-  .kicker { font-family: 'Poppins'; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: #9a9a9a; margin-bottom: 14px; display: block; }
+  .kicker { font-family: 'Poppins'; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: #6b6b6b; margin-bottom: 14px; display: block; }
   .grid3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 18px; }
   .card { border: 1px solid var(--line); border-radius: 12px; padding: 20px 22px; background: #fff; }
-  .card .ic { width: 26px; height: 26px; color: #c9a84c; }
+  .card .ic { width: 26px; height: 26px; color: #7a5c00; }
   .card .ic svg { width: 100%; height: 100%; }
   .card h4 { font-family: 'Poppins'; font-size: 15px; font-weight: 600; margin: 8px 0 6px; color: var(--ink); }
   .card p { font-size: 14px; color: #454545; margin: 0; }
   .shot { border-radius: 12px; overflow: hidden; background: #f6f6f4; box-shadow: 0 8px 30px rgba(0,0,0,.12); }
   .shot img { display: block; width: 100%; height: auto; }
   .journey-table { width: 100%; border-collapse: collapse; margin-top: 1.4rem; font-size: .92rem; }
-  .journey-table th { font-family: 'Poppins'; font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; color: #9a9a9a; text-align: left; padding: .6rem .8rem; border-bottom: 1px solid var(--line); }
+  .journey-table th { font-family: 'Poppins'; font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; color: #6b6b6b; text-align: left; padding: .6rem .8rem; border-bottom: 1px solid var(--line); }
   .journey-table td { padding: .7rem .8rem; border-bottom: 1px solid var(--line); vertical-align: top; }
   .journey-table .stage { font-family: 'Poppins'; font-weight: 600; color: var(--ink); white-space: nowrap; }
   .journey-table .friction { color: #a32d2d; }
@@ -79,7 +79,7 @@ section.block > h2, section.block > h3, section.block > p, section.block > .kick
   .stat .big { font-family: 'Poppins'; font-weight: 700; font-size: 1.7rem; color: var(--ink); }
   .stat .lbl { font-size: .88rem; color: var(--body); margin-top: .3rem; }
   .pull { font-style: italic; font-size: 1.1rem; line-height: 1.55; color: var(--ink); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 28px 0; margin: 30px 0; }
-  .pull .pull-attr { display: block; font-style: normal; font-size: .82rem; color: #9a9a9a; margin-top: .7rem; letter-spacing: .03em; }
+  .pull .pull-attr { display: block; font-style: normal; font-size: .82rem; color: #6b6b6b; margin-top: .7rem; letter-spacing: .03em; }
   .back { display: inline-block; margin-top: 2.5rem; font-family: 'Poppins'; font-size: .92rem; color: var(--body); text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 2px; }
   .back:hover { color: var(--ink); border-color: var(--ink); }
   footer.site { background: var(--footer); color: #cfcfcf; margin-top: clamp(2rem, 6vw, 4rem); }
@@ -98,6 +98,10 @@ section.block > h2, section.block > h3, section.block > p, section.block > .kick
     .stats { grid-template-columns: 1fr; }
     .journey-table { font-size: .82rem; }
   }
+
+/* Accessibility: respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
+@media (max-width: 560px) { .nav { flex-wrap: wrap; } .menu { flex-wrap: wrap; gap: .5rem 1.1rem; } }
 </style>
 </head>
 <body>
@@ -106,13 +110,13 @@ section.block > h2, section.block > h3, section.block > p, section.block > .kick
 <header class="site">
   <div class="container">
     <nav class="nav" aria-label="Primary navigation">
-      <a class="brand" href="portfolio.html" aria-label="Medya Asgharyan — home">
+      <a class="brand" href="index.html">
         <span class="mark" aria-hidden="true">MA</span>
         <span class="logo">Medya Asgharyan</span>
       </a>
       <ul class="menu" role="list">
-        <li><a href="portfolio.html">Home</a></li>
-        <li><a href="portfolio.html#work">Portfolio</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#work">Portfolio</a></li>
         <li><a href="about.html">About</a></li>
       </ul>
     </nav>
@@ -200,17 +204,17 @@ section.block > h2, section.block > h3, section.block > p, section.block > .kick
       <div class="grid3" style="margin-top:1.8rem;">
         <div class="card">
           <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
-          <h4>Visibility over notification</h4>
+          <h4 role="heading" aria-level="3">Visibility over notification</h4>
           <p>A status any role can check beats a notice only one role receives.</p>
         </div>
         <div class="card">
           <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.29 3.86l-8.18 14.14A2 2 0 003.82 21h16.36a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg></div>
-          <h4>Flag before charging</h4>
+          <h4 role="heading" aria-level="3">Flag before charging</h4>
           <p>Changes surface pre-charge, not as a surprise after the card is billed.</p>
         </div>
         <div class="card">
           <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
-          <h4>Resolve on first contact</h4>
+          <h4 role="heading" aria-level="3">Resolve on first contact</h4>
           <p>Support agents get the authority to fix, not just apply policy.</p>
         </div>
       </div>
@@ -225,7 +229,7 @@ section.block > h2, section.block > h3, section.block > p, section.block > .kick
         <div class="stat"><div class="big">1 principle</div><div class="lbl">Visibility across roles, applied consistently</div></div>
       </div>
       <p class="pull">&ldquo;The account was never confused about who owed money. It was confused about who was supposed to know.&rdquo;<cite class="pull-attr">&mdash; Medya Asgharyan, UX &amp; Service Designer</cite></p>
-      <a class="back" href="portfolio.html#work">&larr; Back to all work</a>
+      <a class="back" href="index.html#work">&larr; Back to all work</a>
     </section>
 
   </div>
@@ -266,6 +270,7 @@ section.block > h2, section.block > h3, section.block > p, section.block > .kick
     document.querySelectorAll('main img').forEach(function (img) {
       img.addEventListener('click', function () { openLb(img.src, img.alt); });
     });
+    overlay.addEventListener('keydown', function (e) { if (e.key === 'Tab') { e.preventDefault(); closeBtn.focus(); } });
     closeBtn.addEventListener('click', closeLb);
     overlay.addEventListener('click', function (e) { if (e.target === overlay) closeLb(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLb(); });

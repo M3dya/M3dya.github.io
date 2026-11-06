@@ -201,7 +201,7 @@
         font-size: 0.78rem;
         letter-spacing: 0.2em;
         text-transform: uppercase;
-        color: #9a9a9a;
+        color: #6b6b6b;
         display: block;
         margin-bottom: 0.7rem;
         font-weight: 500;
@@ -255,7 +255,7 @@
         border-top: 1px solid var(--line);
       }
       .timeline .when {
-        color: #9a9a9a;
+        color: #6b6b6b;
         font-size: 0.9rem;
         font-weight: 500;
         padding-top: 0.2rem;
@@ -333,7 +333,7 @@
         font-size: 1.05rem;
       }
       .accolade .sub {
-        color: #9a9a9a;
+        color: #6b6b6b;
         font-size: 0.9rem;
         display: block;
         margin: 0.2rem 0 0.4rem;
@@ -508,7 +508,10 @@
           display: block;
         }
       }
-    </style>
+    
+/* Accessibility: respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
+</style>
   </head>
   <body>
     <a class="skip" href="#main">Skip to main content</a>
@@ -519,7 +522,6 @@
           <a
             class="brand"
             href="index.html"
-            aria-label="Medya Asgharyan — home"
           >
             <span class="mark" aria-hidden="true">MA</span>
             <span class="logo">Medya Asgharyan</span>

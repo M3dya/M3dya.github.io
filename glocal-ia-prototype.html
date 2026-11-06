@@ -5,8 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>GLOCAL — Full Site Prototype (Proposed IA)</title>
 <style>
+  :focus-visible{outline:3px solid #1b1b1b;outline-offset:2px}
   :root{
-    --yellow:#fad802; --yellow-soft:#fff6c2; --yellow-deep:#c9ad00;
+    --yellow:#fad802; --yellow-soft:#fff6c2; --yellow-deep:#7a6a00;
     --ink:#1b1b1b; --ink-soft:#555; --line:#e7e7e1; --bg:#fff; --panel:#fbfbf8;
     --good:#1f7a4d; --good-soft:#e4f3ea; --warn:#b25b00; --warn-soft:#fbecd9;
     --shadow:0 1px 3px rgba(0,0,0,.06),0 10px 30px rgba(0,0,0,.06); --radius:14px;
@@ -135,11 +136,15 @@
   }
   @media(max-width:520px){.cards,.modules,.tracks,.team{grid-template-columns:1fr}}
   @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto}}
+
+/* Accessibility: respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
 </style>
 </head>
 <body>
+<a class="skip" href="#main" style="position:absolute;left:-999px;top:0;background:#1b1b1b;color:#fff;padding:.6rem 1rem;z-index:100" onfocus="this.style.left='1rem';this.style.top='1rem'" onblur="this.style.left='-999px'">Skip to main content</a>
 
-<div class="notice">Prototype — proposed information architecture for <b>glocalfoundation.ca</b> · demonstration only, not the live site</div>
+<aside class="notice" aria-label="Prototype notice">Prototype — proposed information architecture for <b>glocalfoundation.ca</b> · demonstration only, not the live site</aside>
 
 <header class="site">
   <div class="wrap">
@@ -184,9 +189,9 @@
   </div>
 </header>
 
-<div class="crumb"><div class="wrap" id="crumb">Home</div></div>
+<nav class="crumb" aria-label="Breadcrumb"><div class="wrap" id="crumb">Home</div></nav>
 
-<main id="main">
+<main id="main" tabindex="-1">
 
 <!-- HOME -->
 <div class="page active" data-page="home">
@@ -249,9 +254,9 @@
     <div class="kick">What you'll do</div>
     <h2>120 hours across three modules</h2>
     <div class="modules">
-      <div class="mod"><div class="h">🎓</div><h4>30 hrs · Training &amp; civic exploration</h4><p>Workshops in leadership, communications, grants, design thinking, research, and data skills, with guest speakers and mentors.</p></div>
-      <div class="mod"><div class="h">💪</div><h4>60 hrs · Passion-driven projects</h4><p>Choose a civic issue that matters to you and volunteer locally, launch your own initiative, or join a track-based micro-project.</p></div>
-      <div class="mod"><div class="h">🛠️</div><h4>30 hrs · Bite-sized challenges</h4><p>Quick missions as a youth consultant, builder, researcher, or designer — some take as little as 15 minutes.</p></div>
+      <div class="mod"><div class="h">🎓</div><h4 role="heading" aria-level="3">30 hrs · Training &amp; civic exploration</h4><p>Workshops in leadership, communications, grants, design thinking, research, and data skills, with guest speakers and mentors.</p></div>
+      <div class="mod"><div class="h">💪</div><h4 role="heading" aria-level="3">60 hrs · Passion-driven projects</h4><p>Choose a civic issue that matters to you and volunteer locally, launch your own initiative, or join a track-based micro-project.</p></div>
+      <div class="mod"><div class="h">🛠️</div><h4 role="heading" aria-level="3">30 hrs · Bite-sized challenges</h4><p>Quick missions as a youth consultant, builder, researcher, or designer — some take as little as 15 minutes.</p></div>
     </div>
   </div></section>
 
@@ -295,9 +300,9 @@
     <div class="kick">How to apply</div>
     <h2>From idea to funded in three steps</h2>
     <div class="steps">
-      <div class="stp"><div class="n">1</div><div><h4>Shape your idea</h4><p>Pick a local, regional, or community concern and outline a project that addresses it.</p></div></div>
-      <div class="stp"><div class="n">2</div><div><h4>Submit your application</h4><p>Complete the CANConnect application form with your plan and budget.</p></div></div>
-      <div class="stp"><div class="n">3</div><div><h4>Get mentored &amp; build</h4><p>Receive funding plus guidance from the GLOCAL team to bring your project to life.</p></div></div>
+      <div class="stp"><div class="n">1</div><div><h4 role="heading" aria-level="3">Shape your idea</h4><p>Pick a local, regional, or community concern and outline a project that addresses it.</p></div></div>
+      <div class="stp"><div class="n">2</div><div><h4 role="heading" aria-level="3">Submit your application</h4><p>Complete the CANConnect application form with your plan and budget.</p></div></div>
+      <div class="stp"><div class="n">3</div><div><h4 role="heading" aria-level="3">Get mentored &amp; build</h4><p>Receive funding plus guidance from the GLOCAL team to bring your project to life.</p></div></div>
     </div>
     <div class="btnrow"><a class="btn dark" data-go="involved">Start an application</a></div>
   </div></section>
@@ -363,10 +368,10 @@
     <div class="kick">Getting started</div>
     <h2>Four steps to your first hours</h2>
     <div class="steps">
-      <div class="stp"><div class="n">1</div><div><h4>Create your account</h4><p>Register on the YouCount volunteer platform — it's free.</p></div></div>
-      <div class="stp"><div class="n">2</div><div><h4>Tell us your interests</h4><p>Share your academic interests, career goals, and passions so we can co-design your plan.</p></div></div>
-      <div class="stp"><div class="n">3</div><div><h4>Pick tasks &amp; events</h4><p>Browse the task pool and event calendar, then choose what fits your schedule.</p></div></div>
-      <div class="stp"><div class="n">4</div><div><h4>Log your hours</h4><p>Track progress toward your 120 hours and certificate from your dashboard.</p></div></div>
+      <div class="stp"><div class="n">1</div><div><h4 role="heading" aria-level="3">Create your account</h4><p>Register on the YouCount volunteer platform — it's free.</p></div></div>
+      <div class="stp"><div class="n">2</div><div><h4 role="heading" aria-level="3">Tell us your interests</h4><p>Share your academic interests, career goals, and passions so we can co-design your plan.</p></div></div>
+      <div class="stp"><div class="n">3</div><div><h4 role="heading" aria-level="3">Pick tasks &amp; events</h4><p>Browse the task pool and event calendar, then choose what fits your schedule.</p></div></div>
+      <div class="stp"><div class="n">4</div><div><h4 role="heading" aria-level="3">Log your hours</h4><p>Track progress toward your 120 hours and certificate from your dashboard.</p></div></div>
     </div>
   </div></section>
   <section class="block" style="border-bottom:0"><div class="wrap">
@@ -461,10 +466,10 @@
   </div></div>
   <section class="block" style="border-bottom:0"><div class="wrap">
     <div class="team">
-      <div class="member"><div class="av">FY</div><h4>Faye Ying</h4><p>Founder</p></div>
-      <div class="member"><div class="av">LS</div><h4>Dr. Laura Stephenson</h4><p>Board of Directors</p></div>
-      <div class="member"><div class="av">FC</div><h4>Dr. Fred Cutler</h4><p>Board of Directors</p></div>
-      <div class="member"><div class="av">LO</div><h4>Leo</h4><p>Operations &amp; Compliance Manager</p></div>
+      <div class="member"><div class="av">FY</div><h4 role="heading" aria-level="3">Faye Ying</h4><p>Founder</p></div>
+      <div class="member"><div class="av">LS</div><h4 role="heading" aria-level="3">Dr. Laura Stephenson</h4><p>Board of Directors</p></div>
+      <div class="member"><div class="av">FC</div><h4 role="heading" aria-level="3">Dr. Fred Cutler</h4><p>Board of Directors</p></div>
+      <div class="member"><div class="av">LO</div><h4 role="heading" aria-level="3">Leo</h4><p>Operations &amp; Compliance Manager</p></div>
     </div>
   </div></section>
 </div>
@@ -520,14 +525,14 @@
         <p style="color:#cfcfcf;font-size:13.5px;margin-top:10px;max-width:32ch">Promoting civic participation through local engagement and global understanding across Canada.</p>
       </div>
       <div>
-        <h5>Programs</h5>
+        <h5 role="heading" aria-level="2">Programs</h5>
         <a data-go="volunteering">Online Volunteering</a>
         <a data-go="microgrants">Microgrants</a>
         <a data-go="essay">Civic Essay Contest</a>
         <a data-go="youcount">YouCount.ca</a>
       </div>
       <div>
-        <h5>Explore</h5>
+        <h5 role="heading" aria-level="2">Explore</h5>
         <a data-go="involved">Get Involved</a>
         <a data-go="how">How It Works &amp; FAQs</a>
         <a data-go="reports">Reports &amp; Publications</a>
@@ -562,7 +567,7 @@
     contact:'About › Contact'
   };
 
-  function closeMenus(){ nav.querySelectorAll('.navitem').forEach(i=>i.classList.remove('open')); }
+  function closeMenus(){ nav.querySelectorAll('.navitem').forEach(i=>{i.classList.remove('open');const b=i.querySelector('[data-menu]');if(b)b.setAttribute('aria-expanded','false');}); }
 
   function go(key){
     const target = document.querySelector('.page[data-page="'+key+'"]');
@@ -575,13 +580,15 @@
     window.scrollTo({top:0,behavior:'auto'});
   }
 
+  document.querySelectorAll('[data-go]:not(button):not([href])').forEach(el=>{el.setAttribute('tabindex','0');el.setAttribute('role','link');el.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();go(el.dataset.go);}});});
+  document.querySelectorAll('[data-menu]').forEach(b=>b.setAttribute('aria-expanded','false'));
   document.addEventListener('click', e=>{
     const menuBtn = e.target.closest('[data-menu]');
     if(menuBtn){
       const item = menuBtn.closest('.navitem');
       const open = item.classList.contains('open');
       closeMenus();
-      if(!open) item.classList.add('open');
+      if(!open){ item.classList.add('open'); menuBtn.setAttribute('aria-expanded','true'); }
       e.stopPropagation();
       return;
     }
