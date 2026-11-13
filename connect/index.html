@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Medya Asgharyan</title>
+<meta name="description" content="Medya Asgharyan, Product Designer in Toronto. Portfolio, resume, LinkedIn and WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE personal page, confident and tidy, read on a phone at an event
+   IDEA an architect's drawing sheet: plan on a fine grid, title block in the corner
+   PICTURE a floor-plan route: seven cramped rooms redrawn as four open ones (the 7 to 4 workflow)
+   COLOUR white sheet, near-black ink, cobalt field, coral accent on the route
+   TYPE Archivo 800 display + Inter text
+   LAYOUT laptop: name and actions left, plan right; phone: name, actions, plan, work */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0e1220);--ink:light-dark(#11131a,#eef0f6);--soft:light-dark(#545a6b,#a8aec0);--line:light-dark(#dfe3ee,#262c40);--grid:light-dark(#eef1f8,#151a2b);--cob:light-dark(#2340d9,#5b74ff);--cobink:#ffffff;--cor:#ff6b4a;--card:light-dark(#ffffff,#141a2c)}
+:root[data-theme=light]{color-scheme:light}
+:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:clip}
+a{color:inherit}
+img{max-width:100%}
+.band{padding-block:clamp(28px,4vw,64px);padding-left:max(5vw,16px,env(safe-area-inset-left,0px));padding-right:max(5vw,16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1240px;margin:0 auto}
+.sheet{background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px;border-bottom:1px solid var(--line)}
+.top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(24px,4vw,56px);align-items:stretch}
+h1{font:800 clamp(40px,6vw,64px)/1.02 Archivo,Inter,sans-serif;letter-spacing:-.025em;margin:0 0 10px;text-wrap:balance}
+.role{font:700 clamp(19px,2.2vw,24px)/1.25 Archivo,Inter,sans-serif;margin:0 0 6px;color:var(--cob)}
+.where{color:var(--soft);margin:0 0 22px}
+.lede{max-width:34em;margin:0 0 26px;font-size:17px}
+.acts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;max-width:520px}
+.btn{display:flex;align-items:center;gap:12px;min-height:56px;padding:10px 16px;border-radius:12px;border:1.5px solid var(--ink);background:var(--card);text-decoration:none;font-weight:600;font-size:16px;transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn:focus-visible{outline:3px solid var(--cor);outline-offset:2px}
+.btn>span{min-width:0}
+.btn svg{width:22px;height:22px;flex:none}
+.btn small{display:block;overflow-wrap:anywhere;font-weight:400;font-size:13px;color:var(--soft);line-height:1.2}
+.btn.main{background:var(--cob);border-color:var(--cob);color:var(--cobink)}
+.btn.main small{color:#dce2ff}
+.btn.wa svg{color:#1faa53}
+.plan{position:relative;border:1.5px solid var(--ink);background:var(--card);border-radius:4px;display:grid;grid-template-rows:minmax(0,1fr) auto}
+.fig{position:relative;min-height:340px}
+.fig>svg{position:absolute;inset:0;width:100%;height:100%}
+.tb{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1.5px solid var(--ink);font-size:13px}
+.tb div{padding:8px 12px;border-left:1px solid var(--line)}
+.tb div:first-child{border-left:0}
+.tb b{display:block;font:700 15px/1.2 Archivo,Inter,sans-serif}
+.tb span{color:var(--soft)}
+h2{font:800 clamp(28px,3.4vw,40px)/1.05 Archivo,Inter,sans-serif;letter-spacing:-.02em;margin:0 0 8px}
+.sub{color:var(--soft);margin:0 0 28px;max-width:44em}
+.work{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.case{border:1px solid var(--line);border-radius:14px;padding:22px;background:var(--card);display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 20px;align-items:start}
+.num{grid-row:span 3;font:800 clamp(34px,4vw,46px)/1 Archivo,Inter,sans-serif;color:var(--cob);white-space:nowrap;letter-spacing:-.02em;min-width:3.2ch}
+.num i{font-style:normal;color:var(--cor)}
+.case h3{margin:0;font:700 19px/1.25 Archivo,Inter,sans-serif}
+.case .k{margin:0;color:var(--soft);font-size:14px}
+.case p{margin:6px 0 0}
+.field{background:var(--cob);color:var(--cobink)}
+.field .wrap{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:32px;align-items:center}
+.field h2{color:#fff}
+.field p{margin:0;color:#e3e8ff;max-width:36em}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tags span{border:1px solid rgba(255,255,255,.45);border-radius:999px;padding:6px 12px;font-size:14px;white-space:nowrap}
+.end{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:center;color:var(--soft);font-size:14px}
+.end a{color:var(--ink)}
+@media(max-width:860px){.top{grid-template-columns:minmax(0,1fr)}.plan{order:2}.field .wrap{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){.work{grid-template-columns:minmax(0,1fr)}.case{grid-template-columns:minmax(0,1fr)}.num{grid-row:auto;margin-bottom:6px}.tb{font-size:12px}.tb div{padding:8px}.fig{min-height:260px}.acts{max-width:none}.lede{font-size:16px}}
+@media(max-width:380px){.acts{grid-template-columns:minmax(0,1fr)}}
+@media(prefers-reduced-motion:reduce){.btn{transition:none}.route{animation:none!important}}
+</style>
+</head>
+<body>
+<header class="band sheet">
+ <div class="wrap top">
+  <div>
+   <h1>Medya Asgharyan</h1>
+   <p class="role">Product Designer &amp; UX Researcher</p>
+   <p class="where">Toronto, Ontario · Open to full-time and contract roles</p>
+   <p class="lede">I make complex products feel simple: I talk to users, find where they get stuck, and prototype the fix fast in Figma, AI tools or code. Trained as an architect, now designing web, mobile and AI experiences.</p>
+   <nav class="acts" aria-label="Contact">
+    <a class="btn main" href="Medya_Asgharyan_Resume.pdf" target="_blank" rel="noopener">
+     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>
+     <span>Resume<small>PDF, 2 pages</small></span></a>
+    <a class="btn" href="https://www.linkedin.com/in/asgharyan-medya" target="_blank" rel="noopener">
+     <svg viewBox="0 0 24 24" fill="#0a66c2" aria-hidden="true"><path d="M20.4 2H3.6A1.6 1.6 0 0 0 2 3.6v16.8A1.6 1.6 0 0 0 3.6 22h16.8a1.6 1.6 0 0 0 1.6-1.6V3.6A1.6 1.6 0 0 0 20.4 2zM8 19H5V9.5h3zM6.5 8.2a1.7 1.7 0 1 1 0-3.5 1.7 1.7 0 0 1 0 3.5zM19 19h-3v-4.6c0-1.1 0-2.5-1.5-2.5S12.7 13 12.7 14.3V19h-3V9.5h2.8v1.3h.1a3.1 3.1 0 0 1 2.8-1.5c3 0 3.6 2 3.6 4.6z"/></svg>
+     <span>LinkedIn<small>Connect with me</small></span></a>
+    <a class="btn wa" href="https://wa.me/14374294744?text=Hi%20Medya%2C%20we%20met%20at%20BFUTR%202026!" target="_blank" rel="noopener">
+     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3a.5.5 0 0 0 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3z"/></svg>
+     <span>WhatsApp<small>437-429-4744</small></span></a>
+    <a class="btn" href="mailto:asgharyan.medya@gmail.com">
+     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+     <span>Email<small>asgharyan.medya@gmail.com</small></span></a>
+    <a class="btn" href="contact.vcf">
+     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="9" r="3.2"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0M18 8v6M15 11h6"/></svg>
+     <span>Save contact<small>Add to your phone</small></span></a>
+    <a class="btn" href="https://m3dya.github.io" target="_blank" rel="noopener">
+     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg>
+     <span>Full portfolio<small>Case studies</small></span></a>
+   </nav>
+  </div>
+  <figure class="plan" aria-label="Plan drawing: a seven-step workflow redrawn as four steps">
+   <div class="fig"><svg id="plan" role="img" aria-label="Seven small rooms on the left joined by a long route, four open rooms on the right joined by a short route"></svg></div>
+   <div class="tb">
+    <div><b>Drawing 01</b><span>AI workflow, IdeateLive</span></div>
+    <div><b>Before 7 steps</b><span>After 4 steps</span></div>
+    <div><b>−43%</b><span>Steps to finish</span></div>
+   </div>
+  </figure>
+ </div>
+</header>
+
+<main>
+ <section class="band">
+  <div class="wrap">
+   <h2>Selected work</h2>
+   <p class="sub">Four projects across childcare, AI products, civic services and architecture software. Full case studies are in my portfolio.</p>
+   <div class="work">
+    <article class="case">
+     <div class="num">7<i>→</i>4</div>
+     <h3>IdeateLive: an AI workflow people trust</h3>
+     <p class="k">B2B web and mobile · 2024–2025</p>
+     <p>17 interviews and usability tests showed users didn't trust AI output. I cut the core workflow from seven steps to four and designed review, edit and approval controls so people stay in charge.</p>
+    </article>
+    <article class="case">
+     <div class="num">45</div>
+     <h3>Ontario Daycare Access: enrolment for families</h3>
+     <p class="k">Web and mobile · 2025–2026 · Launched</p>
+     <p>Interviewed 45 parents, ran co-design workshops with parents and providers, moved sign-in later in the enrolment journey after testing, and caught 15+ defects before launch.</p>
+    </article>
+    <article class="case">
+     <div class="num">14<i>→</i>6</div>
+     <h3>GLOCAL Foundation: navigation for everyone</h3>
+     <p class="k">Civic non-profit · 2023–2024</p>
+     <p>Research with multilingual and low-digital-literacy users led to a navigation cut from 14 items to six. My recommendations were adopted in the redesign.</p>
+    </article>
+    <article class="case">
+     <div class="num">4</div>
+     <h3>Finch 3D: guided onboarding</h3>
+     <p class="k">AI generative design for architects · 2025</p>
+     <p>A four-step onboarding concept that explains, demonstrates and checks each input in real time, drawing on my background as an architectural designer.</p>
+    </article>
+   </div>
+  </div>
+ </section>
+
+ <section class="band field">
+  <div class="wrap">
+   <div>
+    <h2>How I work</h2>
+    <p>Research first, then prototypes in days, not weeks. I show ideas to real users early and work side by side with product, engineering and QA. Master of Design, Politecnico di Milano; UX and front-end certificates, George Brown.</p>
+   </div>
+   <div class="tags">
+    <span>User interviews</span><span>Usability testing</span><span>Figma</span><span>Figma Make</span><span>Lovable</span><span>Cursor</span><span>Claude Code</span><span>HTML · CSS · JS</span><span>Design systems</span><span>WCAG</span><span>English · Persian · Italian</span>
+   </div>
+  </div>
+ </section>
+</main>
+
+<footer class="band">
+ <div class="wrap end">
+  <span>Medya Asgharyan · Toronto · <a href="tel:+14374294744">437-429-4744</a> · <a href="mailto:asgharyan.medya@gmail.com">asgharyan.medya@gmail.com</a></span>
+  <a href="Medya_Asgharyan_Resume.pdf" target="_blank" rel="noopener">Download resume</a>
+ </div>
+</footer>
+
+<script>
+{
+const s=document.getElementById('plan');
+const draw=()=>{
+ const W=s.clientWidth,H=s.clientHeight;if(!W||!H)return;
+ const m=Math.max(16,W*.05),gap=W<420?18:34,mid=W/2;
+ const lw=mid-m-gap/2,top=m+22,h=H-top-m;
+ const cs=getComputedStyle(document.body),ink=cs.color;
+ let o=`<defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="var(--line)" stroke-width="2"/></pattern></defs>`;
+ const fs=W<420?12:13;
+ o+=`<text x="${m}" y="${m+8}" font-size="${fs}" fill="var(--soft)" font-family="Inter">Before · 7 rooms</text>`;
+ o+=`<text x="${mid+gap/2}" y="${m+8}" font-size="${fs}" fill="var(--soft)" font-family="Inter">After · 4 rooms</text>`;
+ // before: 7 rooms in a 2-col zig-zag
+ const L=[],cw=lw/2,rh=h/4;
+ const pos=[[0,0],[1,0],[1,1],[0,1],[0,2],[1,2],[1,3]];
+ pos.forEach(([c,r],i)=>{const x=m+c*cw,y=top+r*rh;L.push([x+cw/2,y+rh/2]);
+  o+=`<rect x="${x}" y="${y}" width="${cw}" height="${rh}" fill="${i%2?'url(#hatch)':'none'}" stroke="var(--ink)" stroke-width="1.5"/>`;
+  o+=`<text x="${x+8}" y="${y+18}" font-size="${fs}" fill="var(--soft)" font-family="Inter">${i+1}</text>`;});
+ o+=`<rect x="${m}" y="${top+3*rh}" width="${cw}" height="${rh}" fill="var(--grid)" stroke="var(--line)"/>`;
+ // after: 4 open rooms
+ const R=[],ax=mid+gap/2,aw=W-m-ax,ah=h/2;
+ [[0,0],[1,0],[1,1],[0,1]].forEach(([c,r],i)=>{const x=ax+c*aw/2,y=top+r*ah;R.push([x+aw/4,y+ah/2]);
+  o+=`<rect x="${x}" y="${y}" width="${aw/2}" height="${ah}" fill="none" stroke="var(--ink)" stroke-width="2.5"/>`;
+  o+=`<text x="${x+8}" y="${y+20}" font-size="${fs+1}" fill="var(--cob)" font-weight="700" font-family="Archivo,Inter">${i+1}</text>`;});
+ const path=p=>'M'+p.map(q=>q.map(v=>v.toFixed(1)).join(' ')).join(' L');
+ o+=`<path d="${path(L)}" fill="none" stroke="var(--soft)" stroke-width="2" stroke-dasharray="4 5"/>`;
+ L.forEach(q=>o+=`<circle cx="${q[0]}" cy="${q[1]}" r="4" fill="var(--soft)"/>`);
+ o+=`<path class="route" d="${path(R)}" fill="none" stroke="var(--cor)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" style="animation:dr 1.4s .3s ease-out forwards"/>`;
+ R.forEach(q=>o+=`<circle cx="${q[0]}" cy="${q[1]}" r="7" fill="var(--cor)" stroke="var(--card)" stroke-width="3"/>`);
+ o+=`<style>@keyframes dr{to{stroke-dashoffset:0}}@media(prefers-reduced-motion:reduce){.route{animation:none!important;stroke-dashoffset:0!important}}</style>`;
+ s.innerHTML=o;
+};
+new ResizeObserver(draw).observe(s);
+}
+</script>
+</body>
+</html>
